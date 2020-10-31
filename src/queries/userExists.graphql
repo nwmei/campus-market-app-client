@@ -1,0 +1,6 @@
+query userExists($input: UserExistsInput!) {
+  userExists(input: $input) {
+    exists,
+    id
+  }
+}
