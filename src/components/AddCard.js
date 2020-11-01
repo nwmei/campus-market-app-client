@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import { Grid } from "@material-ui/core";
+import Popup from './Popup';
+import { useMutation } from '@apollo/client';
+import CreateStoreItemMutation from '../mutations/CreateStoreItem.graphql';
+import { useContext } from 'react';
+import { sessionContext } from './SessionContext';
+import AddItemForm from './AddItemForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,19 +30,50 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AddCard() {
+export default function AddCard(props) {
+  const [activated, setActivated] = useState(false);
   const classes = useStyles();
 
+  const {value, setContextLoggedIn, setContextLoggedOut} = useContext(sessionContext);
+  const [createStoreItem] = useMutation(CreateStoreItemMutation);
+
+  const addItemHandler = (data) => {
+    const {itemName, description, imageUrl, price} = data;
+    createStoreItem({
+      variables: {
+        input: {
+          name: itemName,
+          price,
+          imageUrl,
+          description,
+          seller: {
+            id: value.userId,
+            firstName: value.userFirstName,
+            lastName: value.userLastName,
+            emailAddress: value.userEmailAddress
+          }
+        }
+      }
+    })
+    props.incrementItemsAdded();
+  }
+
   return (
-    <Button className={classes.root} >
-      <Grid container direction="column" alignItems="center">
-        <Grid item>
-          <AddIcon className={classes.addButton} /> 
+    <div>
+      <Button className={classes.root} onClick={() => setActivated(true)} >
+        <Grid container direction="column" alignItems="center">
+          <Grid item>
+            <AddIcon className={classes.addButton} /> 
+          </Grid>
+          <Grid item>
+            Add Item
+          </Grid>
         </Grid>
-        <Grid item>
-          Add Item
-        </Grid>
-      </Grid>
-    </Button>
+      </Button>
+      <Popup isOpen={activated} title='Add Item' >
+        <AddItemForm setIsOpen={setActivated} addItemHandler={addItemHandler} />
+      </Popup>
+    </div>
+    
   );
 }

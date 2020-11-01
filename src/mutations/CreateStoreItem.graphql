@@ -1,0 +1,12 @@
+mutation CreateStoreItem($input: CreateStoreItemInput!) {
+  createStoreItem(input: $input) {
+    id,
+    description,
+    name,
+    price, 
+    imageUrl,
+    seller {
+      id
+    },
+  }
+}

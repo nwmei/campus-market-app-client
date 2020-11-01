@@ -14,22 +14,20 @@ const App = () => {
   });
 
   return (
-    <React.StrictMode>
-      <ApolloProvider client={client}>
-        <SessionContextProvider>
-          <Router>
-            <div>
-              <Header client={client}/>
-              <Switch>
-                <Route component={HomeGrid} exact path="/" />
-                <Route component={MyItems} path="/single" />
-                <Route component={About} path="/about" />
-              </Switch>
-            </div>
-          </Router>
-        </SessionContextProvider>
-      </ApolloProvider>
-    </React.StrictMode>
+    <ApolloProvider client={client}>
+      <SessionContextProvider>
+        <Router>
+          <div>
+            <Header />
+            <Switch>
+              <Route component={HomeGrid} exact path="/" />
+              <Route component={MyItems} path="/single" />
+              <Route component={About} path="/about" />
+            </Switch>
+          </div>
+        </Router>
+      </SessionContextProvider>
+    </ApolloProvider>
   )
 }
 
