@@ -47,10 +47,10 @@ export default function AddCard(props) {
           imageUrl,
           description,
           seller: {
-            id: value.userId,
-            firstName: value.userFirstName,
-            lastName: value.userLastName,
-            emailAddress: value.userEmailAddress
+            id: sessionStorage.id,
+            firstName: sessionStorage.fName,
+            lastName: sessionStorage.lName,
+            emailAddress: sessionStorage.email,
           }
         }
       }

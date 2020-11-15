@@ -9,21 +9,22 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import useStylesHeader from './HeaderStyles';
 import GoogleLogin from './LoginButton';
 import SearchBar from './SearchBar';
+import UserIcon from './userIcon';
 
 const MenuAppBar = () => {
   const classes = useStylesHeader();
   
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={classes.topBar}>
+      <AppBar position="fixed" className={classes.topBar}>
         <Toolbar>
           <Typography variant="h4" className={classes.title}>
             Smarter Trade
           </Typography>
-          <Button size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} href='/'>
+          <Button size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} href='/explore'>
             Explore
           </Button>
-          <Button size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} href='/single'>
+          <Button size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} href='/myItems'>
             My Items
           </Button>
           <Button size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} href='/about'>
@@ -33,7 +34,7 @@ const MenuAppBar = () => {
           <SearchBar />
           <div className={classes.grow} />
 
-          <GoogleLogin />
+          <UserIcon />
         </Toolbar>
       </AppBar>
     </div>

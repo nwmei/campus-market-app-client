@@ -1,10 +1,12 @@
 import React from 'react'
 import { Button as MuiButton, makeStyles } from "@material-ui/core";
 
-
 const useStyles = makeStyles(theme => ({
     root: {
         margin: theme.spacing(0.5)
+    },
+    filter: {
+        width: "100%"
     },
     label: {
         textTransform: 'none'
@@ -23,7 +25,7 @@ export default function Button(props) {
             color={color || "primary"}
             onClick={onClick}
             {...other}
-            classes={{ root: classes.root, label: classes.label }}>
+            classes={{ root: props.filterButton?classes.filter: classes.root, label: classes.label }}>
             {text}
         </MuiButton>
     )

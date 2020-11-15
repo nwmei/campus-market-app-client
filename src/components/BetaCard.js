@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useQuery } from '@apollo/client';
+import StoreItems from '../queries/StoreItems.graphql';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,10 +35,14 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  heartButton: {
+    color: red[500]
+  }
 }));
 
 export default function Card1(props) {
-  const { itemName, price, seller, description, imageUrl, } = props;
+  const { itemName, price, seller, description, imageUrl, date, daysAgo } = props;
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -60,6 +66,14 @@ export default function Card1(props) {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
+        <Typography>
+          {
+            date == 'Invalid Date'? 
+            'no date'
+            :
+            daysAgo<1 ? 'listed today' : `listed ${Math.round(daysAgo)} days ago`
+          }
+        </Typography>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -73,9 +87,10 @@ export default function Card1(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          <Typography>{`Listed by: ${seller.firstName} ${seller.lastName}`} </Typography>
           <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
           <Typography>{`Description: ${description}`} </Typography>
-          <Typography>{`Date posted: N/A`} </Typography>
+          <Typography>{`Date posted: ${date}`} </Typography>
         </CardContent>
       </Collapse>
     </Card>

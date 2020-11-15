@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import c from "./styles.css";
-import MyCard from "./Card";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCard from "./AddCard";
@@ -10,9 +9,8 @@ import BetaCard from './BetaCard';
 
 const useStyles = makeStyles({
   gridContainer: {
-    paddingLeft: "40px",
+    paddingLeft: "0px",
     paddingRight: "40px",
-    paddingTop: "40px"
   }
 });
 
@@ -27,12 +25,11 @@ export default function CardGrid() {
     }
   });
 
-
-
   const incrementItemsAdded = () => {
     setItemsAdded(itemsAdded + 1);
   }
 
+  console.log(storeItemsData)
   return (
     <Grid
       container
@@ -47,6 +44,8 @@ export default function CardGrid() {
         storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) => 
           <Grid item xs={12} sm={6} md={4} key={-key}>
             <BetaCard 
+              date={new Date(parseInt(item.date))}
+              daysAgo={(Date.now() - parseInt(item.date))/86400000}
               key={-key} 
               itemName={item.name} 
               description={item.description} 

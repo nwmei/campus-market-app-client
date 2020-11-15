@@ -7,8 +7,7 @@ import GoogleLogin from 'react-google-login';
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
 
-const LoginButton = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+const LoginButton = ({navigateAfterLogin}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
   const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
@@ -22,18 +21,19 @@ const LoginButton = () => {
         createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress }}})
         .then((data) => userId = data.createUser.id);
       }
-      setContextLoggedIn(userData.firstName, userData.lastName, userData.emailAddress, userId);
+      setContextLoggedIn(userData.firstName, userData.lastName, userData.emailAddress, userData.imageUrl, userId);
       setUserData({...userData, userId})
+      navigateAfterLogin();
     }
   }, [userExistsData])
 
   
   const loginSuccessHandler = async (response) => {
-    setLoggedIn(true);
     setUserData({
       firstName: response.profileObj.givenName,
       lastName: response.profileObj.familyName,
-      emailAddress: response.profileObj.email
+      emailAddress: response.profileObj.email,
+      imageUrl: response.profileObj.imageUrl,
     })
     userExistsQuery({ variables: { input: { emailAddress: response.profileObj.email } }})
   }
@@ -46,7 +46,6 @@ const LoginButton = () => {
       onFailure={(e)=>console.log(e)} 
       cookiePolicy={'single_host_origin'}
     >
-      {loggedIn?`Welcome ${userData.firstName}`:'Login'}
     </GoogleLogin>
   )
 }
