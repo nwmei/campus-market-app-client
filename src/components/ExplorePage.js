@@ -1,11 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
+import {useMutation, useQuery} from "@apollo/client";
 import CardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Filters';
 import Header from './Header';
-import { useContext } from 'react';
+import {useContext, useEffect} from 'react';
 import { useHistory, Redirect } from "react-router-dom";
 import { sessionContext } from './SessionContext';
+import SessionUserDetails from '../queries/SessionUserDetails.graphql';
+import StoreItems from "../queries/StoreItems.graphql";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,12 +22,27 @@ const useStyles = makeStyles((theme) => ({
 
 function ExplorePage() {
   const classes = useStyles();
-  const {value} = useContext(sessionContext);
+  const {value, setUserContext} = useContext(sessionContext);
   const history = useHistory();
+
+  const {data: sessionData} = useQuery(SessionUserDetails, {
+    variables: {
+      input: {
+        accessToken: localStorage.getItem('accessToken')
+      }
+    }
+  });
+
+  useEffect(()=> {
+    if (sessionData != null) {
+      const {id, firstName, lastName, emailAddress, imageUrl} = sessionData.sessionUserDetails;
+      setUserContext(firstName, lastName, emailAddress, imageUrl, id);
+    }
+  }, [sessionData]);
 
   return (
     <div>
-      {window.sessionStorage.getItem('userLoggedIn') === 'true' &&
+      {sessionData && sessionData.sessionUserDetails && sessionData.sessionUserDetails.id !== 'null' &&
         <>
           <Header />
           <Grid container spacing={3} className={classes.root}>
@@ -37,7 +55,7 @@ function ExplorePage() {
           </Grid>
         </>
       }
-      {window.sessionStorage.getItem('userLoggedIn') !== 'true' && 
+      {window.localStorage.getItem('accessToken') === '' &&
         <>
           <Redirect to='/login' />
         </>

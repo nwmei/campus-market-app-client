@@ -67,9 +67,9 @@ const userIcon = () => {
 
   const logoutHandler = () => {
     setContextLoggedOut();
-    sessionStorage.clear();
+    localStorage.setItem("accessToken", "");
     history.push('/login')
-  }
+  };
 
   return (
     <div className={classes.root}>

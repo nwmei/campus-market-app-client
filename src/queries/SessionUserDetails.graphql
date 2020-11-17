@@ -1,0 +1,10 @@
+query SessionUserDetails($input: SessionUserDetailsInput!) {
+  sessionUserDetails(input: $input) {
+    id,
+    firstName,
+    lastName,
+    emailAddress,
+    loggedIn,
+    imageUrl
+  }
+}

@@ -6,30 +6,34 @@ import { sessionContext } from './SessionContext';
 import GoogleLogin from 'react-google-login';
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
+import SetLoginStatus from '../mutations/SetLoginStatus.graphql';
 
 const LoginButton = ({navigateAfterLogin}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
+  const [setLoginStatus] = useMutation(SetLoginStatus);
   const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
-  const {value, setContextLoggedIn, setContextLoggedOut} = useContext(sessionContext);
+  const {value, setUserContext, setContextLoggedOut} = useContext(sessionContext);
 
   useEffect(() => {
     if (userExistsData != null) {
       const { userExists: {exists, id} } = userExistsData;
       let userId = id;
       if (!exists) {
-        createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress }}})
+        createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
         .then((data) => userId = data.createUser.id);
       }
-      setContextLoggedIn(userData.firstName, userData.lastName, userData.emailAddress, userData.imageUrl, userId);
-      setUserData({...userData, userId})
+      setLoginStatus({variables: {input: {userId , accessToken: userData.accessToken, loggedIn: true, imageUrl: userData.imageUrl}}})
+          .then((data) => console.log("login status mutation: ", data));
+      localStorage.setItem("accessToken", userData.accessToken);
       navigateAfterLogin();
     }
-  }, [userExistsData])
+  }, [userExistsData]);
 
   
   const loginSuccessHandler = async (response) => {
     setUserData({
+      accessToken: response.accessToken,
       firstName: response.profileObj.givenName,
       lastName: response.profileObj.familyName,
       emailAddress: response.profileObj.email,
@@ -38,10 +42,15 @@ const LoginButton = ({navigateAfterLogin}) => {
     userExistsQuery({ variables: { input: { emailAddress: response.profileObj.email } }})
   }
 
+  const loginRequestHandler = () => {
+    localStorage.setItem("accessToken", "");
+  };
+
   return (
     <GoogleLogin 
       clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com' 
-      buttonText='login' 
+      buttonText='login'
+      onRequest={loginRequestHandler}
       onSuccess={loginSuccessHandler} 
       onFailure={(e)=>console.log(e)} 
       cookiePolicy={'single_host_origin'}

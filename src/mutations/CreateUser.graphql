@@ -3,6 +3,7 @@ mutation CreateUser($input: CreateUserInput!) {
     id,
     firstName,
     lastName,
-    emailAddress
+    emailAddress,
+    imageUrl,
   }
 }
