@@ -9,7 +9,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import useStylesHeader from './HeaderStyles';
 import GoogleLogin from './LoginButton';
 import SearchBar from './SearchBar';
-import UserIcon from './userIcon';
+import UserIcon from './UserIcon';
 
 const MenuAppBar = () => {
   const classes = useStylesHeader();

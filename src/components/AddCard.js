@@ -12,13 +12,10 @@ import AddItemForm from './AddItemForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     display: 'flex',
     maxWidth: 345,
-    //width: 305,
-    //height: 380,
     backgroundColor: '#e0e0e0',
     '&:hover': {
       //backgroundColor: 'green',
@@ -34,7 +31,7 @@ export default function AddCard(props) {
   const [activated, setActivated] = useState(false);
   const classes = useStyles();
 
-  const {value, setContextLoggedIn, setContextLoggedOut} = useContext(sessionContext);
+  const {sessionContextValue} = useContext(sessionContext);
   const [createStoreItem] = useMutation(CreateStoreItemMutation);
 
   const addItemHandler = (data) => {
@@ -47,10 +44,10 @@ export default function AddCard(props) {
           imageUrl,
           description,
           seller: {
-            id: sessionStorage.id,
-            firstName: sessionStorage.fName,
-            lastName: sessionStorage.lName,
-            emailAddress: sessionStorage.email,
+            id: sessionContextValue.userId,
+            firstName: sessionContextValue.userFirstName,
+            lastName: sessionContextValue.userLastName,
+            emailAddress: sessionContextValue.userEmailAddress
           }
         }
       }
@@ -74,6 +71,5 @@ export default function AddCard(props) {
         <AddItemForm setIsOpen={setActivated} addItemHandler={addItemHandler} />
       </Popup>
     </div>
-    
   );
 }

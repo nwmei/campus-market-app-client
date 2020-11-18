@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
@@ -59,14 +60,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const userIcon = () => {
+function UserIcon() {
   const classes = useStyles();
+  const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
-  const userInitials = sessionStorage.getItem('userInitials');
-  const {value, setContextLoggedIn, setContextLoggedOut} = useContext(sessionContext);
+  console.log(sessionContextValue.imageUrl)
 
   const logoutHandler = () => {
-    setContextLoggedOut();
+    clearSessionContext();
     localStorage.setItem("accessToken", "");
     history.push('/login')
   };
@@ -82,7 +83,7 @@ const userIcon = () => {
           horizontal: 'right',
         }}
         variant="dot">
-          <Avatar  src={sessionStorage.imageUrl} alt={sessionStorage.imageUrl} />
+          <Avatar  src={sessionContextValue.imageUrl} alt={sessionContextValue.imageUrl} />
           </StyledBadge>
         </Grid>
         <Grid item>
@@ -95,4 +96,4 @@ const userIcon = () => {
   )
 };
 
-export default userIcon;
+export default UserIcon;

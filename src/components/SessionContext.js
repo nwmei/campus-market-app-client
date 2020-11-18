@@ -35,9 +35,9 @@ export default class SessionContextProvider extends React.Component {
   }
 
   out = {
-    value: this.value,
-    setUserContext: this.setUser,
-    setContextLoggedOut: this.setUserLoggedOut
+    sessionContextValue: this.value,
+    setSessionContext: this.setUser,
+    clearSessionContext: this.setUserLoggedOut
   }
 
   render() {

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Filters() {
-  const {value, setContextLoggedIn, setContextLoggedOut} = useContext(sessionContext);
+  const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const classes = useStyles();
 
   return (

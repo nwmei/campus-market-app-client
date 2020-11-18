@@ -4,9 +4,9 @@ import CardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Filters';
 import Header from './Header';
-import {useContext, useEffect} from 'react';
-import { useHistory, Redirect } from "react-router-dom";
+import {useContext, useEffect, useState} from 'react';
 import { sessionContext } from './SessionContext';
+import { useHistory, Redirect } from "react-router-dom";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import StoreItems from "../queries/StoreItems.graphql";
 
@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 function ExplorePage() {
   const classes = useStyles();
-  const {value, setUserContext} = useContext(sessionContext);
+  const [userContextSet, setUserContextSet] = useState(false);
+  const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
 
   const {data: sessionData} = useQuery(SessionUserDetails, {
@@ -34,33 +35,34 @@ function ExplorePage() {
   });
 
   useEffect(()=> {
-    if (sessionData != null) {
-      const {id, firstName, lastName, emailAddress, imageUrl} = sessionData.sessionUserDetails;
-      setUserContext(firstName, lastName, emailAddress, imageUrl, id);
+    if (sessionData) {
+      if (sessionData.sessionUserDetails != null) {
+        const {id, firstName, lastName, emailAddress, imageUrl} = sessionData.sessionUserDetails;
+        setSessionContext(firstName, lastName, emailAddress, imageUrl, id);
+        setUserContextSet(true);
+      } else {
+        history.push('/login')
+      }
     }
   }, [sessionData]);
 
   return (
-    <div>
-      {sessionData && sessionData.sessionUserDetails && sessionData.sessionUserDetails.id !== 'null' &&
-        <>
-          <Header />
-          <Grid container spacing={3} className={classes.root}>
-            <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-              <Filters /> 
+      <>
+      {
+          userContextSet &&
+          <div>
+            <Header />
+            <Grid container spacing={3} className={classes.root}>
+              <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
+                <Filters />
+              </Grid>
+              <Grid item xs={12} sm={10}>
+                <CardGrid />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={10}>
-              <CardGrid />
-            </Grid>
-          </Grid>
-        </>
+          </div>
       }
-      {window.localStorage.getItem('accessToken') === '' &&
-        <>
-          <Redirect to='/login' />
-        </>
-      }
-    </div>
+      </>
   );
 }
 
