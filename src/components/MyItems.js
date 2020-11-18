@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.css";
-import MyCard from "./BetaCard";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {useContext, useEffect, useState} from 'react';
@@ -8,8 +7,9 @@ import { sessionContext } from './SessionContext';
 import "./styles.css";
 import Header from './Header';
 import {useQuery} from "@apollo/client";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SessionUserDetails from "../queries/SessionUserDetails.graphql";
+import { PopulateSessionContext } from '../utils/HelperMethods';
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -34,17 +34,7 @@ export default function CardGrid() {
     }
   });
 
-  useEffect(()=> {
-    if (sessionData) {
-      if (sessionData.sessionUserDetails != null) {
-        const {id, firstName, lastName, emailAddress, imageUrl} = sessionData.sessionUserDetails;
-        setSessionContext(firstName, lastName, emailAddress, imageUrl, id);
-        setUserContextSet(true);
-      } else {
-        history.push('/login')
-      }
-    }
-  }, [sessionData]);
+  useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history), [sessionData]);
 
   return (
     <>

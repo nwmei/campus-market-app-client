@@ -1,14 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
-import {useMutation, useQuery} from "@apollo/client";
+import { useQuery} from "@apollo/client";
 import CardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Filters';
 import Header from './Header';
 import {useContext, useEffect, useState} from 'react';
 import { sessionContext } from './SessionContext';
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
-import StoreItems from "../queries/StoreItems.graphql";
+import { PopulateSessionContext } from '../utils/HelperMethods';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,17 +34,7 @@ function ExplorePage() {
     }
   });
 
-  useEffect(()=> {
-    if (sessionData) {
-      if (sessionData.sessionUserDetails != null) {
-        const {id, firstName, lastName, emailAddress, imageUrl} = sessionData.sessionUserDetails;
-        setSessionContext(firstName, lastName, emailAddress, imageUrl, id);
-        setUserContextSet(true);
-      } else {
-        history.push('/login')
-      }
-    }
-  }, [sessionData]);
+  useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history), [sessionData]);
 
   return (
       <>
