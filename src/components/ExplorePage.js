@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import { useQuery} from "@apollo/client";
 import CardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
@@ -9,30 +8,15 @@ import { sessionContext } from './SessionContext';
 import { useHistory } from "react-router-dom";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import { PopulateSessionContext } from '../utils/HelperMethods';
+import ExplorePageStyles from './styles/ExplorePageStyles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop:"70px", 
-    flexGrow:1
-  },
-  filter: {
-    paddingBottom:"80px"
-  }
-}));
-
-function ExplorePage() {
-  const classes = useStyles();
+const ExplorePage = ({accessToken}) => {
+  const classes = ExplorePageStyles();
   const [userContextSet, setUserContextSet] = useState(false);
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
 
-  const {data: sessionData} = useQuery(SessionUserDetails, {
-    variables: {
-      input: {
-        accessToken: localStorage.getItem('accessToken')
-      }
-    }
-  });
+  const {data: sessionData} = useQuery(SessionUserDetails, { variables: { input: { accessToken } }});
 
   useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history), [sessionData]);
 

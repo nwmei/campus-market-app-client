@@ -9,28 +9,15 @@ import {useQuery} from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import SessionUserDetails from "../queries/SessionUserDetails.graphql";
 import { PopulateSessionContext } from '../utils/HelperMethods';
+import aboutPageStyles from "./styles/AboutPageStyles";
 
-const useStyles = makeStyles({
-  gridContainer: {
-    paddingLeft: "40px",
-    paddingRight: "40px",
-    paddingTop:"70px", 
-  }
-});
-
-const About = () => {
-  const classes = useStyles();
+const About = ({accessToken}) => {
+  const classes = aboutPageStyles();
   const [userContextSet, setUserContextSet] = useState(false);
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
 
-  const {data: sessionData} = useQuery(SessionUserDetails, {
-    variables: {
-      input: {
-        accessToken: localStorage.getItem('accessToken')
-      }
-    }
-  });
+  const {data: sessionData} = useQuery(SessionUserDetails, { variables: { input: { accessToken } }});
 
   useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history), [sessionData]);
 

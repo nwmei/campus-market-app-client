@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 import PublicIcon from '@material-ui/icons/Public';
 import PersonIcon from '@material-ui/icons/Person';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import useStylesHeader from './HeaderStyles';
-import GoogleLogin from './LoginButton';
+import useStylesHeader from './styles/HeaderStyles';
 import SearchBar from './SearchBar';
 import UserIcon from './UserIcon';
 
