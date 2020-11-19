@@ -1,22 +1,33 @@
-import Header from './Header';
+import React from "react";
+import "./styles.css";
 import { makeStyles } from "@material-ui/core/styles";
+import {useContext, useEffect, useState} from 'react';
+import { sessionContext } from './SessionContext';
+import "./styles.css";
+import Header from './Header';
+import {useQuery} from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import SessionUserDetails from "../queries/SessionUserDetails.graphql";
+import { PopulateSessionContext } from '../utils/HelperMethods';
+import aboutPageStyles from "./styles/AboutPageStyles";
 
-const useStyles = makeStyles({
-  gridContainer: {
-    paddingLeft: "40px",
-    paddingRight: "40px",
-    paddingTop: "40px",
-    paddingTop:"70px", 
-  }
-});
+const About = ({accessToken}) => {
+  const classes = aboutPageStyles();
+  const [userContextSet, setUserContextSet] = useState(false);
+  const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
+  const history = useHistory();
 
-const About = () => {
-  const classes = useStyles();
+  const {data: sessionData} = useQuery(SessionUserDetails, { variables: { input: { accessToken } }});
+
+  useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history), [sessionData]);
 
   return(
     <div>
       <Header />
       <div className={classes.gridContainer}>
+        <h1>
+          Hi {sessionContextValue.userFirstName},
+        </h1>
         <h1>
           About Smarter Trade App
         </h1>

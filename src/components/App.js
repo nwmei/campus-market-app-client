@@ -13,16 +13,18 @@ const App = () => {
     cache: new InMemoryCache()
   });
 
+  const accessToken = localStorage.getItem('accessToken');
+
   return (
     <ApolloProvider client={client}>
       <SessionContextProvider>
         <Router>
           <div>
             <Switch>
-              <Route component={ExplorePage} exact path="/explore" />
-              <Route component={LandingPage} exact path="/login" />
-              <Route component={MyItems} path="/myItems" />
-              <Route component={About} path="/about" />
+              <Route component={() => <ExplorePage accessToken={accessToken} />} exact path="/explore" />
+              <Route component={() => <LandingPage accessToken={accessToken} />} exact path="/login" />
+              <Route component={() => <MyItems accessToken={accessToken} />} path="/myItems" />
+              <Route component={() => <About accessToken={accessToken} />} path="/about" />
             </Switch>
           </div>
         </Router>
