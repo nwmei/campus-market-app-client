@@ -1,0 +1,5 @@
+mutation UnlikeItem($input: LikeItemInput!) {
+    unlikeItem(input: $input) {
+        success
+    }
+}

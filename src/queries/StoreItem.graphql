@@ -1,0 +1,21 @@
+query StoreItem($input: StoreItemInput!) {
+    storeItem(input: $input) {
+        id,
+        name,
+        description,
+        imageUrl,
+        price,
+        seller {
+            id,
+            firstName,
+            lastName,
+            emailAddress
+        },
+        comments {
+            commenterFullName,
+            commentText
+        },
+        likes,
+        date
+    }
+}

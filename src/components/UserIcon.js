@@ -64,7 +64,6 @@ function UserIcon() {
   const classes = useStyles();
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
-  console.log(sessionContextValue.imageUrl)
 
   const logoutHandler = () => {
     clearSessionContext();
