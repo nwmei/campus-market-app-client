@@ -3,33 +3,28 @@ import c from "./styles.css";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCard from "./AddCard";
-import { useQuery } from '@apollo/client';
+import {useMutation, useQuery} from '@apollo/client';
 import StoreItems from '../queries/StoreItems.graphql';
 import BetaCard from './BetaCard';
-
-const useStyles = makeStyles({
-  gridContainer: {
-    paddingLeft: "0px",
-    paddingRight: "40px",
-  }
-});
+import useCardGridStyles from './styles/CardGridStyles';
 
 export default function CardGrid() {
-  const classes = useStyles();
+  const classes = useCardGridStyles();
   const [itemsAdded, setItemsAdded] = useState(0);
+  const [itemsLiked, setItemLiked] = useState(0);
 
   const {data: storeItemsData} = useQuery(StoreItems, {
     // apollo needs a variable to call query again
     variables: {
-      input: itemsAdded
+      input: 1//Math.floor(Math.random() * Math.floor(10))
     }
   });
 
   const incrementItemsAdded = () => {
     setItemsAdded(itemsAdded + 1);
-  }
+  };
 
-  console.log(storeItemsData)
+
   return (
     <Grid
       container
@@ -46,12 +41,15 @@ export default function CardGrid() {
             <BetaCard 
               date={new Date(parseInt(item.date))}
               daysAgo={(Date.now() - parseInt(item.date))/86400000}
-              key={-key} 
+              key={-key}
+              itemId={item.id}
               itemName={item.name} 
               description={item.description} 
               price={item.price} 
-              seller={item.seller} 
-              imageUrl={item.imageUrl} />
+              seller={item.seller}
+              likes={item.likes}
+              imageUrl={item.imageUrl}
+            />
           </Grid>
         )
       }
