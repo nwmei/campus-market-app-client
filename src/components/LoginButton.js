@@ -7,13 +7,11 @@ import GoogleLogin from 'react-google-login';
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
 import SetAccessToken from '../mutations/SetAccessToken.graphql';
-import ClearAccessToken from '../mutations/ClearAccessToken.graphql';
 
 const LoginButton = ({navigateAfterLogin}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
   const [setAccessToken] = useMutation(SetAccessToken);
-  const [clearAccessToken] = useMutation(ClearAccessToken);
   const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
   const {sessionContextValue, setSessionContext, clearSessionContext}= useContext(sessionContext);
 
@@ -46,9 +44,7 @@ const LoginButton = ({navigateAfterLogin}) => {
   }
 
   const loginRequestHandler = () => {
-    clearAccessToken({variables: {input: {accessToken: localStorage.getItem('accessToken')}}}).then(() => {
-      localStorage.setItem("accessToken", "");
-    });
+    localStorage.setItem("accessToken", "");
   };
 
   return (

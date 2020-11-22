@@ -1,5 +1,6 @@
 import React from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { Redirect } from 'react-router'
 import ExplorePage from './ExplorePage';
 import About from './About';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -13,7 +14,6 @@ const App = () => {
     cache: new InMemoryCache()
   });
 
-  const accessToken = localStorage.getItem('accessToken');
 
   return (
     <ApolloProvider client={client}>
@@ -21,6 +21,7 @@ const App = () => {
         <Router>
           <div>
             <Switch>
+              <Route component={() => <Redirect to = "/login" />} exact path="/" />
               <Route component={() => <ExplorePage />} exact path="/explore" />
               <Route component={() => <LandingPage />} exact path="/login" />
               <Route component={() => <MyItems />} path="/myItems" />
