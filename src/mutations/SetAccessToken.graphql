@@ -1,0 +1,5 @@
+mutation SetAccessToken($input: AccessTokenInput!) {
+  setAccessToken(input: $input) {
+    success
+  }
+}

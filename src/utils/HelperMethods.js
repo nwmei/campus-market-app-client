@@ -11,3 +11,7 @@ export const PopulateSessionContext = (sessionData, setSessionContext, setUserCo
         }
     }
 }
+
+export const getAlternateImageUrl = () => {
+    return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/1200px-Stick_Figure.svg.png";
+}

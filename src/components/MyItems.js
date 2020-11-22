@@ -11,7 +11,8 @@ import SessionUserDetails from "../queries/SessionUserDetails.graphql";
 import { PopulateSessionContext } from '../utils/HelperMethods';
 import myItemsStyles from "./styles/MyItemsStyles";
 
-const MyItems = ({accessToken}) => {
+const MyItems = () => {
+  const accessToken = localStorage.getItem('accessToken');
   const classes = myItemsStyles();
   const [userContextSet, setUserContextSet] = useState(false);
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);

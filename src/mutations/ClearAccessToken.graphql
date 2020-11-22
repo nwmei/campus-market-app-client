@@ -1,0 +1,5 @@
+mutation ClearAccessToken($input: ClearAccessTokenInput!) {
+    clearAccessToken(input: $input) {
+        success
+    }
+}

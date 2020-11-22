@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LikeItem from '../mutations/LikeItem.graphql';
 import UnlikeItem from '../mutations/UnlikeItem.graphql';
 import {useMutation} from "@apollo/client";
+import {getAlternateImageUrl} from "../utils/HelperMethods";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -89,7 +90,7 @@ export default function Card1(props) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image={imageUrl}
+        image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
         title={itemName}
       />
       <CardContent>

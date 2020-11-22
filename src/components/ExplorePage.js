@@ -10,7 +10,8 @@ import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import { PopulateSessionContext } from '../utils/HelperMethods';
 import ExplorePageStyles from './styles/ExplorePageStyles';
 
-const ExplorePage = ({accessToken}) => {
+const ExplorePage = () => {
+  const accessToken = localStorage.getItem('accessToken');
   const classes = ExplorePageStyles();
   const [userContextSet, setUserContextSet] = useState(false);
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);

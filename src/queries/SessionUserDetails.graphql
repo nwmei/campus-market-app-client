@@ -4,7 +4,6 @@ query SessionUserDetails($input: SessionUserDetailsInput!) {
     firstName,
     lastName,
     emailAddress,
-    loggedIn,
     imageUrl
   }
 }

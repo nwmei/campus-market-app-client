@@ -1,5 +1,0 @@
-mutation SetLoginStatus($input: SetLoginStatusInput!) {
-  setLoginStatus(input: $input) {
-    success
-  }
-}

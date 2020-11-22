@@ -6,12 +6,14 @@ import { sessionContext } from './SessionContext';
 import GoogleLogin from 'react-google-login';
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
-import SetLoginStatus from '../mutations/SetLoginStatus.graphql';
+import SetAccessToken from '../mutations/SetAccessToken.graphql';
+import ClearAccessToken from '../mutations/ClearAccessToken.graphql';
 
 const LoginButton = ({navigateAfterLogin}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
-  const [setLoginStatus] = useMutation(SetLoginStatus);
+  const [setAccessToken] = useMutation(SetAccessToken);
+  const [clearAccessToken] = useMutation(ClearAccessToken);
   const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
   const {sessionContextValue, setSessionContext, clearSessionContext}= useContext(sessionContext);
 
@@ -23,10 +25,11 @@ const LoginButton = ({navigateAfterLogin}) => {
         createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
         .then((data) => userId = data.createUser.id);
       }
-      setLoginStatus({variables: {input: {userId , accessToken: userData.accessToken, loggedIn: true, imageUrl: userData.imageUrl}}})
-          .then((data) => console.log("login status mutation: ", data));
-      localStorage.setItem("accessToken", userData.accessToken);
-      navigateAfterLogin();
+      setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
+          .then((data) => {
+            localStorage.setItem("accessToken", userData.accessToken);
+            navigateAfterLogin();
+          });
     }
   }, [userExistsData]);
 
@@ -43,7 +46,9 @@ const LoginButton = ({navigateAfterLogin}) => {
   }
 
   const loginRequestHandler = () => {
-    localStorage.setItem("accessToken", "");
+    clearAccessToken({variables: {input: {accessToken: localStorage.getItem('accessToken')}}}).then(() => {
+      localStorage.setItem("accessToken", "");
+    });
   };
 
   return (

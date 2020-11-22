@@ -21,10 +21,10 @@ const App = () => {
         <Router>
           <div>
             <Switch>
-              <Route component={() => <ExplorePage accessToken={accessToken} />} exact path="/explore" />
-              <Route component={() => <LandingPage accessToken={accessToken} />} exact path="/login" />
-              <Route component={() => <MyItems accessToken={accessToken} />} path="/myItems" />
-              <Route component={() => <About accessToken={accessToken} />} path="/about" />
+              <Route component={() => <ExplorePage />} exact path="/explore" />
+              <Route component={() => <LandingPage />} exact path="/login" />
+              <Route component={() => <MyItems />} path="/myItems" />
+              <Route component={() => <About />} path="/about" />
             </Switch>
           </div>
         </Router>

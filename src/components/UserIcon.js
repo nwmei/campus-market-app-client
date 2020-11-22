@@ -1,6 +1,7 @@
 import React from 'react';
 import {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import { Grid, } from '@material-ui/core';
@@ -9,6 +10,8 @@ import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import { sessionContext } from './SessionContext';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import ClearAccessToken from '../mutations/ClearAccessToken.graphql';
+
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -63,9 +66,11 @@ const useStyles = makeStyles((theme) => ({
 function UserIcon() {
   const classes = useStyles();
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
+  const [clearAccessToken] = useMutation(ClearAccessToken);
   const history = useHistory();
 
   const logoutHandler = () => {
+    clearAccessToken({variables: {input: {accessToken: localStorage.getItem('accessToken')}}});
     clearSessionContext();
     localStorage.setItem("accessToken", "");
     history.push('/login')
