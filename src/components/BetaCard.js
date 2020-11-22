@@ -49,7 +49,6 @@ export default function Card1(props) {
   const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
 
   const likeItemHandler = () => {
-    setLikedByUser(true);
     likeItemMutation({
       variables: {
         input: {
@@ -57,11 +56,10 @@ export default function Card1(props) {
           storeItemId: itemId
         }
       }
-    });
+    }).then(() => setLikedByUser(true));
   };
 
   const unlikeItemHandler = () => {
-    setLikedByUser(false);
     unlikeItemMutation({
       variables: {
         input: {
@@ -69,10 +67,8 @@ export default function Card1(props) {
           storeItemId: itemId
         }
       }
-    });
-    //setItemLiked(itemsLiked + 1);
+    }).then(() => setLikedByUser(false));
   };
-
 
   const toggleLikeHandler= () => {
     if (likedByUser) {

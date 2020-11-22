@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react";
-import c from "./styles.css";
 import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import AddCard from "./AddCard";
 import {useMutation, useQuery} from '@apollo/client';
 import StoreItems from '../queries/StoreItems.graphql';
@@ -11,19 +9,17 @@ import useCardGridStyles from './styles/CardGridStyles';
 export default function CardGrid() {
   const classes = useCardGridStyles();
   const [itemsAdded, setItemsAdded] = useState(0);
-  const [itemsLiked, setItemLiked] = useState(0);
 
   const {data: storeItemsData} = useQuery(StoreItems, {
     // apollo needs a variable to call query again
     variables: {
-      input: 1//Math.floor(Math.random() * Math.floor(10))
+      input: itemsAdded
     }
   });
 
   const incrementItemsAdded = () => {
     setItemsAdded(itemsAdded + 1);
   };
-
 
   return (
     <Grid

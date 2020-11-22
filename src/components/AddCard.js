@@ -51,9 +51,10 @@ export default function AddCard(props) {
           }
         }
       }
+    }).then(r => {
+      props.incrementItemsAdded();
     })
-    props.incrementItemsAdded();
-  }
+  };
 
   return (
     <div>
