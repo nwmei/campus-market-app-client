@@ -18,10 +18,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     border:0,
     background: 'white',
-    color: 'green'
+    color: 'green',
+    borderRadius: 100
   },
   topBar: {
-    background: 'linear-gradient(45deg, #42a5f5 30%, #90caf9 90%)',
+    //background: 'linear-gradient(45deg, #42a5f5 30%, #90caf9 90%)',
+    background: 'linear-gradient(45deg, #212121 30%, #424242 90%)',
   },
 }));
 

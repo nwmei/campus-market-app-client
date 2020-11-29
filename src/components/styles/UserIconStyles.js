@@ -49,5 +49,6 @@ export const useStyles = makeStyles((theme) => ({
         border:0,
         paddingBottom: 0,
         paddingTop: 0,
+        color: 'white'
     },
 }));

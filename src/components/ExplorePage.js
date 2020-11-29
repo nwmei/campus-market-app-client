@@ -20,7 +20,6 @@ const ExplorePage = () => {
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
 
-  console.log(accessToken)
   const {loading, data: sessionData} = useQuery(SessionUserDetails, { variables: { input: { accessToken } }});
 
   useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history, setHelperFunctionDone), [sessionData]);
