@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import { red, grey } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import { Link, useHistory } from 'react-router-dom';
+import MuiLink from '@material-ui/core/Link';
 import LikeItem from '../mutations/LikeItem.graphql';
 import UnlikeItem from '../mutations/UnlikeItem.graphql';
 import {useMutation} from "@apollo/client";
@@ -43,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Card1(props) {
-  const { itemName, price, seller, description, imageUrl, date, daysAgo, itemId, likes } = props;
+  const history = useHistory();
+  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes } = props;
   const [likeItemMutation] = useMutation(LikeItem);
   const [unlikeItemMutation] = useMutation(UnlikeItem);
 
@@ -86,13 +90,19 @@ export default function Card1(props) {
     setExpanded(!expanded);
   };
 
+  const cardClickHandler = () => {
+    history.push(`/item/${itemId}`)
+  };
+
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
-        title={itemName}
-      />
+      <Link to={`/item/${itemId}`}>
+        <CardMedia
+          className={classes.media}
+          image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
+          title={itemName}
+        />
+      </Link>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {`$${price} ${itemName}`}
@@ -127,6 +137,11 @@ export default function Card1(props) {
           <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
           <Typography>{`Description: ${description}`} </Typography>
           <Typography>{`Date posted: ${date}`} </Typography>
+          <Typography className={classes.root} style={{ cursor: 'pointer' }}>
+            <MuiLink onClick={cardClickHandler}>
+              view expanded
+            </MuiLink>
+          </Typography>
         </CardContent>
       </Collapse>
     </Card>
