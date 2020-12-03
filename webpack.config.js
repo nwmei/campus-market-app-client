@@ -2,6 +2,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
+  output: {
+    publicPath: "/"
+  },
   devtool: 'cheap-module-source-map',
   module: {
     rules: [

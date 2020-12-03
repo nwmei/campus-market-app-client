@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyItems from './MyItems';
 import LandingPage from './LandingPage';
 import SessionContextProvider from './SessionContext';
+import Single from "./Single";
 
 const App = () => {
   const client = new ApolloClient({
@@ -23,6 +24,7 @@ const App = () => {
             <Switch>
               <Route component={() => <Redirect to = "/login" />} exact path="/" />
               <Route component={() => <ExplorePage />} exact path="/explore" />
+              <Route component={Single} path="/item/:itemId" />
               <Route component={() => <LandingPage />} exact path="/login" />
               <Route component={() => <MyItems />} path="/myItems" />
               <Route component={() => <About />} path="/about" />

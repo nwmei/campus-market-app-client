@@ -9,8 +9,16 @@ export const PopulateSessionContext = (sessionData, setSessionContext, setUserCo
         }
         setHelperFunctionDone(true);
     }
-}
+};
 
 export const getAlternateImageUrl = () => {
     return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/1200px-Stick_Figure.svg.png";
-}
+};
+
+export const getImageUrl = (imageUrl) => {
+    if (imageUrl.length > 4) {
+        return imageUrl
+    } else {
+        return getAlternateImageUrl();
+    }
+};
