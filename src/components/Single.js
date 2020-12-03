@@ -79,20 +79,23 @@ const Single = ({match}) => {
         setTimeout(() => {
             textInput.current.value = "";
         }, 100);
-        createComment({
-            variables: {
-                input: {
-                    commenterId: sessionContextValue.userId,
-                    commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,
-                    storeItemId,
-                    commentText: addCommentText,
+        if (addCommentText !== "") {
+            createComment({
+                variables: {
+                    input: {
+                        commenterId: sessionContextValue.userId,
+                        commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,
+                        storeItemId,
+                        commentText: addCommentText,
+                    }
                 }
-            }
-        }).then(() => {
-            const newComments = lodash.cloneDeep(commentsToDisplay);
-            newComments.push({commentText: addCommentText, commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,})
-            setCommentsToDisplay(newComments);
-        })
+            }).then(() => {
+                const newComments = lodash.cloneDeep(commentsToDisplay);
+                newComments.push({commentText: addCommentText, commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,})
+                setCommentsToDisplay(newComments);
+            })
+        }
+        setAddCommentText("");
     };
 
     return (
