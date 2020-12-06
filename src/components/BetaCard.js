@@ -18,6 +18,9 @@ import LikeItem from '../mutations/LikeItem.graphql';
 import UnlikeItem from '../mutations/UnlikeItem.graphql';
 import {useMutation} from "@apollo/client";
 import {getAlternateImageUrl} from "../utils/HelperMethods";
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import AddCommentIcon from '@material-ui/icons/AddComment';
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -41,8 +44,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
   heartButton: props => ({
-      color: props.likedByUser? red[500] : grey[500]
-  })
+      color: props.likedByUser? red[500] : grey[500],
+      paddingRight: 3,
+      paddingLeft: 7
+  }),
+  comment: {
+      color: grey[500],
+      paddingRight: 7,
+      paddingLeft: 3
+  }
 }));
 
 export default function Card1(props) {
@@ -121,6 +131,9 @@ export default function Card1(props) {
         <IconButton aria-label="like dislike" className={classes.heartButton} onClick={toggleLikeHandler}>
           <FavoriteIcon />
         </IconButton>
+        <IconButton aria-label="comment" className={classes.comment} onClick={enterable? cardClickHandler : ()=>{}}>
+          <AddCommentIcon />
+        </IconButton>
         <Typography>
           {
             date == 'Invalid Date'? 
@@ -153,7 +166,7 @@ export default function Card1(props) {
             {
               enterable &&
               <MuiLink onClick={cardClickHandler}>
-                view expanded
+                view comments
               </MuiLink>
             }
           </Typography>
