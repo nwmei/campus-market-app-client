@@ -34,7 +34,8 @@ export default function CardGrid() {
       { 
         storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) => 
           <Grid item xs={12} sm={6} md={4} key={-key}>
-            <BetaCard 
+            <BetaCard
+              enterable={true}
               date={new Date(parseInt(item.date))}
               daysAgo={(Date.now() - parseInt(item.date))/86400000}
               key={-key}

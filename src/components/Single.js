@@ -17,6 +17,8 @@ import CreateComment from "../mutations/CreateComment.graphql";
 import SessionUserDetails from "../queries/SessionUserDetails.graphql";
 import {sessionContext} from "./SessionContext";
 import Comments from "./Comments";
+import BetaCard from "./BetaCard";
+import CommentUnit from "./CommentUnit";
 import lodash from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +59,7 @@ const Single = ({match}) => {
     const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
     const [userContextSet, setUserContextSet] = useState(false);
     const [helperFunctionDone, setHelperFunctionDone] = useState(false);
+    const [itemData, setItemData] = useState({});
     const [commentsToDisplay, setCommentsToDisplay] = useState([]);
     const [addCommentText, setAddCommentText] = useState("");
     const classes = useStyles();
@@ -66,6 +69,7 @@ const Single = ({match}) => {
     useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history, setHelperFunctionDone), [sessionData]);
     useEffect(() => {
         if (storeItemData) {
+            setItemData(storeItemData.storeItem);
             setCommentsToDisplay(storeItemData.storeItem.comments.map((commentObject) => {
                 return ({
                     commenterFullName: commentObject.commenterFullName,
@@ -101,20 +105,25 @@ const Single = ({match}) => {
     return (
         <>
         {
-            storeItemData && (
+            itemData.id && (
             <div className={classes.root}>
                 <Header/>
                 <div className={classes.content}>
                     <Paper className={classes.paper}>
                         <Grid container spacing={2}>
                             <Grid item>
-                                <ButtonBase className={classes.image}>
-                                    <img
-                                        className={classes.img}
-                                        alt={"image not found"}
-                                        src={getImageUrl(storeItemData.storeItem.imageUrl)}
-                                    />
-                                </ButtonBase>
+                                <BetaCard
+                                    enterable={false}
+                                    date={new Date(parseInt(itemData.date))}
+                                    daysAgo={(Date.now() - parseInt(itemData.date))/86400000}
+                                    itemId={itemData.id}
+                                    itemName={itemData.name}
+                                    description={itemData.description}
+                                    price={itemData.price}
+                                    seller={itemData.seller}
+                                    likes={itemData.likes}
+                                    imageUrl={itemData.imageUrl}
+                                />
                             </Grid>
                             <Grid item xs={12} sm container>
                                 <Grid item xs container direction="column" spacing={2}>

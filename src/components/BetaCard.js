@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Card1(props) {
   const history = useHistory();
-  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes } = props;
+  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable } = props;
   const [likeItemMutation] = useMutation(LikeItem);
   const [unlikeItemMutation] = useMutation(UnlikeItem);
 
@@ -96,13 +96,22 @@ export default function Card1(props) {
 
   return (
     <Card className={classes.root}>
-      <Link to={`/item/${itemId}`}>
-        <CardMedia
-          className={classes.media}
-          image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
-          title={itemName}
-        />
-      </Link>
+      {
+        enterable?
+            <Link to={`/item/${itemId}`} >
+              <CardMedia
+                  className={classes.media}
+                  image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
+                  title={itemName}
+              />
+            </Link>
+            :
+            <CardMedia
+                className={classes.media}
+                image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
+                title={itemName}
+            />
+      }
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {`$${price} ${itemName}`}
@@ -120,27 +129,33 @@ export default function Card1(props) {
             daysAgo<1 ? 'listed today' : `listed ${Math.round(daysAgo)} days ago`
           }
         </Typography>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
+        {
+          enterable &&
+              <IconButton
+                  className={clsx(classes.expand, {
+                    [classes.expandOpen]: expanded,
+                  })}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+        }
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={!enterable || expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography>{`Listed by: ${seller.firstName} ${seller.lastName}`} </Typography>
           <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
           <Typography>{`Description: ${description}`} </Typography>
           <Typography>{`Date posted: ${date}`} </Typography>
           <Typography className={classes.root} style={{ cursor: 'pointer' }}>
-            <MuiLink onClick={cardClickHandler}>
-              view expanded
-            </MuiLink>
+            {
+              enterable &&
+              <MuiLink onClick={cardClickHandler}>
+                view expanded
+              </MuiLink>
+            }
           </Typography>
         </CardContent>
       </Collapse>
