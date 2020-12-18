@@ -21,35 +21,40 @@ export default function CardGrid() {
     setItemsAdded(itemsAdded + 1);
   };
 
-  return (
-    <Grid
-      container
-      spacing={4}
-      className={classes.gridContainer}
-      justify="center"
-    >
-      <Grid item xs={12} sm={6} md={4}>
-        <AddCard incrementItemsAdded={incrementItemsAdded} />
-      </Grid>
-      { 
-        storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) => 
-          <Grid item xs={12} sm={6} md={4} key={-key}>
-            <BetaCard
-              enterable={true}
-              date={new Date(parseInt(item.date))}
-              daysAgo={(Date.now() - parseInt(item.date))/86400000}
-              key={-key}
-              itemId={item.id}
-              itemName={item.name} 
-              description={item.description} 
-              price={item.price} 
-              seller={item.seller}
-              likes={item.likes}
-              imageUrl={item.imageUrl}
-            />
+  if (storeItemsData) {
+    return (
+        <Grid
+            container
+            spacing={4}
+            className={classes.gridContainer}
+            justify="center"
+        >
+          <Grid item xs={12} sm={6} md={4}>
+            <AddCard incrementItemsAdded={incrementItemsAdded} />
           </Grid>
-        )
-      }
-    </Grid>
-  );
+          {
+            storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) =>
+                <Grid item xs={12} sm={6} md={4} key={-key}>
+                  <BetaCard
+                      enterable={true}
+                      date={new Date(parseInt(item.date))}
+                      daysAgo={(Date.now() - parseInt(item.date))/86400000}
+                      key={-key}
+                      itemId={item.id}
+                      itemName={item.name}
+                      description={item.description}
+                      price={item.price}
+                      seller={item.seller}
+                      likes={item.likes}
+                      imageUrl={item.imageUrl}
+                  />
+                </Grid>
+            )
+          }
+        </Grid>
+    );
+  } else {
+    return <></>;
+  }
+
 }

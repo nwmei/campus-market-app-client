@@ -25,7 +25,7 @@ const ExplorePage = () => {
   useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history, setHelperFunctionDone), [sessionData]);
 
   if (loading || !helperFunctionDone) {
-    return (<CircularProgress />)
+    return <></>
   } else if (userContextSet) {
     return (
         <div>
