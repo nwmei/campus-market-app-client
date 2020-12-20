@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 const LocationFilter = () => {
     const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
-    console.log(sessionContextValue.school);
     const classes = useStyles();
 
     return (

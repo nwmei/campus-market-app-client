@@ -48,7 +48,7 @@ const LoginButton = ({navigateAfterLogin}) => {
   };
 
   return (
-    <GoogleLogin 
+    <GoogleLogin
       clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com' 
       buttonText='login'
       onRequest={loginRequestHandler}

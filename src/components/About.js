@@ -1,20 +1,16 @@
 import React from "react";
 import "./styles.css";
-import { makeStyles } from "@material-ui/core/styles";
 import {useContext, useEffect, useState} from 'react';
 import { sessionContext } from './SessionContext';
 import "./styles.css";
-import Header from './Header';
 import {useQuery} from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import SessionUserDetails from "../queries/SessionUserDetails.graphql";
 import { PopulateSessionContext } from '../utils/HelperMethods';
 import aboutPageStyles from "./styles/AboutPageStyles";
 import Button from "./controls/Button";
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-const About = () => {
-  const accessToken = localStorage.getItem('accessToken');
+const About = ({accessToken}) => {
   const classes = aboutPageStyles();
   const [helperFunctionDone, setHelperFunctionDone] = useState(false);
   const [userContextSet, setUserContextSet] = useState(false);
@@ -26,11 +22,10 @@ const About = () => {
   useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history, setHelperFunctionDone), [sessionData]);
 
   if (loading || !helperFunctionDone) {
-    return (<CircularProgress />)
+    return <></>
   } else if (userContextSet) {
     return (
       <div>
-        <Header />
         <div className={classes.gridContainer}>
           <h1>
             Hi {sessionContextValue.userFirstName},
