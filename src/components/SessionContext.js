@@ -41,6 +41,10 @@ export default class SessionContextProvider extends React.Component {
   }
 
   render() {
+    const {userDetails} = this.props;
+    if (userDetails.id) {
+      this.setUser(userDetails.firstName, userDetails.lastName, userDetails.emailAddress, userDetails.imageUrl, userDetails.id);
+    }
     return (
       <sessionContext.Provider value={this.out}>
         {this.props.children}

@@ -4,6 +4,8 @@ query SessionUserDetails($input: SessionUserDetailsInput!) {
     firstName,
     lastName,
     emailAddress,
-    imageUrl
+    imageUrl,
+    likedItems,
+    listedItems
   }
 }

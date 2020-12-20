@@ -1,6 +1,6 @@
 import React from "react";
 
-export const PopulateSessionContext = (sessionData, setSessionContext, setUserContextSet, history, setHelperFunctionDone)=> {
+export const PopulateSessionContext = (sessionData, setSessionContext, setUserContextSet, history=null, setHelperFunctionDone)=> {
     if (sessionData) {
         if (sessionData.sessionUserDetails != null) {
             const {id, firstName, lastName, emailAddress, imageUrl} = sessionData.sessionUserDetails;

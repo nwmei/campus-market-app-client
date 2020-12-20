@@ -10,9 +10,9 @@ import useStylesHeader from './styles/HeaderStyles';
 import SearchBar from './SearchBar';
 import UserIcon from './UserIcon';
 
-const MenuAppBar = () => {
+const MenuAppBar = ({clearUserDetails}) => {
   const classes = useStylesHeader();
-  
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.topBar}>
@@ -33,7 +33,7 @@ const MenuAppBar = () => {
           <SearchBar />
           <div className={classes.grow} />
 
-          <UserIcon />
+          <UserIcon clearUserDetails={clearUserDetails}/>
         </Toolbar>
       </AppBar>
     </div>

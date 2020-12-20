@@ -1,0 +1,42 @@
+query MyItemsQuery($input: UserIdInput!) {
+    myItems(input: $input) {
+        likedByMe {
+            id,
+            name,
+            description,
+            imageUrl,
+            price,
+            seller {
+                id,
+                firstName,
+                lastName,
+                emailAddress
+            },
+            comments {
+                commenterFullName,
+                commentText
+            },
+            likes,
+            date
+        },
+        listedByMe {
+            id,
+            name,
+            description,
+            imageUrl,
+            price,
+            seller {
+                id,
+                firstName,
+                lastName,
+                emailAddress
+            },
+            comments {
+                commenterFullName,
+                commentText
+            },
+            likes,
+            date
+        }
+    }
+}

@@ -3,13 +3,10 @@ import {useHistory} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Input from "./controls/Input";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import {useMutation, useQuery} from '@apollo/client';
-import Header from './Header';
 import Button from "./controls/Button";
 import StoreItem from '../queries/StoreItem.graphql';
 import {getImageUrl, PopulateSessionContext} from "../utils/HelperMethods";
@@ -18,7 +15,6 @@ import SessionUserDetails from "../queries/SessionUserDetails.graphql";
 import {sessionContext} from "./SessionContext";
 import Comments from "./Comments";
 import BetaCard from "./BetaCard";
-import CommentUnit from "./CommentUnit";
 import lodash from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Single = ({match}) => {
     const history = useHistory();
-
     const accessToken = localStorage.getItem('accessToken');
     const storeItemId = match.params.itemId;
     const {data: sessionData, loading} = useQuery(SessionUserDetails, { variables: { input: { accessToken } }});
@@ -107,7 +102,6 @@ const Single = ({match}) => {
         {
             itemData.id && (
             <div className={classes.root}>
-                <Header/>
                 <div className={classes.content}>
                     <Paper className={classes.paper}>
                         <Grid container spacing={2}>
