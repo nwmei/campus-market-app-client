@@ -18,7 +18,13 @@ module.exports = {
       {
         test: /\.(graphql|gql)$/,
         loader: 'graphql-tag/loader'
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader',
+        ],
+      },
     ]
   },
   plugins: [

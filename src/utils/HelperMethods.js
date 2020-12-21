@@ -12,7 +12,8 @@ export const PopulateSessionContext = (sessionData, setSessionContext, setUserCo
 };
 
 export const getAlternateImageUrl = () => {
-    return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/1200px-Stick_Figure.svg.png";
+    const index = Math.floor(Math.random() * 100);
+    return `https://source.unsplash.com/random/200x200?sig=${index}`;
 };
 
 export const getImageUrl = (imageUrl) => {

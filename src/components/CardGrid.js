@@ -29,12 +29,12 @@ export default function CardGrid() {
             className={classes.gridContainer}
             justify="center"
         >
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={4} lg={3}>
             <AddCard incrementItemsAdded={incrementItemsAdded} />
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) =>
-                <Grid item xs={12} sm={6} md={4} key={-key}>
+                <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                       enterable={true}
                       date={new Date(parseInt(item.date))}

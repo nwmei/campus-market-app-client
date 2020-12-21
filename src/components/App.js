@@ -40,7 +40,13 @@ const App = () => {
             {userDetails.sessionUserDetails? <Header clearUserDetails={() => setUserDetails({})}/> : <></>}
             <Switch>
               <Route
-                component={() => <Redirect to = "/login" />}
+                component={() => {
+                  if (accessToken !== "") {
+                    return <Redirect to = "/explore" />
+                  } else {
+                    return <Redirect to = "/login" />
+                  }
+                }}
                 exact path="/"
               />
               <Route

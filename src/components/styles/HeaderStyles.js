@@ -10,6 +10,12 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  logo: {
+    width: 1,
+    maxWidth: '10%',
+    height: 1,
+
+  },
   title: {
     fontFamily: 'roboto'
   },
@@ -23,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
   },
   topBar: {
     //background: 'linear-gradient(45deg, #42a5f5 30%, #90caf9 90%)',
-    background: 'linear-gradient(45deg, #212121 30%, #424242 90%)',
+    //background: 'linear-gradient(45deg, #212121 30%, #424242 90%)',
+    //background: 'linear-gradient(45deg,#f44336  30%,  #9c27b0 90%)',
+    //background: 'linear-gradient(45deg,#f50057  30%,  #ffc107 90%)',
+    background: 'linear-gradient(45deg, #ff1744  30%,  #ffc107 90%)',
   },
 }));
 

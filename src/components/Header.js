@@ -9,6 +9,13 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import useStylesHeader from './styles/HeaderStyles';
 import SearchBar from './SearchBar';
 import UserIcon from './UserIcon';
+import CardMedia from "@material-ui/core/CardMedia";
+import {getAlternateImageUrl} from "../utils/HelperMethods";
+import {Link} from "react-router-dom";
+import MuiLink from '@material-ui/core/Link';
+import logo from './testLogo4.png'
+
+import "./styles.css"
 
 const MenuAppBar = ({clearUserDetails}) => {
   const classes = useStylesHeader();
@@ -17,17 +24,20 @@ const MenuAppBar = ({clearUserDetails}) => {
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.topBar}>
         <Toolbar>
-          <Typography variant="h4" className={classes.title}>
-            Smarter Trade
-          </Typography>
+          {/*<Typography variant="h4" className={classes.title}>*/}
+          {/*  festive trade*/}
+          {/*</Typography>*/}
+          <Link to="/explore">
+            <img src={logo} className="photo"/>
+          </Link>
           <Button size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} href='/explore'>
-            Explore
+            Marketplace
           </Button>
           <Button size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} href='/myItems'>
             My Items
           </Button>
           <Button size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} href='/about'>
-            About App
+            About festive
           </Button>
 
           <SearchBar />

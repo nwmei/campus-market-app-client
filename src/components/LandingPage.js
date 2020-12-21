@@ -4,7 +4,7 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    paddingTop: "70px"
+    paddingTop: "80px"
   },
 }))
 
