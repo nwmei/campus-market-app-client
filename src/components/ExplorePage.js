@@ -1,7 +1,7 @@
 import { useQuery} from "@apollo/client";
 import CardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
-import Filters from './Filters';
+import Filters from './Filter/Filters';
 import React, {useContext, useEffect, useState} from 'react';
 import { sessionContext } from './SessionContext';
 import { useHistory } from "react-router-dom";

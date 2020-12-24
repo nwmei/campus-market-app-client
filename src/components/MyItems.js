@@ -12,7 +12,7 @@ import { PopulateSessionContext } from '../utils/HelperMethods';
 import myItemsStyles from "./styles/MyItemsStyles";
 import Button from "./controls/Button";
 import BetaCard from "./BetaCard";
-import Filters from "./Filters";
+import Filters from "./Filter/Filters";
 
 const MyItems = ({accessToken}) => {
   const classes = myItemsStyles();
