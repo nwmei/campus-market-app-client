@@ -1,24 +1,14 @@
-import { useQuery} from "@apollo/client";
 import CardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Filter/Filters';
-import React, {useContext, useEffect, useState} from 'react';
-import { sessionContext } from './SessionContext';
-import { useHistory } from "react-router-dom";
-import SessionUserDetails from '../queries/SessionUserDetails.graphql';
-import { PopulateSessionContext } from '../utils/HelperMethods';
+import React, {useState} from 'react';
 import ExplorePageStyles from './styles/ExplorePageStyles';
-import { Redirect } from 'react-router'
 import Divider from '@material-ui/core/Divider';
 import FilterPills from "./Filter/FilterPills";
 
-const ExplorePage = ({accessToken}) => {
-  const [helperFunctionDone, setHelperFunctionDone] = useState(false);
-  const [userContextSet, setUserContextSet] = useState(false);
+const ExplorePage = () => {
   const [filters, setFilters] = useState([]);
   const numberOfFilters = filters.length;
-  const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
-  const history = useHistory();
   const classes = ExplorePageStyles({numberOfFilters});
 
     return (

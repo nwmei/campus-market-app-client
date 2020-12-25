@@ -9,7 +9,7 @@ import {StyledBadge, useStyles} from "./styles/UserIconStyles";
 
 function UserIcon({clearUserDetails}) {
   const classes = useStyles();
-  const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
+  const {sessionContextValue, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
 
   const logoutHandler = () => {

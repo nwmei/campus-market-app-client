@@ -1,8 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react'
-import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
-import { useContext } from 'react';
-import { sessionContext } from './SessionContext';
+import {useMutation, useLazyQuery } from '@apollo/client';
 import GoogleLogin from 'react-google-login';
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';

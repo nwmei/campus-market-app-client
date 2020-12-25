@@ -3,7 +3,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { Redirect } from 'react-router'
 import ExplorePage from './ExplorePage';
 import About from './About';
-import { BrowserRouter as Router, Route, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyItems from './MyItems';
 import LandingPage from './LandingPage';
 import SessionContextProvider from './SessionContext';
@@ -25,7 +25,7 @@ const App = () => {
   if (!userDetails.sessionUserDetails && !sessionQueryResponded) {
     client.query({query: SessionUserDetails, variables: {input: {accessToken}}})
       .then((result) => {
-        if (result.data.sessionUserDetails !== null) {
+        if (result.data.sessionUserDetails) {
           setUserDetails(result.data);
         }
         setSessionQueryResponded(true);
