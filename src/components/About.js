@@ -9,6 +9,7 @@ import SessionUserDetails from "../queries/SessionUserDetails.graphql";
 import { PopulateSessionContext } from '../utils/HelperMethods';
 import aboutPageStyles from "./styles/AboutPageStyles";
 import Button from "./controls/Button";
+import { Redirect } from 'react-router'
 
 const About = ({accessToken}) => {
   const classes = aboutPageStyles();
@@ -44,12 +45,7 @@ const About = ({accessToken}) => {
       </div>
     )
   } else {
-    return (
-        <div>
-          <p>You can't access this without logging in!</p>
-          <Button text="go to login page" onClick={() => history.push("/login")} color="inherit"/>
-        </div>
-    )
+    return <Redirect to='/login' />
   }
 };
 

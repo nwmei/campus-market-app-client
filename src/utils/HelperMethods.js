@@ -12,8 +12,8 @@ export const PopulateSessionContext = (sessionData, setSessionContext, setUserCo
 };
 
 export const getAlternateImageUrl = () => {
-    const index = Math.floor(Math.random() * 100);
-    return `https://source.unsplash.com/random/200x200?sig=${index}`;
+    //const index = Math.floor(Math.random() * 100);
+    return `https://source.unsplash.com/random/200x200?sig=1`;
 };
 
 export const getImageUrl = (imageUrl) => {

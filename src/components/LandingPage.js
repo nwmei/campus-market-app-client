@@ -8,13 +8,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const LandingPage = ({setLoggedIn, accessToken}) => {
+const LandingPage = ({ setSessionQueryResponded }) => {
   const classes = useStyles();
   const history = useHistory();
+
   const navigateToExplorePage = () => {
-    setLoggedIn(true)
-    history.push('/explore')
-  }
+    setSessionQueryResponded(false);
+    history.push('/explore');
+  };
   return (
     <div className={classes.button}>
       <GoogleLogin navigateAfterLogin={navigateToExplorePage} />

@@ -7,7 +7,10 @@ const ExplorePageStyles = makeStyles((theme) => ({
     },
     filter: {
         paddingBottom:"80px"
-    }
+    },
+    divider: props => ({
+        marginTop: (props.numberOfFilters === 0) ? "0px" : "10px"
+    })
 }));
 
 export default ExplorePageStyles;

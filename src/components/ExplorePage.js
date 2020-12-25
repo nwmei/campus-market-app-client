@@ -8,42 +8,35 @@ import { useHistory } from "react-router-dom";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import { PopulateSessionContext } from '../utils/HelperMethods';
 import ExplorePageStyles from './styles/ExplorePageStyles';
-import Button from "./controls/Button";
+import { Redirect } from 'react-router'
+import Divider from '@material-ui/core/Divider';
+import FilterPills from "./Filter/FilterPills";
 
 const ExplorePage = ({accessToken}) => {
-  const classes = ExplorePageStyles();
   const [helperFunctionDone, setHelperFunctionDone] = useState(false);
   const [userContextSet, setUserContextSet] = useState(false);
+  const [filters, setFilters] = useState([]);
+  const numberOfFilters = filters.length;
   const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
+  const classes = ExplorePageStyles({numberOfFilters});
 
-  const {loading, data: sessionData} = useQuery(SessionUserDetails, { variables: { input: { accessToken } }});
-
-  useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history, setHelperFunctionDone), [sessionData]);
-
-  if (loading || !helperFunctionDone) {
-    return <></>
-  } else if (userContextSet) {
     return (
         <div>
           <Grid container spacing={3} className={classes.root}>
             <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-              <Filters />
+              <Filters setFilters={setFilters}/>
             </Grid>
             <Grid item xs={12} sm={10}>
+              <FilterPills filters={filters}/>
+              <div className={classes.divider}>
+                <Divider />
+              </div>
               <CardGrid />
             </Grid>
           </Grid>
         </div>
     )
-  } else {
-    return (
-        <div>
-          <p>You can't access this without logging in!</p>
-          <Button text="go to login page" onClick={() => history.push("/login")} color="inherit"/>
-        </div>
-    )
-  }
 };
 
 export default ExplorePage;

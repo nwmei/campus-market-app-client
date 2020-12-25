@@ -13,6 +13,7 @@ import myItemsStyles from "./styles/MyItemsStyles";
 import Button from "./controls/Button";
 import BetaCard from "./BetaCard";
 import Filters from "./Filter/Filters";
+import { Redirect } from 'react-router'
 
 const MyItems = ({accessToken}) => {
   const classes = myItemsStyles();
@@ -100,12 +101,7 @@ const MyItems = ({accessToken}) => {
       </div>
     )
   } else {
-    return (
-        <div>
-          <p>You can't access this without logging in!</p>
-          <Button text="go to login page" onClick={() => history.push("/login")} color="inherit"/>
-        </div>
-    )
+    return <Redirect to='/login' />
   }
 
 }

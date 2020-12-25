@@ -16,6 +16,7 @@ import {sessionContext} from "./SessionContext";
 import Comments from "./Comments";
 import BetaCard from "./BetaCard";
 import lodash from 'lodash';
+import { Redirect } from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
     root: {

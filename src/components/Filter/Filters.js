@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Filters() {
+export default function Filters({setFilters: setExplorePageFilters}) {
   const [expandedFilter, setExpandedFilter] = useState("");
   const [activeFilters, setActiveFilters] = useState([]);
   const classes = useStyles();
@@ -35,14 +35,12 @@ export default function Filters() {
       newActiveFilters.push(newFilter);
     }
     setActiveFilters(newActiveFilters)
+    setExplorePageFilters(newActiveFilters)
   };
 
   return (
     <div className={classes.root}>
       <p className={classes.filterText}>filters</p>
-      {
-        activeFilters.map((filter, key) => <p key={key}>{filter.value}</p>)
-      }
       <Paper style={{maxHeight: 650, overflow: 'auto'}} >
         {
           filterOptions.map((filterOption, key) => {

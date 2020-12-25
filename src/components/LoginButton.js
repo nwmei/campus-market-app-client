@@ -13,7 +13,6 @@ const LoginButton = ({navigateAfterLogin}) => {
   const [createUser] = useMutation(CreateUserMutation);
   const [setAccessToken] = useMutation(SetAccessToken);
   const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
-  const {sessionContextValue, setSessionContext, clearSessionContext}= useContext(sessionContext);
 
   useEffect(() => {
     if (userExistsData != null) {
