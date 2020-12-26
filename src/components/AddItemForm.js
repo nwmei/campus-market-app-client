@@ -10,11 +10,13 @@ const initialItemValues = {
   itemName: '',
   description: '',
   price: '',
-  imageUrl: ''
-}
+  imageUrl: '',
+  category: '',
+  neighborhood: ''
+};
 
 export default function AddItemForm(props) {
-    const { setIsOpen, addItemHandler } = props
+    const { setIsOpen, addItemHandler } = props;
 
     const {
         values,
@@ -28,9 +30,7 @@ export default function AddItemForm(props) {
         resetForm();
         setIsOpen(false);
         addItemHandler(values);
-
-        // handle submit values here
-    }
+    };
 
     return (
         <Form onSubmit={handleFormSubmit}>
@@ -54,6 +54,18 @@ export default function AddItemForm(props) {
                         value={values.price}
                         onChange={handleInputChange}
                     />
+                    <InputControl
+                      name="category"
+                      label="category"
+                      value={values.category}
+                      onChange={handleInputChange}
+                    />
+                    <InputControl
+                      name="neighborhood"
+                      label="neighborhood"
+                      value={values.neighborhood}
+                      onChange={handleInputChange}
+                    />
 
                 </Grid>
                 <Grid item xs={6}>
@@ -64,13 +76,13 @@ export default function AddItemForm(props) {
                         onChange={handleInputChange}
                         items={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}
                     /> */}
-                    {/* <SelectControl
-                        name="imageUrl"
-                        label="imageUrl"
-                        value={values.imageUrl}
-                        onChange={handleInputChange}
-                        options={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}
-                    /> */}
+                    {/*<SelectControl*/}
+                    {/*    name=""*/}
+                    {/*    label="imageUrl"*/}
+                    {/*    value={values.imageUrl}*/}
+                    {/*    onChange={handleInputChange}*/}
+                    {/*    options={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}*/}
+                    {/*/>*/}
                     <InputControl
                         name="imageUrl"
                         label="image url"

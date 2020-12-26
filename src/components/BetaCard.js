@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Card1(props) {
   const history = useHistory();
-  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable } = props;
+  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable, category, neighborhood } = props;
   const [likeItemMutation] = useMutation(LikeItem);
   const [unlikeItemMutation] = useMutation(UnlikeItem);
 
@@ -160,6 +160,8 @@ export default function Card1(props) {
         <CardContent>
           <Typography>{`Listed by: ${seller.firstName} ${seller.lastName}`} </Typography>
           <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
+          <Typography>{`Category: ${category}`} </Typography>
+          <Typography>{`Neighborhood: ${neighborhood}`} </Typography>
           <Typography>{`Description: ${description}`} </Typography>
           <Typography>{`Date posted: ${date}`} </Typography>
           <Typography className={classes.root} style={{ cursor: 'pointer' }}>

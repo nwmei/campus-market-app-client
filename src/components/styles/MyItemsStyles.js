@@ -5,7 +5,13 @@ const MyItemsStyles = makeStyles({
         paddingRight: "40px",
         paddingTop: "80px",
         flexGrow:1
-    }
+    },
+    subcontainer: {
+        paddingTop: "10px",
+    },
+    divider: props => ({
+        marginTop: (props.numberOfFilters === 0) ? "0px" : "10px"
+    })
 });
 
 export default MyItemsStyles;

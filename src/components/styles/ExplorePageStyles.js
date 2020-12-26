@@ -5,9 +5,6 @@ const ExplorePageStyles = makeStyles((theme) => ({
         paddingTop:"80px",
         flexGrow:1
     },
-    filter: {
-        paddingBottom:"80px"
-    },
     divider: props => ({
         marginTop: (props.numberOfFilters === 0) ? "0px" : "10px"
     })

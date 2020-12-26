@@ -4,6 +4,8 @@ query StoreItems($input: Int!) {
     name,
     description,
     imageUrl,
+    category,
+    neighborhood,
     price,
     seller {
       id,

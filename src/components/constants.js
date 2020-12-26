@@ -13,10 +13,12 @@ export const neighborhoods = {
 };
 
 export const campuses = [
-  {id: '1', title: 'Boston University'},
-  {id: '2', title: 'Northeastern U'},
-  {id: '3', title: 'Umass Amherst'},
-  {id: '4', title: 'MIT'},
+  {id: 'bu', title: 'Boston University'},
+  {id: 'neu', title: 'Northeastern U'},
+  {id: 'umass', title: 'Umass Amherst'},
+  {id: 'mit', title: 'MIT'},
+  {id: 'bentley', title: 'Bentley University'},
+  {id: 'gmail', title: 'Gmail'}
 ];
 
 export const categories = [

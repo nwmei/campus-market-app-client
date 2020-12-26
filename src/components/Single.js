@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         margin: 'auto',
         maxWidth: 1200,
+        boxShadow: "none"
     },
     image: {
         width: 500,
@@ -69,7 +70,8 @@ const Single = ({match}) => {
             setCommentsToDisplay(storeItemData.storeItem.comments.map((commentObject) => {
                 return ({
                     commenterFullName: commentObject.commenterFullName,
-                    commentText: commentObject.commentText
+                    commentText: commentObject.commentText,
+                    commenterImageUrl: commentObject.commenterImageUrl
                 })
             }))
         }
@@ -87,11 +89,12 @@ const Single = ({match}) => {
                         commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,
                         storeItemId,
                         commentText: addCommentText,
+                        commenterImageUrl: sessionContextValue.imageUrl
                     }
                 }
             }).then(() => {
                 const newComments = lodash.cloneDeep(commentsToDisplay);
-                newComments.push({commentText: addCommentText, commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,})
+                newComments.push({commentText: addCommentText, commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName, commenterImageUrl: sessionContextValue.imageUrl})
                 setCommentsToDisplay(newComments);
             })
         }
@@ -122,7 +125,7 @@ const Single = ({match}) => {
                             </Grid>
                             <Grid item xs={12} sm container>
                                 <Grid item xs container direction="column" spacing={2}>
-                                    <Grid item xs>
+                                    <Grid item xs={12}>
                                         <Comments commentsList={commentsToDisplay}/>
                                     </Grid>
                                     <Grid item>

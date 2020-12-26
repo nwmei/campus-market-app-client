@@ -10,6 +10,7 @@ import RadioGroupControl from '../controls/RadioGroup';
 import Paper from "@material-ui/core/Paper";
 import Input from "../controls/Input";
 import Button from "../controls/Button";
+import {useForm} from "../UseForm";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -19,45 +20,48 @@ const useStyles = makeStyles((theme) => ({
   paper: { boxShadow: "none"}
 }));
 
-const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, options=null, updateFilters}) => {
+const initialItemValues = {
+  minPrice: '',
+  maxPrice: ''
+};
+
+const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, options=null, updateFilters, filterObject}) => {
   const isExpanded = expandedFilter===filterType;
-  const [value, setValue] = useState("");
   const classes = useStyles();
 
   const toggleExpanded = () => {
     isExpanded ? setExpandedFilter("") : setExpandedFilter(filterType);
   };
 
+  const {
+    values,
+    handleInputChange,
+    resetForm
+  } = useForm(initialItemValues);
+
+  const handleFormSubmit = e => {
+    e.preventDefault()
+    toggleSelected([values.minPrice, values.maxPrice]);
+  }
+
   const toggleSelected = (selection) => {
     if (selection) {
+      const label = filterClass==='selection' ? selection : `${filterType}: $${selection[0]} - $${selection[1]}`;
       updateFilters(
         {
           filterClass,
           filterType,
-          value
+          value: filterObject.value,
+          label
         },
         {
           filterClass,
           filterType,
-          value: selection
+          value: selection,
+          label
         }
       );
-
-      if (value===selection) {
-        setValue("");
-      } else {
-        setValue(selection);
-      }
     }
-  };
-
-  const setRange = (low=0, high=1000000) => {
-    setValue([low, high]);
-    addFilter({
-      filterClass,
-      filterType,
-      value: [low, high],
-    });
   };
 
   return (
@@ -72,7 +76,7 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
             <Paper className={classes.paper} style={{maxHeight: 330, overflow: 'auto', borderColor: "#000"}} >
               <RadioGroupControl
                 name={filterType}
-                value={value}
+                value={filterObject.value}
                 onClick={(e) => toggleSelected(e.target.value)}
                 items={options}
               />
@@ -80,13 +84,13 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
             :
             <Grid container>
               <Grid item xs={4}>
-                <Input label="min" margin="dense" />
+                <Input name="minPrice" value={values.minPrice} onChange={handleInputChange} size="small" label="min" margin="dense" />
               </Grid>
               <Grid item xs={4}>
-                <Input label="max" margin="dense" />
+                <Input name="maxPrice" value={values.maxPrice} onChange={handleInputChange} label="max" margin="dense" />
               </Grid>
               <Grid item xs={4}>
-                <Button text="go"/>
+                <Button onClick={handleFormSubmit} size="medium" text="go"/>
               </Grid>
             </Grid>
         }

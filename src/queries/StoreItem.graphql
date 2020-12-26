@@ -4,16 +4,19 @@ query StoreItem($input: StoreItemInput!) {
         name,
         description,
         imageUrl,
+        category,
+        neighborhood,
         price,
         seller {
             id,
             firstName,
             lastName,
-            emailAddress
+            emailAddress,
         },
         comments {
             commenterFullName,
-            commentText
+            commentText,
+            commenterImageUrl
         },
         likes,
         date
