@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         margin: 'auto',
         maxWidth: 1200,
+        boxShadow: "none"
     },
     image: {
         width: 500,
@@ -124,7 +125,7 @@ const Single = ({match}) => {
                             </Grid>
                             <Grid item xs={12} sm container>
                                 <Grid item xs container direction="column" spacing={2}>
-                                    <Grid item xs>
+                                    <Grid item xs={12}>
                                         <Comments commentsList={commentsToDisplay}/>
                                     </Grid>
                                     <Grid item>

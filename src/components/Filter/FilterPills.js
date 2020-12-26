@@ -21,11 +21,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Chips({filters}) {
+export default function Chips({filters, updateFilters}) {
   const classes = useStyles();
 
-  const handleDelete = () => {
+  const handleDelete = ({filterClass, filterType, value}) => {
     console.info('You clicked the delete icon.');
+    const label = filterClass==='selection' ? value : `${filterType}: $${value[0]} - $${value[1]}`;
+    updateFilters(
+      {
+        filterClass,
+        filterType,
+        value,
+        label
+      },
+      {
+        filterClass,
+        filterType,
+        value,
+        label
+      }
+    );
   };
 
   const handleClick = () => {
@@ -41,7 +56,7 @@ export default function Chips({filters}) {
             className={classes.pill}
             key={key}
             label={filter.label}
-            onDelete={handleDelete}
+            onDelete={() => handleDelete(filter)}
           />
           )
         })

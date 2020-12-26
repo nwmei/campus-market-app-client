@@ -9,7 +9,7 @@ const Comments = ({commentsList}) => {
             <Typography variant="subtitle1">
                 Comments
             </Typography>
-            <Paper style={{maxHeight: 400, minHeight: 400, maxWidth:600, minWidth:600, overflow: 'auto'}} >
+            <Paper style={{maxHeight: 400, minHeight: 400, minWidth:600, overflow: 'auto'}} >
                 {commentsList.map((comment, key) => {
                     return (
                       <CommentUnit key={key}

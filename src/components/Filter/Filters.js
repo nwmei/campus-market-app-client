@@ -22,21 +22,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Filters({setFilters: setExplorePageFilters}) {
+export default function Filters({filters, updateFilters}) {
   const [expandedFilter, setExpandedFilter] = useState("");
-  const [activeFilters, setActiveFilters] = useState([]);
   const classes = useStyles();
-
-  const updateFilters = (oldFilter, newFilter) => {
-    const newActiveFilters = activeFilters.filter(activeFilter => {
-      return activeFilter.value !== oldFilter.value
-    });
-    if (oldFilter.value !== newFilter.value) {
-      newActiveFilters.push(newFilter);
-    }
-    setActiveFilters(newActiveFilters)
-    setExplorePageFilters(newActiveFilters)
-  };
 
   return (
     <div className={classes.root}>
@@ -53,6 +41,7 @@ export default function Filters({setFilters: setExplorePageFilters}) {
                 filterClass={filterOption.filterClass}
                 filterType={filterOption.filterType}
                 options={filterOption.options}
+                filterObject={filters.filter(filter => filter.filterType===filterOption.filterType)[0] || {value: ""}}
               />
             )
           })

@@ -11,14 +11,24 @@ const ExplorePage = () => {
   const numberOfFilters = filters.length;
   const classes = ExplorePageStyles({numberOfFilters});
 
+  const updateFilters = (oldFilter, newFilter) => {
+    const newActiveFilters = filters.filter(activeFilter => {
+      return activeFilter.value !== oldFilter.value
+    });
+    if (oldFilter.value !== newFilter.value) {
+      newActiveFilters.push(newFilter);
+    }
+    setFilters(newActiveFilters)
+  };
+
     return (
         <div>
           <Grid container spacing={3} className={classes.root}>
             <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-              <Filters setFilters={setFilters}/>
+              <Filters filters={filters} updateFilters={updateFilters}/>
             </Grid>
             <Grid item xs={12} sm={10}>
-              <FilterPills filters={filters}/>
+              <FilterPills filters={filters} updateFilters={updateFilters}/>
               <div className={classes.divider}>
                 <Divider />
               </div>

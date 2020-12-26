@@ -4,6 +4,8 @@ query MyItemsQuery($input: UserIdInput!) {
             id,
             name,
             description,
+            category,
+            neighborhood,
             imageUrl,
             price,
             seller {
@@ -23,6 +25,8 @@ query MyItemsQuery($input: UserIdInput!) {
             id,
             name,
             description,
+            category,
+            neighborhood,
             imageUrl,
             price,
             seller {

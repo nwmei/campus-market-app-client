@@ -11,6 +11,7 @@ import BetaCard from "./BetaCard";
 import Filters from "./Filter/Filters";
 import FilterPills from "./Filter/FilterPills";
 import Divider from "@material-ui/core/Divider";
+import {applyFilters} from "../utils/HelperMethods";
 
 const MyItems = () => {
   const [filters, setFilters] = useState([]);
@@ -19,6 +20,16 @@ const MyItems = () => {
   const [myItems, setMyItems] = useState({likedByMe: [], listedByMe: []});
   const {sessionContextValue} = useContext(sessionContext);
   const {data: myItemsData} = useQuery(MyItemsQuery, { variables: { input: {id: sessionContextValue.userId}}});
+
+  const updateFilters = (oldFilter, newFilter) => {
+    const newActiveFilters = filters.filter(activeFilter => {
+      return activeFilter.value !== oldFilter.value
+    });
+    if (oldFilter.value !== newFilter.value) {
+      newActiveFilters.push(newFilter);
+    }
+    setFilters(newActiveFilters)
+  };
 
   useEffect(() => {
     if (myItemsData) {
@@ -30,10 +41,10 @@ const MyItems = () => {
     <div>
       <Grid container spacing={3} className={classes.gridContainer} >
         <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-          <Filters setFilters={setFilters}/>
+          <Filters filters={filters} updateFilters={updateFilters} />
         </Grid>
         <Grid item xs={12} sm={10}>
-          <FilterPills filters={filters}/>
+          <FilterPills filters={filters} updateFilters={updateFilters} />
           <div className={classes.divider}>
             <Divider />
           </div>
@@ -45,7 +56,7 @@ const MyItems = () => {
               ITEMS YOU'VE LISTED
             </Grid>
             {
-              myItems.listedByMe.map((item, key) =>
+              applyFilters(myItems.listedByMe, filters).map((item, key) =>
                 <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                     enterable={true}
@@ -59,6 +70,8 @@ const MyItems = () => {
                     seller={item.seller}
                     likes={item.likes}
                     imageUrl={item.imageUrl}
+                    category={item.category}
+                    neighborhood={item.neighborhood}
                   />
                 </Grid>
               )
@@ -67,7 +80,7 @@ const MyItems = () => {
               ITEMS YOU'VE LIKED:
             </Grid>
             {
-              myItems.likedByMe.map((item, key) =>
+              applyFilters(myItems.likedByMe, filters).map((item, key) =>
                 <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                     enterable={true}

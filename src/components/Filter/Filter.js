@@ -25,9 +25,8 @@ const initialItemValues = {
   maxPrice: ''
 };
 
-const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, options=null, updateFilters}) => {
+const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, options=null, updateFilters, filterObject}) => {
   const isExpanded = expandedFilter===filterType;
-  const [value, setValue] = useState("");
   const classes = useStyles();
 
   const toggleExpanded = () => {
@@ -52,7 +51,7 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
         {
           filterClass,
           filterType,
-          value,
+          value: filterObject.value,
           label
         },
         {
@@ -62,12 +61,6 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
           label
         }
       );
-
-      if (value===selection) {
-        setValue("");
-      } else {
-        setValue(selection);
-      }
     }
   };
 
@@ -83,7 +76,7 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
             <Paper className={classes.paper} style={{maxHeight: 330, overflow: 'auto', borderColor: "#000"}} >
               <RadioGroupControl
                 name={filterType}
-                value={value}
+                value={filterObject.value}
                 onClick={(e) => toggleSelected(e.target.value)}
                 items={options}
               />
