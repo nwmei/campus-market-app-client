@@ -9,9 +9,13 @@ import MyItemsQuery from "../queries/MyItems.graphql";
 import myItemsStyles from "./styles/MyItemsStyles";
 import BetaCard from "./BetaCard";
 import Filters from "./Filter/Filters";
+import FilterPills from "./Filter/FilterPills";
+import Divider from "@material-ui/core/Divider";
 
 const MyItems = () => {
-  const classes = myItemsStyles();
+  const [filters, setFilters] = useState([]);
+  const numberOfFilters = filters.length;
+  const classes = myItemsStyles({numberOfFilters});
   const [myItems, setMyItems] = useState({likedByMe: [], listedByMe: []});
   const {sessionContextValue} = useContext(sessionContext);
   const {data: myItemsData} = useQuery(MyItemsQuery, { variables: { input: {id: sessionContextValue.userId}}});
@@ -26,12 +30,14 @@ const MyItems = () => {
     <div>
       <Grid container spacing={3} className={classes.gridContainer} >
         <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-          <Filters />
+          <Filters setFilters={setFilters}/>
         </Grid>
         <Grid item xs={12} sm={10}>
-          <Grid container
-                spacing={4}
-          >
+          <FilterPills filters={filters}/>
+          <div className={classes.divider}>
+            <Divider />
+          </div>
+          <Grid container spacing={4} className={classes.subcontainer}>
             <Grid item xs={12}>
               MY ITEMS
             </Grid>
@@ -40,7 +46,7 @@ const MyItems = () => {
             </Grid>
             {
               myItems.listedByMe.map((item, key) =>
-                <Grid item xs={12} sm={6} md={4} key={-key}>
+                <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                     enterable={true}
                     date={new Date(parseInt(item.date))}
@@ -62,7 +68,7 @@ const MyItems = () => {
             </Grid>
             {
               myItems.likedByMe.map((item, key) =>
-                <Grid item xs={12} sm={6} md={4} key={-key}>
+                <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                     enterable={true}
                     date={new Date(parseInt(item.date))}

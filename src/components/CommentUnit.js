@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from '@material-ui/core/Grid';
 import Avatar from "@material-ui/core/Avatar";
-import {sessionContext} from "./SessionContext";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -25,14 +24,13 @@ const useStyles = makeStyles(theme => ({
 
 const ChatLayout = ({commenterName, commentText, commenterImageUrl}) => {
     const classes = useStyles();
-    const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
 
     return (
         <div className={classes.container}>
             <div className={`${classes.bubbleContainer}`}>
                 <Grid container>
                     <Grid item >
-                        <Avatar  src={sessionContextValue.imageUrl} alt={sessionContextValue.imageUrl} />
+                        <Avatar  src={commenterImageUrl} alt={commenterImageUrl} />
                     </Grid>
                     <Grid item >
                         <div className={classes.bubble}>

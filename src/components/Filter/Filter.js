@@ -10,6 +10,7 @@ import RadioGroupControl from '../controls/RadioGroup';
 import Paper from "@material-ui/core/Paper";
 import Input from "../controls/Input";
 import Button from "../controls/Button";
+import {useForm} from "../UseForm";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -18,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: { boxShadow: "none"}
 }));
+
+const initialItemValues = {
+  minPrice: '',
+  maxPrice: ''
+};
 
 const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, options=null, updateFilters}) => {
   const isExpanded = expandedFilter===filterType;
@@ -28,18 +34,32 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
     isExpanded ? setExpandedFilter("") : setExpandedFilter(filterType);
   };
 
+  const {
+    values,
+    handleInputChange,
+    resetForm
+  } = useForm(initialItemValues);
+
+  const handleFormSubmit = e => {
+    e.preventDefault()
+    toggleSelected([values.minPrice, values.maxPrice]);
+  }
+
   const toggleSelected = (selection) => {
     if (selection) {
+      const label = filterClass==='selection' ? selection : `${filterType}: $${selection[0]} - $${selection[1]}`;
       updateFilters(
         {
           filterClass,
           filterType,
-          value
+          value,
+          label
         },
         {
           filterClass,
           filterType,
-          value: selection
+          value: selection,
+          label
         }
       );
 
@@ -49,15 +69,6 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
         setValue(selection);
       }
     }
-  };
-
-  const setRange = (low=0, high=1000000) => {
-    setValue([low, high]);
-    addFilter({
-      filterClass,
-      filterType,
-      value: [low, high],
-    });
   };
 
   return (
@@ -80,13 +91,13 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
             :
             <Grid container>
               <Grid item xs={4}>
-                <Input label="min" margin="dense" />
+                <Input name="minPrice" value={values.minPrice} onChange={handleInputChange} size="small" label="min" margin="dense" />
               </Grid>
               <Grid item xs={4}>
-                <Input label="max" margin="dense" />
+                <Input name="maxPrice" value={values.maxPrice} onChange={handleInputChange} label="max" margin="dense" />
               </Grid>
               <Grid item xs={4}>
-                <Button text="go"/>
+                <Button onClick={handleFormSubmit} size="medium" text="go"/>
               </Grid>
             </Grid>
         }

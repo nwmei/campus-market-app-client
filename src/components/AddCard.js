@@ -35,7 +35,7 @@ export default function AddCard(props) {
   const [createStoreItem] = useMutation(CreateStoreItemMutation);
 
   const addItemHandler = (data) => {
-    const {itemName, description, imageUrl, price} = data;
+    const {itemName, description, imageUrl, price, category="furniture", neighborhood="Warren Towers"} = data;
     createStoreItem({
       variables: {
         input: {
@@ -43,6 +43,8 @@ export default function AddCard(props) {
           price,
           imageUrl,
           description,
+          category,
+          neighborhood,
           seller: {
             id: sessionContextValue.userId,
             firstName: sessionContextValue.userFirstName,

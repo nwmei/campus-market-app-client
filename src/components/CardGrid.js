@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from "react";
 import { Grid } from "@material-ui/core";
 import AddCard from "./AddCard";
-import {useMutation, useQuery} from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import StoreItems from '../queries/StoreItems.graphql';
 import BetaCard from './BetaCard';
 import useCardGridStyles from './styles/CardGridStyles';
+import {applyFilters} from '../utils/HelperMethods';
 
-export default function CardGrid() {
+const CardGrid = ({filters}) => {
   const classes = useCardGridStyles();
   const [itemsAdded, setItemsAdded] = useState(0);
 
@@ -33,7 +34,7 @@ export default function CardGrid() {
             <AddCard incrementItemsAdded={incrementItemsAdded} />
           </Grid>
           {
-            storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) =>
+            storeItemsData && applyFilters(storeItemsData.storeItems, filters).slice(0).reverse().map((item, key) =>
                 <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                       enterable={true}
@@ -47,6 +48,8 @@ export default function CardGrid() {
                       seller={item.seller}
                       likes={item.likes}
                       imageUrl={item.imageUrl}
+                      category={item.category}
+                      neighborhood={item.neighborhood}
                   />
                 </Grid>
             )
@@ -56,5 +59,6 @@ export default function CardGrid() {
   } else {
     return <></>;
   }
-
 }
+
+export default CardGrid;

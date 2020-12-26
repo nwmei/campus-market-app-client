@@ -11,8 +11,13 @@ const Comments = ({commentsList}) => {
             </Typography>
             <Paper style={{maxHeight: 400, minHeight: 400, maxWidth:600, minWidth:600, overflow: 'auto'}} >
                 {commentsList.map((comment, key) => {
-                    return (<CommentUnit key={key} commentText={comment.commentText} commenterName={comment.commenterFullName}/>)
-                    //return (<p key={key}>{comment.commenterFullName + ': ' + comment.commentText}</p>)
+                    return (
+                      <CommentUnit key={key}
+                                   commentText={comment.commentText}
+                                   commenterName={comment.commenterFullName}
+                                   commenterImageUrl={comment.commenterImageUrl}
+                      />
+                    )
                 })}
             </Paper>
         </>

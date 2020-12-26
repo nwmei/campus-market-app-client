@@ -69,7 +69,8 @@ const Single = ({match}) => {
             setCommentsToDisplay(storeItemData.storeItem.comments.map((commentObject) => {
                 return ({
                     commenterFullName: commentObject.commenterFullName,
-                    commentText: commentObject.commentText
+                    commentText: commentObject.commentText,
+                    commenterImageUrl: commentObject.commenterImageUrl
                 })
             }))
         }
@@ -87,11 +88,12 @@ const Single = ({match}) => {
                         commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,
                         storeItemId,
                         commentText: addCommentText,
+                        commenterImageUrl: sessionContextValue.imageUrl
                     }
                 }
             }).then(() => {
                 const newComments = lodash.cloneDeep(commentsToDisplay);
-                newComments.push({commentText: addCommentText, commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName,})
+                newComments.push({commentText: addCommentText, commenterFullName: sessionContextValue.userFirstName + ' ' + sessionContextValue.userLastName, commenterImageUrl: sessionContextValue.imageUrl})
                 setCommentsToDisplay(newComments);
             })
         }

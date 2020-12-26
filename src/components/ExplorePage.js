@@ -22,7 +22,7 @@ const ExplorePage = () => {
               <div className={classes.divider}>
                 <Divider />
               </div>
-              <CardGrid />
+              <CardGrid filters={filters}/>
             </Grid>
           </Grid>
         </div>

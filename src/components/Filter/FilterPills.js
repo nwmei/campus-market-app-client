@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   pill: {
-    color: 'white',
+    color: 'black',
     background: 'linear-gradient(45deg, #ff1744  30%,  #ffc107 90%)',
   }
 }));
@@ -40,7 +40,7 @@ export default function Chips({filters}) {
           <Chip
             className={classes.pill}
             key={key}
-            label={filter.value}
+            label={filter.label}
             onDelete={handleDelete}
           />
           )
