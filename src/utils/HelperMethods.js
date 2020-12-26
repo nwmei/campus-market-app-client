@@ -60,12 +60,13 @@ export const applyFilters = (storeItems, filters) => {
                       break;
                   }
                   case "Price": {
-                      const targetPriceMin = filter.value[0];
-                      const targetPriceMax = filter.value[1];
-                      const itemPrice = item.price;
+                      const targetPriceMin = parseInt(filter.value[0]);
+                      const targetPriceMax = parseInt(filter.value[1]);
+                      const itemPrice = parseInt(item.price);
+
                       if (itemPrice < targetPriceMin || itemPrice > targetPriceMax) {
                           keepItem = false;
-                      };
+                      }
                       break;
                   }
               }
