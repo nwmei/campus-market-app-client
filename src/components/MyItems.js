@@ -41,7 +41,7 @@ const MyItems = () => {
     <div>
       <Grid container spacing={3} className={classes.gridContainer} >
         <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-          <Filters filters={filters} updateFilters={updateFilters} />
+          <Filters filters={filters} updateFilters={updateFilters} clearFilters={() => setFilters([])}/>
         </Grid>
         <Grid item xs={12} sm={10}>
           <FilterPills filters={filters} updateFilters={updateFilters} />
