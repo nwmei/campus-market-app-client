@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
 import Filter from "./Filter";
 import filterOptions from "./FilterOptions";
+import MuiLink from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,16 +20,24 @@ const useStyles = makeStyles((theme) => ({
   filterText: {
     paddingLeft: 10,
     paddingBottom: 0
-  }
+  },
 }));
 
-export default function Filters({filters, updateFilters}) {
+export default function Filters({filters, updateFilters, clearFilters}) {
   const [expandedFilter, setExpandedFilter] = useState("");
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <p className={classes.filterText}>filters</p>
+      {
+        filters.length > 0 ?
+          <MuiLink  onClick={clearFilters}>
+            <p className={classes.filterText}>clear filters</p>
+          </MuiLink>
+          :
+          <p className={classes.filterText}>filters</p>
+      }
+
       <Paper style={{maxHeight: 650, overflow: 'auto'}} >
         {
           filterOptions.map((filterOption, key) => {
@@ -47,6 +56,7 @@ export default function Filters({filters, updateFilters}) {
           })
         }
       </Paper>
+
     </div>
   );
 }
