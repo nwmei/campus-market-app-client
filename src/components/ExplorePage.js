@@ -16,6 +16,9 @@ const ExplorePage = () => {
       return activeFilter.value !== oldFilter.value
     });
     if (oldFilter.value !== newFilter.value) {
+      if(typeof newFilter.value === String) {
+        newFilter.value = [newFilter.value]
+      }
       newActiveFilters.push(newFilter);
     }
     setFilters(newActiveFilters)

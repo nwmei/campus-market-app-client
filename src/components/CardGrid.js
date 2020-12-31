@@ -8,13 +8,16 @@ import useCardGridStyles from './styles/CardGridStyles';
 import {applyFilters} from '../utils/HelperMethods';
 
 const CardGrid = ({filters}) => {
+  console.log(filters)
   const classes = useCardGridStyles();
   const [itemsAdded, setItemsAdded] = useState(0);
 
   const {data: storeItemsData} = useQuery(StoreItems, {
     // apollo needs a variable to call query again
     variables: {
-      input: itemsAdded
+      input: {
+        filters
+      }
     }
   });
 
@@ -34,7 +37,7 @@ const CardGrid = ({filters}) => {
             <AddCard incrementItemsAdded={incrementItemsAdded} />
           </Grid>
           {
-            storeItemsData && applyFilters(storeItemsData.storeItems, filters).slice(0).reverse().map((item, key) =>
+            storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) =>
                 <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                       enterable={true}
