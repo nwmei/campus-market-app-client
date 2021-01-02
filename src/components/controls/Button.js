@@ -24,7 +24,6 @@ export default function Button(props) {
     const classes = useStyles();
 
     return (
-      <MuiThemeProvider theme={redTheme}>
         <MuiButton
             style={{ background: redTheme.palette.primary.mainGradient }}
             variant={variant || "contained"}
@@ -35,6 +34,5 @@ export default function Button(props) {
             classes={{ root: props.filterButton?classes.filter: classes.root, label: classes.label }}>
             {text}
         </MuiButton>
-      </MuiThemeProvider>
     )
 }

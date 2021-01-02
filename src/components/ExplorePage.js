@@ -5,8 +5,9 @@ import React, {useState} from 'react';
 import ExplorePageStyles from './styles/ExplorePageStyles';
 import Divider from '@material-ui/core/Divider';
 import FilterPills from "./Filter/FilterPills";
-import Button from "./controls/Button"
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Button from './controls/Button'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const ExplorePage = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
@@ -47,10 +48,9 @@ const ExplorePage = () => {
               </div>
               <CardGrid itemsQueryInfo={itemsQueryInfo} />
               <div className={classes.pageNavigation} >
-                <Button text="<" onClick={() => updatePageNumber(itemsQueryInfo.page-1)} disabled={itemsQueryInfo.page===1}/>
-                {itemsQueryInfo.page}
-                <Button text=">" onClick={() => updatePageNumber(itemsQueryInfo.page+1)}/>
-
+                <Button text="back" startIcon={<ArrowBackIosIcon />} onClick={() => updatePageNumber(itemsQueryInfo.page-1)} disabled={itemsQueryInfo.page===1}/>
+                <h4>page {itemsQueryInfo.page} </h4>
+                <Button text="next" startIcon={<ArrowForwardIosIcon />} onClick={() => updatePageNumber(itemsQueryInfo.page+1)}/>
               </div>
             </Grid>
           </Grid>

@@ -1,4 +1,4 @@
-query MyItemsQuery($input: UserIdInput!) {
+query MyItemsQuery($input: MyItemsInput!) {
     myItems(input: $input) {
         likedByMe {
             id,

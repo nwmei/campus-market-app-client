@@ -11,7 +11,14 @@ const MyItemsStyles = makeStyles({
     },
     divider: props => ({
         marginTop: (props.numberOfFilters === 0) ? "0px" : "10px"
-    })
+    }),
+    pageNavigation: {
+        marginTop: "10px",
+        margin: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
 
 export default MyItemsStyles;
