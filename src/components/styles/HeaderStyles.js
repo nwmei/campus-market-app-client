@@ -1,4 +1,5 @@
 import { makeStyles, fade } from '@material-ui/core/styles';
+import { gradientColor } from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     //background: 'linear-gradient(45deg, #212121 30%, #424242 90%)',
     //background: 'linear-gradient(45deg,#f44336  30%,  #9c27b0 90%)',
     //background: 'linear-gradient(45deg,#f50057  30%,  #ffc107 90%)',
-    background: 'linear-gradient(45deg, #ff1744  30%,  #ffc107 90%)',
+    background: gradientColor,
   },
 }));
 

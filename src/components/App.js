@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { Redirect } from 'react-router'
 import ExplorePage from './ExplorePage';
@@ -10,6 +11,16 @@ import SessionContextProvider from './SessionContext';
 import Single from "./Single";
 import Header from "./Header";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiButton: {
+      root: {
+        borderRadius: 10,
+      },
+    },
+  },
+});
 
 const App = () => {
   const [userDetails, setUserDetails] = useState({});
@@ -45,55 +56,54 @@ const App = () => {
     return (
       <ApolloProvider client={client}>
         <SessionContextProvider userDetails={userDetails}>
-          <Router>
-            <div>
-              {showHeader? <Header clearUserDetails={() => setUserDetails({})}/> : <></>}
-              <Switch>
-                <Route
-                  component={
-                    routeToLogin? () => <Redirect to="/login" /> : () => <Redirect to="/explore"/>}
-                  exact path="/"
-                />
-                <Route
-                  component={
-                    routeToLogin? () => <Redirect to="/login" />
-                    : () => <ExplorePage accessToken={accessToken} />}
-                  exact path="/explore"
-                />
-                <Route component={routeToLogin? () => <Redirect to="/login" /> : Single}
-                  path="/item/:itemId" />
-                <Route
-                  component={() => <LandingPage setSessionQueryResponded={setSessionQueryResponded} />}
-                  exact path="/login"
-                />
-                <Route
-                  component={
-                    routeToLogin? () => <Redirect to="/login" />
-                    : () => <MyItems accessToken={accessToken} />}
-                  path="/myItems"
-                />
-                <Route
-                  component={
-                    routeToLogin? () => <Redirect to="/login" />
-                    : () => <About accessToken={accessToken} />}
-                  path="/about"
-                />
-                <Route
-                  component={
-                    routeToLogin? () => <Redirect to="/login" />
-                      : () => <p>invalid url</p>}
-                  path="/"
-                />
-              </Switch>
-            </div>
-          </Router>
+          <ThemeProvider theme={theme}>
+            <Router>
+              <div>
+                {showHeader? <Header clearUserDetails={() => setUserDetails({})}/> : <></>}
+                <Switch>
+                  <Route
+                    component={
+                      routeToLogin? () => <Redirect to="/login" /> : () => <Redirect to="/explore"/>}
+                    exact path="/"
+                  />
+                  <Route
+                    component={
+                      routeToLogin? () => <Redirect to="/login" />
+                      : () => <ExplorePage accessToken={accessToken} />}
+                    exact path="/explore"
+                  />
+                  <Route component={routeToLogin? () => <Redirect to="/login" /> : Single}
+                    path="/item/:itemId" />
+                  <Route
+                    component={() => <LandingPage setSessionQueryResponded={setSessionQueryResponded} />}
+                    exact path="/login"
+                  />
+                  <Route
+                    component={
+                      routeToLogin? () => <Redirect to="/login" />
+                      : () => <MyItems accessToken={accessToken} />}
+                    path="/myItems"
+                  />
+                  <Route
+                    component={
+                      routeToLogin? () => <Redirect to="/login" />
+                      : () => <About accessToken={accessToken} />}
+                    path="/about"
+                  />
+                  <Route
+                    component={
+                      routeToLogin? () => <Redirect to="/login" />
+                        : () => <p>invalid url</p>}
+                    path="/"
+                  />
+                </Switch>
+              </div>
+            </Router>
+          </ThemeProvider>
         </SessionContextProvider>
       </ApolloProvider>
     )
   }
-
-
-
-}
+};
 
 export default App;

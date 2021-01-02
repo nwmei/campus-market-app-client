@@ -26,3 +26,5 @@ export const categories = [
   {id: '2', title: 'food'},
   {id: '3', title: 'electronics'},
 ];
+
+export const gradientColor = 'linear-gradient(45deg, #ff1744  30%,  #ffc107 90%)';

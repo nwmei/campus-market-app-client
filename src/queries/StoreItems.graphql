@@ -1,4 +1,4 @@
-query StoreItems($input: Int!) {
+query StoreItems($input: StoreItemsInput!) {
   storeItems(input: $input) {
     id,
     name,
