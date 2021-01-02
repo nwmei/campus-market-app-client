@@ -5,17 +5,16 @@ import {useQuery} from '@apollo/client';
 import StoreItems from '../queries/StoreItems.graphql';
 import BetaCard from './BetaCard';
 import useCardGridStyles from './styles/CardGridStyles';
-import {applyFilters} from '../utils/HelperMethods';
 
-const CardGrid = ({filters}) => {
+const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
   console.log(filters)
   const classes = useCardGridStyles();
   const [itemsAdded, setItemsAdded] = useState(0);
 
   const {data: storeItemsData} = useQuery(StoreItems, {
-    // apollo needs a variable to call query again
     variables: {
       input: {
+        page,
         filters
       }
     }
@@ -31,7 +30,6 @@ const CardGrid = ({filters}) => {
             container
             spacing={4}
             className={classes.gridContainer}
-            justify="center"
         >
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <AddCard incrementItemsAdded={incrementItemsAdded} />
