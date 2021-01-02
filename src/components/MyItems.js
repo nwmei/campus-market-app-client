@@ -68,9 +68,6 @@ const MyItems = () => {
           </div>
           <Grid container spacing={4} className={classes.subcontainer}>
             <Grid item xs={12}>
-              MY ITEMS
-            </Grid>
-            <Grid item xs={12}>
               ITEMS YOU'VE LISTED
             </Grid>
             {
