@@ -1,9 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Face';
-import DoneIcon from '@material-ui/icons/Done';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +22,6 @@ export default function Chips({filters, updateFilters}) {
   const classes = useStyles();
 
   const handleDelete = ({filterClass, filterType, value}) => {
-    console.info('You clicked the delete icon.');
     const label = filterClass==='selection' ? value : `${filterType}: $${value[0]} - $${value[1]}`;
     updateFilters(
       {
@@ -43,10 +39,6 @@ export default function Chips({filters, updateFilters}) {
     );
   };
 
-  const handleClick = () => {
-    console.info('You clicked the Chip.');
-  };
-
   return (
     <div className={classes.root}>
       {
@@ -61,8 +53,6 @@ export default function Chips({filters, updateFilters}) {
           )
         })
       }
-
-
     </div>
   );
 }
