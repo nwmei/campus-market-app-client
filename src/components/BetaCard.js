@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -21,6 +21,7 @@ import {getAlternateImageUrl} from "../utils/HelperMethods";
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import AddCommentIcon from '@material-ui/icons/AddComment';
+import {sessionContext} from "./SessionContext";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -60,14 +61,14 @@ export default function Card1(props) {
   const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable, category, neighborhood } = props;
   const [likeItemMutation] = useMutation(LikeItem);
   const [unlikeItemMutation] = useMutation(UnlikeItem);
-
   const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
+  const {sessionContextValue} = useContext(sessionContext);
 
   const likeItemHandler = () => {
     likeItemMutation({
       variables: {
         input: {
-          likerId: seller.id,
+          likerId: sessionContextValue.userId,
           storeItemId: itemId
         }
       }
@@ -78,7 +79,7 @@ export default function Card1(props) {
     unlikeItemMutation({
       variables: {
         input: {
-          likerId: seller.id,
+          likerId: sessionContextValue.userId,
           storeItemId: itemId
         }
       }
