@@ -26,7 +26,8 @@ const MyItems = () => {
         listedPage: itemsQueryInfo.listedPage,
         filters: itemsQueryInfo.filters
       }
-    }
+    },
+    fetchPolicy: "no-cache"
   });
 
   const updateFilters = (oldFilter, newFilter) => {

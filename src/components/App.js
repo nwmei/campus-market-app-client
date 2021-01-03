@@ -70,10 +70,11 @@ const App = () => {
                   <Route
                     component={
                       routeToLogin? () => <Redirect to="/login" />
-                      : () => <ExplorePage accessToken={accessToken} />}
+                      : () => <ExplorePage />}
                     exact path="/explore"
                   />
-                  <Route component={routeToLogin? () => <Redirect to="/login" /> : Single}
+                  <Route component={routeToLogin? () => <Redirect to="/login" />
+                      : () => <Single />}
                     path="/item/:itemId" />
                   <Route
                     component={() => <LandingPage setSessionQueryResponded={setSessionQueryResponded} />}
@@ -82,13 +83,13 @@ const App = () => {
                   <Route
                     component={
                       routeToLogin? () => <Redirect to="/login" />
-                      : () => <MyItems accessToken={accessToken} />}
+                      : () => <MyItems />}
                     path="/myItems"
                   />
                   <Route
                     component={
                       routeToLogin? () => <Redirect to="/login" />
-                      : () => <About accessToken={accessToken} />}
+                      : () => <About />}
                     path="/about"
                   />
                   <Route

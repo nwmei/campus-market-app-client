@@ -16,7 +16,8 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
         page,
         filters
       }
-    }
+    },
+    fetchPolicy: "no-cache"
   });
 
   const incrementItemsAdded = () => {

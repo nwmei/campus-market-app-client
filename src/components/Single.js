@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState, useRef} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -9,14 +9,11 @@ import IconButton from '@material-ui/core/IconButton';
 import {useMutation, useQuery} from '@apollo/client';
 import Button from "./controls/Button";
 import StoreItem from '../queries/StoreItem.graphql';
-import {getImageUrl, PopulateSessionContext} from "../utils/HelperMethods";
 import CreateComment from "../mutations/CreateComment.graphql";
-import SessionUserDetails from "../queries/SessionUserDetails.graphql";
 import {sessionContext} from "./SessionContext";
 import Comments from "./Comments";
 import BetaCard from "./BetaCard";
 import lodash from 'lodash';
-import { Redirect } from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,16 +43,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Single = ({match}) => {
-    const history = useHistory();
-    const accessToken = localStorage.getItem('accessToken');
-    const storeItemId = match.params.itemId;
-    const {data: sessionData, loading} = useQuery(SessionUserDetails, { variables: { input: { accessToken } }});
-    const {data: storeItemData} = useQuery(StoreItem, {variables: {input: {id: storeItemId}}});
+const Single = () => {
+    const storeItemId = useParams().itemId;
+    const {data: storeItemData} = useQuery(StoreItem,
+      {
+          variables: {
+            input: {
+              id: storeItemId
+            }
+          },
+          fetchPolicy: "no-cache"
+          }
+    );
     const [createComment] = useMutation(CreateComment);
-    const {sessionContextValue, setSessionContext, clearSessionContext} = useContext(sessionContext);
-    const [userContextSet, setUserContextSet] = useState(false);
-    const [helperFunctionDone, setHelperFunctionDone] = useState(false);
+    const {sessionContextValue} = useContext(sessionContext);
     const [itemData, setItemData] = useState({});
     const [commentsToDisplay, setCommentsToDisplay] = useState([]);
     const [addCommentText, setAddCommentText] = useState("");
@@ -63,7 +64,6 @@ const Single = ({match}) => {
 
     let textInput = useRef(null);
 
-    useEffect(()=> PopulateSessionContext(sessionData, setSessionContext, setUserContextSet, history, setHelperFunctionDone), [sessionData]);
     useEffect(() => {
         if (storeItemData) {
             setItemData(storeItemData.storeItem);
