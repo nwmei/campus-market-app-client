@@ -11,6 +11,7 @@ import SessionContextProvider from './SessionContext';
 import Single from "./Single";
 import Header from "./Header";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
+import Error from "./Error";
 
 const theme = createMuiTheme({
   overrides: {
@@ -93,7 +94,7 @@ const App = () => {
                   <Route
                     component={
                       routeToLogin? () => <Redirect to="/login" />
-                        : () => <p>invalid url</p>}
+                        : () => <Error/>}
                     path="/"
                   />
                 </Switch>

@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 import { Grid } from "@material-ui/core";
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useState} from 'react';
 import { sessionContext } from './SessionContext';
 import "./styles.css";
 import {useQuery} from "@apollo/client";
@@ -11,9 +11,7 @@ import BetaCard from "./BetaCard";
 import Filters from "./Filter/Filters";
 import FilterPills from "./Filter/FilterPills";
 import Divider from "@material-ui/core/Divider";
-import Button from "./controls/Button";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import PageNavigation from "./PageNavigation";
 
 const MyItems = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({listedPage: 1, likedPage: 1, filters: []});
@@ -92,11 +90,11 @@ const MyItems = () => {
               )
             }
             <Grid item xs={12}>
-              <div className={classes.pageNavigation} >
-                <Button text="back" startIcon={<ArrowBackIosIcon />} onClick={() => updateListedPageNumber(itemsQueryInfo.listedPage-1)} disabled={itemsQueryInfo.listedPage===1}/>
-                <h4>page {itemsQueryInfo.listedPage} </h4>
-                <Button text="next" startIcon={<ArrowForwardIosIcon />} onClick={() => updateListedPageNumber(itemsQueryInfo.listedPage+1)}/>
-              </div>
+              <PageNavigation
+                backOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage-1)}
+                nextOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage+1)}
+                pageNumber={itemsQueryInfo.listedPage}
+              />
             </Grid>
             <Grid item xs={12}>
               ITEMS YOU'VE LIKED:
@@ -123,11 +121,11 @@ const MyItems = () => {
               )
             }
             <Grid item xs={12}>
-              <div className={classes.pageNavigation} >
-                <Button text="back" startIcon={<ArrowBackIosIcon />} onClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage-1)} disabled={itemsQueryInfo.likedPage===1}/>
-                <h4>page {itemsQueryInfo.likedPage} </h4>
-                <Button text="next" startIcon={<ArrowForwardIosIcon />} onClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage+1)}/>
-              </div>
+              <PageNavigation
+                backOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage-1)}
+                nextOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage+1)}
+                pageNumber={itemsQueryInfo.likedPage}
+              />
             </Grid>
           </Grid>
         </Grid>

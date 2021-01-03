@@ -1,13 +1,11 @@
-import CardGrid from './CardGrid';
+import ExploreCardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Filter/Filters';
 import React, {useState} from 'react';
 import ExplorePageStyles from './styles/ExplorePageStyles';
 import Divider from '@material-ui/core/Divider';
 import FilterPills from "./Filter/FilterPills";
-import Button from './controls/Button'
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import PageNavigation from "./PageNavigation";
 
 const ExplorePage = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
@@ -36,25 +34,25 @@ const ExplorePage = () => {
   };
 
     return (
-        <div>
-          <Grid container spacing={3} className={classes.root}>
-            <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-              <Filters filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={() => clearFilters()}/>
-            </Grid>
-            <Grid item xs={12} sm={10}>
-              <FilterPills filters={itemsQueryInfo.filters} updateFilters={updateFilters}/>
-              <div className={classes.divider}>
-                <Divider />
-              </div>
-              <CardGrid itemsQueryInfo={itemsQueryInfo} />
-              <div className={classes.pageNavigation} >
-                <Button text="back" startIcon={<ArrowBackIosIcon />} onClick={() => updatePageNumber(itemsQueryInfo.page-1)} disabled={itemsQueryInfo.page===1}/>
-                <h4>page {itemsQueryInfo.page} </h4>
-                <Button text="next" startIcon={<ArrowForwardIosIcon />} onClick={() => updatePageNumber(itemsQueryInfo.page+1)}/>
-              </div>
-            </Grid>
+      <div>
+        <Grid container spacing={3} className={classes.root}>
+          <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
+            <Filters filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={() => clearFilters()}/>
           </Grid>
-        </div>
+          <Grid item xs={12} sm={10}>
+            <FilterPills filters={itemsQueryInfo.filters} updateFilters={updateFilters}/>
+            <div className={classes.divider}>
+              <Divider />
+            </div>
+            <ExploreCardGrid itemsQueryInfo={itemsQueryInfo} />
+            <PageNavigation
+              backOnClick={() => updatePageNumber(itemsQueryInfo.page-1)}
+              nextOnClick={() => updatePageNumber(itemsQueryInfo.page+1)}
+              pageNumber={itemsQueryInfo.page}
+            />
+          </Grid>
+        </Grid>
+      </div>
     )
 };
 

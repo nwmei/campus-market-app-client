@@ -7,7 +7,6 @@ import BetaCard from './BetaCard';
 import useCardGridStyles from './styles/CardGridStyles';
 
 const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
-  console.log(filters)
   const classes = useCardGridStyles();
   const [itemsAdded, setItemsAdded] = useState(0);
 
@@ -35,7 +34,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
             <AddCard incrementItemsAdded={incrementItemsAdded} />
           </Grid>
           {
-            storeItemsData && storeItemsData.storeItems.slice(0).reverse().map((item, key) =>
+            storeItemsData && storeItemsData.storeItems.map((item, key) =>
                 <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
                   <BetaCard
                       enterable={true}
