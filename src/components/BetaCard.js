@@ -22,6 +22,7 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import {sessionContext} from "./SessionContext";
+import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -55,6 +56,14 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: 3
   }
 }));
+
+const theme = createMuiTheme({
+  typography: {
+    // In Chinese and Japanese the characters are usually larger,
+    // so a smaller fontsize may be appropriate.
+    fontSize: 12,
+  },
+});
 
 export default function Card1(props) {
   const history = useHistory();
@@ -140,7 +149,7 @@ export default function Card1(props) {
             date == 'Invalid Date'? 
             'no date'
             :
-            daysAgo<1 ? 'listed today' : `listed ${Math.round(daysAgo)} days ago`
+            daysAgo<1 ? 'listed today' : `${Math.round(daysAgo)} days ago`
           }
         </Typography>
         {
@@ -159,7 +168,8 @@ export default function Card1(props) {
       </CardActions>
       <Collapse in={!enterable || expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography>{`Listed by: ${seller.firstName} ${seller.lastName}`} </Typography>
+          <ThemeProvider theme={theme}>
+          <Typography >{`Owner: ${seller.firstName} ${seller.lastName}`} </Typography>
           <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
           <Typography>{`Category: ${category}`} </Typography>
           <Typography>{`Neighborhood: ${neighborhood}`} </Typography>
@@ -173,6 +183,7 @@ export default function Card1(props) {
               </MuiLink>
             }
           </Typography>
+          </ThemeProvider>
         </CardContent>
       </Collapse>
     </Card>

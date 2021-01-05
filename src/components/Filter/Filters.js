@@ -38,7 +38,7 @@ export default function Filters({filters, updateFilters, clearFilters}) {
           <p className={classes.filterText}>filters</p>
       }
 
-      <Paper style={{maxHeight: 650, overflow: 'auto'}} >
+      <Paper >
         {
           filterOptions.map((filterOption, key) => {
             return (

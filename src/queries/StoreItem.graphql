@@ -11,7 +11,7 @@ query StoreItem($input: StoreItemInput!) {
             id,
             firstName,
             lastName,
-            emailAddress,
+            emailAddress
         },
         comments {
             commenterFullName,
