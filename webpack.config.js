@@ -3,7 +3,8 @@ var webpack = require('webpack');
 
 module.exports = {
   output: {
-    publicPath: "/"
+    publicPath: "/",
+    filename: "bundle.js"
   },
   devtool: 'cheap-module-source-map',
   module: {
