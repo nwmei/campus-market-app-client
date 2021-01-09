@@ -34,7 +34,7 @@ const MenuAppBar = ({clearUserDetails}) => {
           </Button>
 
           <SearchBar />
-          <p>mode: {process.env.NODE_ENV}</p>
+          <p>Mode: {process.env.NODE_ENV}</p>
           <div className={classes.grow} />
 
           <UserIcon clearUserDetails={clearUserDetails}/>
