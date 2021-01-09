@@ -9,7 +9,7 @@ import useStylesHeader from './styles/HeaderStyles';
 import SearchBar from './SearchBar';
 import UserIcon from './UserIcon';
 import {Link} from "react-router-dom";
-import logo from './logo2.hpng'
+import logo from './logo2.png'
 
 import "./styles.css"
 
