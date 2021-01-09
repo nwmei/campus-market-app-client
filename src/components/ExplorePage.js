@@ -46,8 +46,14 @@ const ExplorePage = () => {
             </div>
             <ExploreCardGrid itemsQueryInfo={itemsQueryInfo} />
             <PageNavigation
-              backOnClick={() => updatePageNumber(itemsQueryInfo.page-1)}
-              nextOnClick={() => updatePageNumber(itemsQueryInfo.page+1)}
+              backOnClick={() => {
+                window.scrollTo( 0, 0)
+                updatePageNumber(itemsQueryInfo.page-1);
+              }}
+              nextOnClick={() => {
+                window.scrollTo( 0, 0)
+                updatePageNumber(itemsQueryInfo.page+1);
+              }}
               pageNumber={itemsQueryInfo.page}
             />
           </Grid>

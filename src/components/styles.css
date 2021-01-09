@@ -9,6 +9,7 @@
 }
 
 .photo {
-  height: 55px;
-  width: 240px;
+  height: 45px;
+  width: 320px;
+  padding-right: 10px;
 }

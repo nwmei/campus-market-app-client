@@ -9,7 +9,7 @@ import useStylesHeader from './styles/HeaderStyles';
 import SearchBar from './SearchBar';
 import UserIcon from './UserIcon';
 import {Link} from "react-router-dom";
-import logo from './testLogo4.png'
+import logo from './logo2.hpng'
 
 import "./styles.css"
 
@@ -30,7 +30,7 @@ const MenuAppBar = ({clearUserDetails}) => {
             My Items
           </Button>
           <Button size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} href='/about'>
-            About festive
+            About app
           </Button>
 
           <SearchBar />
