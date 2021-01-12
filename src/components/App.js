@@ -12,9 +12,7 @@ import Single from "./Single";
 import Header from "./Header";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import Error from "./Error";
-import {
-  gql
-} from '@apollo/client';
+import {gql} from '@apollo/client';
 
 const theme = createMuiTheme({
   overrides: {
@@ -34,7 +32,8 @@ const App = () => {
 
   const client = new ApolloClient({
     //uri: 'http://localhost:4000/graphql',
-    uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod',
+    //uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod',
+    uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod/myresource',
     cache: new InMemoryCache(),
     fetchOptions: {
       mode: 'no-cors',
@@ -45,7 +44,7 @@ const App = () => {
   .query({
     query: gql`
         query {
-            hello
+            testQuery
         }
     `
   })
