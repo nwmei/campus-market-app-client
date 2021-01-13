@@ -33,7 +33,7 @@ const App = () => {
   const client = new ApolloClient({
     //uri: 'http://localhost:4000/graphql',
     //uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod',
-    uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod/myresource',
+    uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod/test',
     cache: new InMemoryCache(),
     fetchOptions: {
       mode: 'no-cors',
