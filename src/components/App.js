@@ -57,7 +57,7 @@ const App = () => {
           setUserDetails(result.data);
         }
         setSessionQueryResponded(true);
-      });
+      }).catch(e => console.log("error with sessionQuery: ", e));
   } else {
     if (!setSessionQueryResponded) {
       setSessionQueryResponded(true)
