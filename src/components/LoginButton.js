@@ -21,13 +21,15 @@ const LoginButton = ({navigateAfterLogin}) => {
         createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
         .then((data) => userId = data.createUser.id);
       }
-      console.log("before set token")
-      setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
+      if (userId !== '') {
+        setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
           .then((data) => {
-            console.log("return from setaccesstoken: ", data)
+            console.log("return from setaccesstoken: ", data);
             localStorage.setItem("accessToken", userData.accessToken);
             navigateAfterLogin();
           });
+      }
+
     }
   }, [userExistsData]);
 
