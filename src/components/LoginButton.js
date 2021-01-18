@@ -1,16 +1,28 @@
 import React from 'react';
 import {useState, useEffect} from 'react'
-import {useMutation, useLazyQuery } from '@apollo/client';
+import {useMutation, useLazyQuery, useQuery } from '@apollo/client';
 import GoogleLogin from 'react-google-login';
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
 import SetAccessToken from '../mutations/SetAccessToken.graphql';
+import StoreItems from '../queries/StoreItems.graphql';
 
 const LoginButton = ({navigateAfterLogin}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
   const [setAccessToken] = useMutation(SetAccessToken);
   const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
+
+
+  const {data: storeItemsData} = useQuery(StoreItems, {
+    variables: {
+      input: {
+        page: 1,
+        filters: []
+      }
+    },
+    fetchPolicy: "no-cache"
+  });
 
   useEffect(() => {
     console.log(userExistsData)
@@ -23,6 +35,7 @@ const LoginButton = ({navigateAfterLogin}) => {
       }
       setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
           .then((data) => {
+            console.log("return from setaccesstoken: ", data)
             localStorage.setItem("accessToken", userData.accessToken);
             navigateAfterLogin();
           });
@@ -40,10 +53,12 @@ const LoginButton = ({navigateAfterLogin}) => {
       imageUrl: response.profileObj.imageUrl,
     })
     userExistsQuery({ variables: { input: { emailAddress: response.profileObj.email } }})
+    console.log(userExistsData)
   }
 
   const loginRequestHandler = () => {
-    localStorage.setItem("accessToken", "");
+    //localStorage.setItem("accessToken", "");
+    console.log("login requested")
   };
 
   return (
