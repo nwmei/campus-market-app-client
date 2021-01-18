@@ -19,9 +19,17 @@ const LoginButton = ({navigateAfterLogin}) => {
       let userId = id;
       if (!exists) {
         createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
-        .then((data) => userId = data.createUser.id);
-      }
-      if (userId !== '') {
+        .then((data) => {
+          console.log("data from create user: ", data);
+          userId = data.data.createUser.id;
+          setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
+            .then((data) => {
+              console.log("return from setaccesstoken: ", data);
+              localStorage.setItem("accessToken", userData.accessToken);
+              navigateAfterLogin();
+            });
+        });
+      } else {
         setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
           .then((data) => {
             console.log("return from setaccesstoken: ", data);
@@ -29,7 +37,6 @@ const LoginButton = ({navigateAfterLogin}) => {
             navigateAfterLogin();
           });
       }
-
     }
   }, [userExistsData]);
 
