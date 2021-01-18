@@ -11,28 +11,35 @@ const LoginButton = ({navigateAfterLogin}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
   const [setAccessToken] = useMutation(SetAccessToken);
-  const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
+  const [email, setEmail] = useState('');
+  //const { data: userExistsData, refetch } = useQuery(UserExistsQuery, { variables: { input: { emailAddress: email } }, fetchPolicy: "no-cache"});
+  const [userExistsQuery, { data: userExistsData }] = useLazyQuery(UserExistsQuery);
 
+  // const {data: storeItemsData} = useQuery(StoreItems, {
+  //   variables: {
+  //     input: {
+  //       page: 1,
+  //       filters: []
+  //     }
+  //   },
+  //   fetchPolicy: "no-cache"
+  // });
+  //
+  // useEffect(() => {
+  //   console.log(storeItemsData)
+  // }, [storeItemsData])
 
-  const {data: storeItemsData} = useQuery(StoreItems, {
-    variables: {
-      input: {
-        page: 1,
-        filters: []
-      }
-    },
-    fetchPolicy: "no-cache"
-  });
 
   useEffect(() => {
     console.log(userExistsData)
-    if (userExistsData != null) {
+    if (userExistsData && userExistsData.userExists) {
       const { userExists: {exists, id} } = userExistsData;
       let userId = id;
       if (!exists) {
         createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
         .then((data) => userId = data.createUser.id);
       }
+      console.log("before set token")
       setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
           .then((data) => {
             console.log("return from setaccesstoken: ", data)
@@ -51,9 +58,8 @@ const LoginButton = ({navigateAfterLogin}) => {
       lastName: response.profileObj.familyName,
       emailAddress: response.profileObj.email,
       imageUrl: response.profileObj.imageUrl,
-    })
+    });
     userExistsQuery({ variables: { input: { emailAddress: response.profileObj.email } }})
-    console.log(userExistsData)
   }
 
   const loginRequestHandler = () => {
