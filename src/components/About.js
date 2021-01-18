@@ -16,14 +16,13 @@ const About = () => {
           Hi {sessionContextValue.userFirstName},
         </h1>
         <h1>
-          About Smarter Trade App
+          About campusmarketapp.com
         </h1>
         <h2>
           A message from the Founder and CEO:
         </h2>
         <p>
-          A message from the Founder and CEO:
-          Our goal is to give you the power to buy and sell things with a frictionless experience
+          Our goal is to give you the power to buy and sell things with a frictionless experience.
         </p>
       </div>
     </div>

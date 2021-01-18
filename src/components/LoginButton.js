@@ -13,18 +13,15 @@ const LoginButton = ({navigateAfterLogin}) => {
   const [userExistsQuery, { data: userExistsData }] = useLazyQuery(UserExistsQuery);
 
   useEffect(() => {
-    console.log(userExistsData)
     if (userExistsData && userExistsData.userExists) {
       const { userExists: {exists, id} } = userExistsData;
       let userId = id;
       if (!exists) {
         createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
         .then((data) => {
-          console.log("data from create user: ", data);
           userId = data.data.createUser.id;
           setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
             .then((data) => {
-              console.log("return from setaccesstoken: ", data);
               localStorage.setItem("accessToken", userData.accessToken);
               navigateAfterLogin();
             });
@@ -32,7 +29,6 @@ const LoginButton = ({navigateAfterLogin}) => {
       } else {
         setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
           .then((data) => {
-            console.log("return from setaccesstoken: ", data);
             localStorage.setItem("accessToken", userData.accessToken);
             navigateAfterLogin();
           });
@@ -42,7 +38,6 @@ const LoginButton = ({navigateAfterLogin}) => {
 
   
   const loginSuccessHandler = async (response) => {
-    console.log(response)
     setUserData({
       accessToken: response.accessToken,
       firstName: response.profileObj.givenName,

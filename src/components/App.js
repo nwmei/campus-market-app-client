@@ -45,7 +45,6 @@ const App = () => {
   if (!userDetails.sessionUserDetails && !sessionQueryResponded) {
     client.query({query: SessionUserDetails, variables: {input: {accessToken}}})
       .then((result) => {
-        console.log(result)
         if (result.data.sessionUserDetails) {
           setUserDetails(result.data);
         }
