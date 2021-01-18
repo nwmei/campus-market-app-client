@@ -1,34 +1,16 @@
 import React from 'react';
 import {useState, useEffect} from 'react'
-import {useMutation, useLazyQuery, useQuery } from '@apollo/client';
+import {useMutation, useLazyQuery } from '@apollo/client';
 import GoogleLogin from 'react-google-login';
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
 import SetAccessToken from '../mutations/SetAccessToken.graphql';
-import StoreItems from '../queries/StoreItems.graphql';
 
 const LoginButton = ({navigateAfterLogin}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
   const [setAccessToken] = useMutation(SetAccessToken);
-  const [email, setEmail] = useState('');
-  //const { data: userExistsData, refetch } = useQuery(UserExistsQuery, { variables: { input: { emailAddress: email } }, fetchPolicy: "no-cache"});
   const [userExistsQuery, { data: userExistsData }] = useLazyQuery(UserExistsQuery);
-
-  // const {data: storeItemsData} = useQuery(StoreItems, {
-  //   variables: {
-  //     input: {
-  //       page: 1,
-  //       filters: []
-  //     }
-  //   },
-  //   fetchPolicy: "no-cache"
-  // });
-  //
-  // useEffect(() => {
-  //   console.log(storeItemsData)
-  // }, [storeItemsData])
-
 
   useEffect(() => {
     console.log(userExistsData)
@@ -60,17 +42,16 @@ const LoginButton = ({navigateAfterLogin}) => {
       imageUrl: response.profileObj.imageUrl,
     });
     userExistsQuery({ variables: { input: { emailAddress: response.profileObj.email } }})
-  }
+  };
 
   const loginRequestHandler = () => {
-    //localStorage.setItem("accessToken", "");
     console.log("login requested")
   };
 
   return (
     <GoogleLogin
       clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com' 
-      buttonText='login'
+      buttonText='continue with Google'
       onRequest={loginRequestHandler}
       onSuccess={loginSuccessHandler} 
       onFailure={(e)=>console.log(e)} 
@@ -78,6 +59,6 @@ const LoginButton = ({navigateAfterLogin}) => {
     >
     </GoogleLogin>
   )
-}
+};
 
 export default LoginButton;

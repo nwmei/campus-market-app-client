@@ -18,7 +18,7 @@ const LandingPage = ({ setSessionQueryResponded }) => {
   };
   return (
     <div className={classes.button}>
-      <h1>Welcome to campusmarketapp.com! Site is under construction</h1>
+      <h1>Welcome to campusmarketapp.com! Please log in.</h1>
       <GoogleLogin navigateAfterLogin={navigateToExplorePage} />
     </div>
   )

@@ -35,7 +35,7 @@ const App = () => {
     : 'https://736xv5hs64.execute-api.us-east-1.amazonaws.com/prod/gql';
 
   const client = new ApolloClient({
-    uri: 'https://736xv5hs64.execute-api.us-east-1.amazonaws.com/prod/gql',
+    uri: apolloClientUri,
     cache: new InMemoryCache(),
     fetchOptions: {
       mode: 'no-cors',
