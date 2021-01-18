@@ -13,6 +13,7 @@ const LoginButton = ({navigateAfterLogin}) => {
   const [userExistsQuery, { loading, data: userExistsData }] = useLazyQuery(UserExistsQuery);
 
   useEffect(() => {
+    console.log(userExistsData)
     if (userExistsData != null) {
       const { userExists: {exists, id} } = userExistsData;
       let userId = id;
@@ -30,6 +31,7 @@ const LoginButton = ({navigateAfterLogin}) => {
 
   
   const loginSuccessHandler = async (response) => {
+    console.log(response)
     setUserData({
       accessToken: response.accessToken,
       firstName: response.profileObj.givenName,

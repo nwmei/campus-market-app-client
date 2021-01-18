@@ -30,29 +30,22 @@ const App = () => {
 
   const accessToken = localStorage.getItem('accessToken') || "";
 
+  const apolloClientUri = process.env.NODE_ENV==='development'
+    ? 'http://localhost:4000/graphql'
+    : 'https://736xv5hs64.execute-api.us-east-1.amazonaws.com/prod/gql';
+
   const client = new ApolloClient({
-    //uri: 'http://localhost:4000/graphql',
-    //uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod',
-    uri: 'https://mqjjatwyce.execute-api.us-east-1.amazonaws.com/prod/test',
+    uri: apolloClientUri,
     cache: new InMemoryCache(),
     fetchOptions: {
       mode: 'no-cors',
     },
   });
 
-  client
-  .query({
-    query: gql`
-        query {
-            testQuery
-        }
-    `
-  })
-  .then(result => console.log(result));
-
   if (!userDetails.sessionUserDetails && !sessionQueryResponded) {
     client.query({query: SessionUserDetails, variables: {input: {accessToken}}})
       .then((result) => {
+        console.log(result)
         if (result.data.sessionUserDetails) {
           setUserDetails(result.data);
         }
