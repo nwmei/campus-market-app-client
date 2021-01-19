@@ -10,7 +10,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
   const classes = useCardGridStyles();
   const [itemsAdded, setItemsAdded] = useState(0);
 
-  const {data: storeItemsData} = useQuery(StoreItems, {
+  const {data: storeItemsData, refetch} = useQuery(StoreItems, {
     variables: {
       input: {
         page,
@@ -22,6 +22,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
 
   const incrementItemsAdded = () => {
     setItemsAdded(itemsAdded + 1);
+    refetch();
   };
 
   if (storeItemsData) {
@@ -34,6 +35,9 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
         >
           <Grid item xs={12} sm={6} md={4} lg={4} align="center">
             <AddCard incrementItemsAdded={incrementItemsAdded} />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={4} align="center">
+            <p>{itemsAdded}</p>
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.map((item, key) =>

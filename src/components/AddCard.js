@@ -61,7 +61,7 @@ export default function AddCard(props) {
           }
         }
       }
-    })
+    }).then((d) => console.log(d))
   };
 
   return (
