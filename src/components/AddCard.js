@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -33,7 +33,13 @@ export default function AddCard(props) {
   const classes = useStyles();
 
   const {sessionContextValue} = useContext(sessionContext);
-  const [createStoreItem] = useMutation(CreateStoreItemMutation);
+  const [createStoreItem, {data}] = useMutation(CreateStoreItemMutation);
+
+  useEffect(() => {
+    if (data) {
+      props.incrementItemsAdded();
+    }
+  }, [data]);
 
   const addItemHandler = (data) => {
     const {itemName, description, imageUrl, price, category="furniture", neighborhood="Warren Towers"} = data;
@@ -55,8 +61,6 @@ export default function AddCard(props) {
           }
         }
       }
-    }).then(r => {
-      props.incrementItemsAdded();
     })
   };
 

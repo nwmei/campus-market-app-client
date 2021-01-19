@@ -18,7 +18,8 @@ export const campuses = [
   {id: 'umass', title: 'Umass Amherst'},
   {id: 'mit', title: 'MIT'},
   {id: 'bentley', title: 'Bentley University'},
-  {id: 'gmail', title: 'Gmail'}
+  {id: 'gmail', title: 'Gmail'},
+  {id: 'mcphs', title: 'MCPHS'}
 ];
 
 export const categories = [
