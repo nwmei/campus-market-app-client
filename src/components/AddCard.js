@@ -49,7 +49,8 @@ export default function AddCard(props) {
             id: sessionContextValue.userId,
             firstName: sessionContextValue.userFirstName,
             lastName: sessionContextValue.userLastName,
-            emailAddress: sessionContextValue.userEmailAddress
+            emailAddress: sessionContextValue.userEmailAddress,
+            imageUrl: sessionContextValue.imageUrl
           }
         }
       }
