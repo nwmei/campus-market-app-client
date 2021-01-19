@@ -54,6 +54,14 @@ const useStyles = makeStyles((theme) => ({
       color: grey[500],
       paddingRight: 7,
       paddingLeft: 3
+  },
+  description: {
+    paddingTop: 10,
+    paddingBottom: 0
+  },
+  bottomBar: {
+    paddingTop: 0,
+    paddingBottom: 0
   }
 }));
 
@@ -132,12 +140,12 @@ export default function Card1(props) {
                 title={itemName}
             />
       }
-      <CardContent>
+      <CardContent className={classes.description}>
         <Typography variant="body2" color="textSecondary" component="p">
           {`$${price} ${itemName}`}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing className={classes.bottomBar}>
         <IconButton aria-label="like dislike" className={classes.heartButton} onClick={toggleLikeHandler}>
           <FavoriteIcon />
         </IconButton>

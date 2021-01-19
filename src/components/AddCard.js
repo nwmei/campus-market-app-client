@@ -9,17 +9,18 @@ import CreateStoreItemMutation from '../mutations/CreateStoreItem.graphql';
 import { useContext } from 'react';
 import { sessionContext } from './SessionContext';
 import AddItemForm from './AddItemForm';
+import { gradientColor } from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexDirection: 'column',
     justifyContent: 'center',
     display: 'flex',
-    maxWidth: 345,
     backgroundColor: '#e0e0e0',
     '&:hover': {
-      //backgroundColor: 'green',
-  }
+      background: gradientColor
+    },
+    borderRadius: 50
   },
   addButton: {
     color: 'white',

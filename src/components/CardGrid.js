@@ -30,13 +30,14 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
             container
             spacing={4}
             className={classes.gridContainer}
+            alignItems="center"
         >
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid item xs={12} sm={6} md={4} lg={4} align="center">
             <AddCard incrementItemsAdded={incrementItemsAdded} />
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.map((item, key) =>
-                <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
+                <Grid item xs={12} sm={6} md={4} lg={4} key={-key}>
                   <BetaCard
                       enterable={true}
                       date={new Date(parseInt(item.date))}
