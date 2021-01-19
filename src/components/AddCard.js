@@ -40,7 +40,7 @@ export default function AddCard(props) {
       variables: {
         input: {
           name: itemName,
-          price,
+          price: parseInt(price),
           imageUrl,
           description,
           category,
