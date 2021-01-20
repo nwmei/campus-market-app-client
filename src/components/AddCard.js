@@ -33,7 +33,13 @@ export default function AddCard({refetchStoreItems}) {
   const classes = useStyles();
 
   const {sessionContextValue} = useContext(sessionContext);
-  const [createStoreItem] = useMutation(CreateStoreItemMutation);
+  const [createStoreItem, {data}] = useMutation(CreateStoreItemMutation);
+
+  useEffect(() => {
+    if (data) {
+      refetchStoreItems();
+    }
+  }, [data]);
 
   const addItemHandler = (data) => {
     const {itemName, description, imageUrl, price, category="furniture", neighborhood="Warren Towers"} = data;
@@ -55,7 +61,7 @@ export default function AddCard({refetchStoreItems}) {
           }
         }
       }
-    }).then(refetchStoreItems());
+    })
   };
 
   return (
