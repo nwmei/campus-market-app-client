@@ -8,7 +8,6 @@ import useCardGridStyles from './styles/CardGridStyles';
 
 const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
   const classes = useCardGridStyles();
-  const [itemsAdded, setItemsAdded] = useState(0);
 
   const {data: storeItemsData, refetch} = useQuery(StoreItems, {
     variables: {
@@ -18,12 +17,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
       }
     },
     fetchPolicy: "no-cache"
-  });
-
-  const incrementItemsAdded = () => {
-    //setItemsAdded(itemsAdded + 1);
-    refetch();
-  };
+  })
 
   if (storeItemsData) {
     return (
@@ -34,7 +28,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
             alignItems="center"
         >
           <Grid item xs={12} sm={6} md={4} lg={4} align="center">
-            <AddCard incrementItemsAdded={incrementItemsAdded} />
+            <AddCard refetchStoreItems={() => refetch()} />
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.map((item, key) =>

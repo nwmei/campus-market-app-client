@@ -28,18 +28,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AddCard(props) {
+export default function AddCard({refetchStoreItems}) {
   const [activated, setActivated] = useState(false);
   const classes = useStyles();
 
   const {sessionContextValue} = useContext(sessionContext);
-  const [createStoreItem, {data}] = useMutation(CreateStoreItemMutation);
-
-  useEffect(() => {
-    if (data) {
-      props.incrementItemsAdded();
-    }
-  }, [data]);
+  const [createStoreItem] = useMutation(CreateStoreItemMutation);
 
   const addItemHandler = (data) => {
     const {itemName, description, imageUrl, price, category="furniture", neighborhood="Warren Towers"} = data;
@@ -61,7 +55,7 @@ export default function AddCard(props) {
           }
         }
       }
-    }).then((d) => console.log(d))
+    }).then(refetchStoreItems());
   };
 
   return (
