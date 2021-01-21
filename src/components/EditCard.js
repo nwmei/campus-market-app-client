@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import Popup from './Popup';
 import { useMutation } from '@apollo/client';
 import EditItemMutation from '../mutations/EditItem.graphql';
+import DeleteItemMutation from '../mutations/DeleteItem.graphql';
 import { useContext } from 'react';
 import { sessionContext } from './SessionContext';
 import AddItemForm from './AddItemForm';
@@ -36,13 +37,15 @@ export default function EditCard(props) {
   const classes = useStyles();
 
   const {sessionContextValue} = useContext(sessionContext);
-  const [editItem, {data}] = useMutation(EditItemMutation);
+
+  const [editItem, {data: editData}] = useMutation(EditItemMutation);
+  const [deleteItem, {data: deleteData}] = useMutation(DeleteItemMutation);
 
   useEffect(() => {
-    if (data) {
+    if (editData || deleteData) {
       refetchStoreItems();
     }
-  }, [data]);
+  }, [editData, deleteData]);
 
   const editItemHandler = (data) => {
     const {itemName, description, imageUrl, price, category, neighborhood} = data;
@@ -61,6 +64,16 @@ export default function EditCard(props) {
     })
   };
 
+  const deleteItemHandler = () => {
+    deleteItem({
+      variables: {
+        input: {
+          id: itemId
+        }
+      }
+    })
+  };
+
   return (
     <>
       <MuiLink onClick={() => setActivated(true)}>
@@ -70,6 +83,7 @@ export default function EditCard(props) {
         <EditItemForm
           setIsOpen={setActivated}
           editItemHandler={editItemHandler}
+          deleteItemHandler={deleteItemHandler}
           itemName={itemName}
           description={description}
           price={price}

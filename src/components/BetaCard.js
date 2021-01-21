@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -24,6 +24,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import {sessionContext} from "./SessionContext";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import EditCard from "./EditCard";
+import set from "@babel/runtime/helpers/esm/set";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -77,10 +78,20 @@ const theme = createMuiTheme({
 export default function Card1(props) {
   const history = useHistory();
   const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
-  const [likeItemMutation] = useMutation(LikeItem);
-  const [unlikeItemMutation] = useMutation(UnlikeItem);
+  const [likeItemMutation, {data: likeData}] = useMutation(LikeItem);
+  const [unlikeItemMutation, {data: unlikeData}] = useMutation(UnlikeItem);
   const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
   const {sessionContextValue} = useContext(sessionContext);
+
+  useEffect(() => {
+    if (likeData || unlikeData) {
+      refetchStoreItems();
+    }
+  }, [likeData, unlikeData]);
+
+  useEffect(() => {
+    setLikedByUser(likes.includes(seller.id));
+  }, [likes]);
 
   const likeItemHandler = () => {
     likeItemMutation({
@@ -90,7 +101,7 @@ export default function Card1(props) {
           storeItemId: itemId
         }
       }
-    }).then(() => setLikedByUser(true));
+    });
   };
 
   const unlikeItemHandler = () => {
@@ -101,7 +112,7 @@ export default function Card1(props) {
           storeItemId: itemId
         }
       }
-    }).then(() => setLikedByUser(false));
+    });
   };
 
   const toggleLikeHandler= () => {

@@ -7,7 +7,7 @@ import SelectControl from './controls/Select';
 import ButtonControl from './controls/Button';
 
 export default function EditItemForm(props) {
-  const { itemId, setIsOpen, editItemHandler, itemName, price, description, imageUrl, category, neighborhood, } = props;
+  const { itemId, setIsOpen, editItemHandler, deleteItemHandler, itemName, price, description, imageUrl, category, neighborhood, } = props;
   const initialItemValues = {
     itemName,
     description,
@@ -25,10 +25,17 @@ export default function EditItemForm(props) {
   } = useForm(initialItemValues);
 
   const editClickHandler = e => {
-    e.preventDefault()
+    e.preventDefault();
     resetForm();
     setIsOpen(false);
     editItemHandler(values);
+  };
+
+  const deleteClickHandler = e => {
+    e.preventDefault();
+    resetForm();
+    setIsOpen(false);
+    deleteItemHandler();
   };
 
   return (
@@ -102,7 +109,7 @@ export default function EditItemForm(props) {
             />
             <ButtonControl
               text="Delete"
-              onClick={() => console.log('delete button clicked')}
+              onClick={deleteClickHandler}
             />
             <ButtonControl
               text="Cancel"
