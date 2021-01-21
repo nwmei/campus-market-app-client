@@ -55,7 +55,7 @@ const LoginButton = ({navigateAfterLogin}) => {
   return (
     <GoogleLogin
       clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com' 
-      buttonText='continue with Google'
+      buttonText='Continue with Google'
       onRequest={loginRequestHandler}
       onSuccess={loginSuccessHandler} 
       onFailure={(e)=>console.log(e)} 

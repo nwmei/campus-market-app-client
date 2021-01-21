@@ -1,0 +1,5 @@
+mutation EditItem($input: EditItemInput!) {
+    editItem(input: $input) {
+        success
+    }
+}

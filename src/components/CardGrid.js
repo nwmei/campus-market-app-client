@@ -47,6 +47,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
                       imageUrl={item.imageUrl}
                       category={item.category}
                       neighborhood={item.neighborhood}
+                      refetchStoreItems={refetch}
                   />
                 </Grid>
             )

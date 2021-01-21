@@ -23,6 +23,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import {sessionContext} from "./SessionContext";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
+import EditCard from "./EditCard";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -75,7 +76,7 @@ const theme = createMuiTheme({
 
 export default function Card1(props) {
   const history = useHistory();
-  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable, category, neighborhood } = props;
+  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
   const [likeItemMutation] = useMutation(LikeItem);
   const [unlikeItemMutation] = useMutation(UnlikeItem);
   const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
@@ -189,6 +190,12 @@ export default function Card1(props) {
               <MuiLink onClick={cardClickHandler}>
                 view comments
               </MuiLink>
+            }
+          </Typography>
+          <Typography className={classes.root} style={{ cursor: 'pointer' }}>
+            {
+              (sessionContextValue.userId === seller.id) &&
+                <EditCard {...props} />
             }
           </Typography>
           </ThemeProvider>
