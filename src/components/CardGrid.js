@@ -28,7 +28,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
             alignItems="center"
         >
           <Grid item xs={12} sm={6} md={4} lg={4} align="center">
-            <AddCard refetchStoreItems={() => refetch()} />
+            <AddCard refetch={refetch} />
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.map((item, key) =>
@@ -47,7 +47,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
                       imageUrls={item.imageUrls}
                       category={item.category}
                       neighborhood={item.neighborhood}
-                      refetchStoreItems={refetch}
+                      refetch={refetch}
                   />
                 </Grid>
             )

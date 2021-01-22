@@ -32,23 +32,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditCard(props) {
-  const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
+  const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetch } = props;
   const [activated, setActivated] = useState(false);
   const classes = useStyles();
-
-  const {sessionContextValue} = useContext(sessionContext);
 
   const [editItem, {data: editData}] = useMutation(EditItemMutation);
   const [deleteItem, {data: deleteData}] = useMutation(DeleteItemMutation);
 
   useEffect(() => {
     if (editData || deleteData) {
-      refetchStoreItems();
+      refetch();
     }
   }, [editData, deleteData]);
 
   const editItemHandler = (data) => {
-    const {itemName, description, imageUrls, price, category, neighborhood} = data;
+    const {itemName, description, imageUrls, price, category='furniture', neighborhood='West Campus'} = data;
     editItem({
       variables: {
         input: {

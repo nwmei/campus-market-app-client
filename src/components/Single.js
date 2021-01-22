@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState, useRef} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Single = () => {
     const storeItemId = useParams().itemId;
-    const {data: storeItemData} = useQuery(StoreItem,
+    const {data: storeItemData, refetch} = useQuery(StoreItem,
       {
           variables: {
             input: {
@@ -121,6 +121,9 @@ const Single = () => {
                                     seller={itemData.seller}
                                     likes={itemData.likes}
                                     imageUrls={itemData.imageUrls}
+                                    category={itemData.category}
+                                    neighborhood={itemData.neighborhood}
+                                    refetch={() => refetch()}
                                 />
                             </Grid>
                             <Grid item xs={12} sm container>

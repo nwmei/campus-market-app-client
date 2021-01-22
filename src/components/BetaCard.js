@@ -77,7 +77,7 @@ const theme = createMuiTheme({
 
 export default function Card1(props) {
   const history = useHistory();
-  const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
+  const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetch } = props;
   const [likeItemMutation, {data: likeData}] = useMutation(LikeItem);
   const [unlikeItemMutation, {data: unlikeData}] = useMutation(UnlikeItem);
   const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
@@ -85,7 +85,7 @@ export default function Card1(props) {
 
   useEffect(() => {
     if (likeData || unlikeData) {
-      refetchStoreItems();
+      refetch();
     }
   }, [likeData, unlikeData]);
 
