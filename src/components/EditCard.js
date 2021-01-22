@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,6 +14,7 @@ import AddItemForm from './AddItemForm';
 import { gradientColor } from "./constants";
 import MuiLink from "@material-ui/core/Link";
 import EditItemForm from "./EditItemForm";
+import {storage} from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditCard(props) {
+  const history = useHistory();
   const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetch } = props;
   const [activated, setActivated] = useState(false);
   const classes = useStyles();
@@ -63,14 +66,19 @@ export default function EditCard(props) {
   };
 
   const deleteItemHandler = () => {
+    for (let imageUrl of imageUrls) {
+      storage.refFromURL(imageUrl).delete()
+    }
     deleteItem({
       variables: {
         input: {
           id: itemId
         }
       }
-    })
-
+    });
+    if (window.location.pathname.startsWith('/item')) {
+      history.push('/explore');
+    }
   };
 
   return (

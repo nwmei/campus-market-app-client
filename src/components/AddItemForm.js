@@ -41,9 +41,7 @@ export default function AddItemForm(props) {
 
     const cancelHandler = () => {
         for (let imageUrl of imageData.urls) {
-            storage.refFromURL(imageUrl).delete().then(response => {
-                console.log(response)
-            });
+            storage.refFromURL(imageUrl).delete();
         }
         setIsOpen(false);
     };

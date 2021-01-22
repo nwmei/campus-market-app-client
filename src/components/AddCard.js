@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AddCard({refetchStoreItems}) {
+export default function AddCard({refetch}) {
   const [activated, setActivated] = useState(false);
   const classes = useStyles();
 
@@ -37,7 +37,7 @@ export default function AddCard({refetchStoreItems}) {
 
   useEffect(() => {
     if (data) {
-      refetchStoreItems();
+      refetch();
     }
   }, [data]);
 
