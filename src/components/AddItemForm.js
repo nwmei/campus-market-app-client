@@ -5,12 +5,12 @@ import InputControl from './controls/Input';
 import RadioGroupControl from './controls/RadioGroup';
 import SelectControl from './controls/Select';
 import ButtonControl from './controls/Button';
+import ImageUpload from "./ImageUpload";
 
 const initialItemValues = {
   itemName: '',
   description: '',
   price: '',
-  imageUrl: '',
   category: '',
   neighborhood: ''
 };
@@ -25,15 +25,22 @@ export default function AddItemForm(props) {
         resetForm
     } = useForm(initialItemValues);
 
-    const handleFormSubmit = e => {
+    const handleFormSubmit = (url) => {
+        //e.preventDefault()
+        resetForm();
+        setIsOpen(false);
+        console.log({...values, imageUrl: url}.imageUrl)
+        addItemHandler({...values, imageUrl: url});
+    };
+
+    const handleFormSubmit2 = (e) => {
         e.preventDefault()
         resetForm();
         setIsOpen(false);
-        addItemHandler(values);
     };
 
     return (
-        <Form onSubmit={handleFormSubmit}>
+        <Form onSubmit={handleFormSubmit2}>
             <Grid container>
                 <Grid item xs={6}>
                     <InputControl
@@ -83,17 +90,18 @@ export default function AddItemForm(props) {
                     {/*    onChange={handleInputChange}*/}
                     {/*    options={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}*/}
                     {/*/>*/}
-                    <InputControl
-                        name="imageUrl"
-                        label="image url"
-                        value={values.imageUrl}
-                        onChange={handleInputChange}
-                    />
+                    {/*<InputControl*/}
+                    {/*    name="imageUrl"*/}
+                    {/*    label="image url"*/}
+                    {/*    value={values.imageUrl}*/}
+                    {/*    onChange={handleInputChange}*/}
+                    {/*/>*/}
+                    <ImageUpload submitHandler={handleFormSubmit}/>
 
                     <div>
-                        <ButtonControl
-                            type="submit"
-                            text="Submit" />
+                        {/*<ButtonControl*/}
+                        {/*    type="submit"*/}
+                        {/*    text="Submit" />*/}
                         <ButtonControl
                             text="Cancel"
                             color="default"
