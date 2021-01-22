@@ -3,7 +3,7 @@ query StoreItem($input: StoreItemInput!) {
         id,
         name,
         description,
-        imageUrl,
+        imageUrls,
         category,
         neighborhood,
         price,
@@ -11,7 +11,8 @@ query StoreItem($input: StoreItemInput!) {
             id,
             firstName,
             lastName,
-            emailAddress
+            emailAddress,
+            imageUrl
         },
         comments {
             commenterFullName,

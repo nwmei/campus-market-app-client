@@ -24,7 +24,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import {sessionContext} from "./SessionContext";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import EditCard from "./EditCard";
-import set from "@babel/runtime/helpers/esm/set";
+import ImageGallery from "./ImageGallery";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -77,7 +77,7 @@ const theme = createMuiTheme({
 
 export default function Card1(props) {
   const history = useHistory();
-  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
+  const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
   const [likeItemMutation, {data: likeData}] = useMutation(LikeItem);
   const [unlikeItemMutation, {data: unlikeData}] = useMutation(UnlikeItem);
   const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
@@ -136,27 +136,30 @@ export default function Card1(props) {
 
   return (
     <Card className={classes.root}>
-      {
-        enterable?
-            <Link to={`/item/${itemId}`} >
-              <CardMedia
-                  className={classes.media}
-                  image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
-                  title={itemName}
-              />
-            </Link>
-            :
-            <CardMedia
-                className={classes.media}
-                image={imageUrl.length>3 ? imageUrl : getAlternateImageUrl()}
-                title={itemName}
-            />
-      }
-      <CardContent className={classes.description}>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {`$${price} ${itemName}`}
-        </Typography>
-      </CardContent>
+      {/*{*/}
+      {/*  enterable?*/}
+      {/*      <Link to={`/item/${itemId}`} >*/}
+      {/*        <CardMedia*/}
+      {/*            className={classes.media}*/}
+      {/*            image={imageUrls[0] !== undefined? imageUrls[0] : getAlternateImageUrl()}*/}
+      {/*            title={itemName}*/}
+      {/*        />*/}
+      {/*      </Link>*/}
+      {/*      :*/}
+      {/*      <CardMedia*/}
+      {/*          className={classes.media}*/}
+      {/*          image={imageUrls[0] !== undefined? imageUrls[0] : getAlternateImageUrl()}*/}
+      {/*          title={itemName}*/}
+      {/*      />*/}
+      {/*}*/}
+
+      <CardMedia> <ImageGallery imageUrls={imageUrls} itemName={itemName} seller={seller} price={price} /> </CardMedia>
+
+      {/*<CardContent className={classes.description}>*/}
+      {/*  <Typography variant="body2" color="textSecondary" component="p">*/}
+      {/*    {`$${price} ${itemName}`}*/}
+      {/*  </Typography>*/}
+      {/*</CardContent>*/}
       <CardActions disableSpacing className={classes.bottomBar}>
         <IconButton aria-label="like dislike" className={classes.heartButton} onClick={toggleLikeHandler}>
           <FavoriteIcon />

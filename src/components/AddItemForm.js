@@ -25,12 +25,11 @@ export default function AddItemForm(props) {
         resetForm
     } = useForm(initialItemValues);
 
-    const handleFormSubmit = (url) => {
+    const handleFormSubmit = (urls) => {
         //e.preventDefault()
         resetForm();
         setIsOpen(false);
-        console.log({...values, imageUrl: url}.imageUrl)
-        addItemHandler({...values, imageUrl: url});
+        addItemHandler({...values, imageUrls: urls});
     };
 
     const handleFormSubmit2 = (e) => {
@@ -96,9 +95,10 @@ export default function AddItemForm(props) {
                     {/*    value={values.imageUrl}*/}
                     {/*    onChange={handleInputChange}*/}
                     {/*/>*/}
-                    <ImageUpload submitHandler={handleFormSubmit}/>
+
 
                     <div>
+                        <ImageUpload submitHandler={handleFormSubmit}/>
                         {/*<ButtonControl*/}
                         {/*    type="submit"*/}
                         {/*    text="Submit" />*/}

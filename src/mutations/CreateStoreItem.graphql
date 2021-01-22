@@ -4,7 +4,7 @@ mutation CreateStoreItem($input: CreateStoreItemInput!) {
     description,
     name,
     price, 
-    imageUrl,
+    imageUrls,
     seller {
       id
     },

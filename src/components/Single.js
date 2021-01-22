@@ -55,6 +55,7 @@ const Single = () => {
           fetchPolicy: "no-cache"
           }
     );
+    console.log(storeItemData)
     const [createComment] = useMutation(CreateComment);
     const {sessionContextValue} = useContext(sessionContext);
     const [itemData, setItemData] = useState({});
@@ -120,7 +121,7 @@ const Single = () => {
                                     price={itemData.price}
                                     seller={itemData.seller}
                                     likes={itemData.likes}
-                                    imageUrl={itemData.imageUrl}
+                                    imageUrls={itemData.imageUrls}
                                 />
                             </Grid>
                             <Grid item xs={12} sm container>

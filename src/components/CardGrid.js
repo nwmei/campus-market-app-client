@@ -44,7 +44,7 @@ const CardGrid = ({itemsQueryInfo: {page, filters}}) => {
                       price={item.price}
                       seller={item.seller}
                       likes={item.likes}
-                      imageUrl={item.imageUrl}
+                      imageUrls={item.imageUrls}
                       category={item.category}
                       neighborhood={item.neighborhood}
                       refetchStoreItems={refetch}

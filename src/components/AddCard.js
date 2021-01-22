@@ -42,13 +42,13 @@ export default function AddCard({refetchStoreItems}) {
   }, [data]);
 
   const addItemHandler = (data) => {
-    const {itemName, description, imageUrl, price, category="furniture", neighborhood="Warren Towers"} = data;
+    const {itemName, description, imageUrls, price, category="furniture", neighborhood="Warren Towers"} = data;
     createStoreItem({
       variables: {
         input: {
           name: itemName,
           price: parseInt(price),
-          imageUrl,
+          imageUrls,
           description,
           category,
           neighborhood,
