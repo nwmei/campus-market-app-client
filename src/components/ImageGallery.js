@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TextMobileStepper({imageUrls, itemName, price, seller}) {
-  console.log(seller.imageUrl)
 
   const classes = useStyles();
   const theme = useTheme();

@@ -7,12 +7,11 @@ import SelectControl from './controls/Select';
 import ButtonControl from './controls/Button';
 
 export default function EditItemForm(props) {
-  const { itemId, setIsOpen, editItemHandler, deleteItemHandler, itemName, price, description, imageUrl, category, neighborhood, } = props;
+  const { itemId, setIsOpen, editItemHandler, deleteItemHandler, itemName, price, description, imageUrls, category, neighborhood, } = props;
   const initialItemValues = {
     itemName,
     description,
     price,
-    imageUrl,
     category,
     neighborhood
   };
@@ -28,7 +27,7 @@ export default function EditItemForm(props) {
     e.preventDefault();
     resetForm();
     setIsOpen(false);
-    editItemHandler(values);
+    editItemHandler({...values, imageUrls});
   };
 
   const deleteClickHandler = e => {
@@ -94,13 +93,19 @@ export default function EditItemForm(props) {
           {/*    onChange={handleInputChange}*/}
           {/*    options={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}*/}
           {/*/>*/}
-          <InputControl
-            variant="standard"
-            name="imageUrl"
-            label="image url"
-            value={values.imageUrl}
-            onChange={handleInputChange}
-          />
+          {/*<InputControl*/}
+          {/*  variant="standard"*/}
+          {/*  name="imageUrl"*/}
+          {/*  label="image url"*/}
+          {/*  value={values.imageUrl}*/}
+          {/*  onChange={handleInputChange}*/}
+          {/*/>*/}
+
+          {
+            imageUrls.map((imgUrl, key) => {
+              return (<img key={key} className="imageToUpload" src={imgUrl} alt="no images" height="100" width="100"/>)
+            })
+          }
 
           <div>
             <ButtonControl

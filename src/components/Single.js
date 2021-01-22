@@ -55,7 +55,6 @@ const Single = () => {
           fetchPolicy: "no-cache"
           }
     );
-    console.log(storeItemData)
     const [createComment] = useMutation(CreateComment);
     const {sessionContextValue} = useContext(sessionContext);
     const [itemData, setItemData] = useState({});

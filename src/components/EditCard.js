@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditCard(props) {
-  const { itemId, itemName, price, seller, description, imageUrl, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
+  const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetchStoreItems } = props;
   const [activated, setActivated] = useState(false);
   const classes = useStyles();
 
@@ -48,7 +48,7 @@ export default function EditCard(props) {
   }, [editData, deleteData]);
 
   const editItemHandler = (data) => {
-    const {itemName, description, imageUrl, price, category, neighborhood} = data;
+    const {itemName, description, imageUrls, price, category, neighborhood} = data;
     editItem({
       variables: {
         input: {
@@ -56,7 +56,7 @@ export default function EditCard(props) {
           name: itemName,
           description,
           price: parseInt(price),
-          imageUrl,
+          imageUrls,
           category,
           neighborhood
         }
@@ -72,6 +72,7 @@ export default function EditCard(props) {
         }
       }
     })
+
   };
 
   return (
@@ -87,7 +88,7 @@ export default function EditCard(props) {
           itemName={itemName}
           description={description}
           price={price}
-          imageUrl={imageUrl}
+          imageUrls={imageUrls}
           category={category}
           neighborhood={neighborhood}
         />

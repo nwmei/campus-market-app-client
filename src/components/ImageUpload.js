@@ -3,38 +3,28 @@ import {storage} from "../firebase";
 import ButtonControl from "./controls/Button";
 import "./styles.css";
 
-const ImageUpload = ({submitHandler}) => {
-  const [imageData, setImageData] = useState({images: [], urls: []});
-  console.log(imageData.urls)
+const ImageUpload = ({submitHandler, imageData, setImageData}) => {
+
 
   const changeHandler = (e) => {
     if (e.target.files[0]) {
-      const uploadTask = storage.ref(`images/${e.target.files[0].name}`).put(e.target.files[0]);
+      const datePrefix = Date.now().toString();
+      const uploadFileName = `${datePrefix}${e.target.files[0].name}`;
+      const uploadTask = storage.ref(`images/${uploadFileName}`).put(e.target.files[0]);
       uploadTask.on('state_changed',
         (snapshot) => {}, (error) => {
           console.log(error)
         }, () => {
-          storage.ref('images').child(e.target.files[0].name).getDownloadURL().then(url => {
+          storage.ref('images').child(uploadFileName).getDownloadURL().then(url => {
             setImageData({
-              images: [],
               urls: [...imageData.urls, url]
             });
           })
         });
-
     }
   };
 
-  const uploadHandler = (e) => {
-    // const uploadTask = storage.ref(`images/${imageData.image.name}`).put(imageData.image);
-    // uploadTask.on('state_changed',
-    //   (snapshot) => {}, (error) => {
-    //     console.log(error)
-    //   }, () => {
-    //     storage.ref('images').child(imageData.image.name).getDownloadURL().then(url => {
-    //       submitHandler(url)
-    //     })
-    //   })
+  const uploadHandler = () => {
     submitHandler(imageData.urls)
   };
 

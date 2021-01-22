@@ -6,6 +6,7 @@ import RadioGroupControl from './controls/RadioGroup';
 import SelectControl from './controls/Select';
 import ButtonControl from './controls/Button';
 import ImageUpload from "./ImageUpload";
+import {storage} from "../firebase";
 
 const initialItemValues = {
   itemName: '',
@@ -17,6 +18,7 @@ const initialItemValues = {
 
 export default function AddItemForm(props) {
     const { setIsOpen, addItemHandler } = props;
+    const [imageData, setImageData] = useState({urls: []});
 
     const {
         values,
@@ -26,15 +28,23 @@ export default function AddItemForm(props) {
     } = useForm(initialItemValues);
 
     const handleFormSubmit = (urls) => {
-        //e.preventDefault()
         resetForm();
         setIsOpen(false);
         addItemHandler({...values, imageUrls: urls});
     };
 
     const handleFormSubmit2 = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         resetForm();
+        setIsOpen(false);
+    };
+
+    const cancelHandler = () => {
+        for (let imageUrl of imageData.urls) {
+            storage.refFromURL(imageUrl).delete().then(response => {
+                console.log(response)
+            });
+        }
         setIsOpen(false);
     };
 
@@ -98,14 +108,14 @@ export default function AddItemForm(props) {
 
 
                     <div>
-                        <ImageUpload submitHandler={handleFormSubmit}/>
+                        <ImageUpload submitHandler={handleFormSubmit} imageData={imageData} setImageData={setImageData}/>
                         {/*<ButtonControl*/}
                         {/*    type="submit"*/}
                         {/*    text="Submit" />*/}
                         <ButtonControl
                             text="Cancel"
                             color="default"
-                            onClick={() => setIsOpen(false)} />
+                            onClick={cancelHandler} />
                     </div>
                 </Grid>
             </Grid>
