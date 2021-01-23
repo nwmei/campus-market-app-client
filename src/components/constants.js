@@ -28,4 +28,8 @@ export const categories = [
   {id: '3', title: 'electronics'},
 ];
 
-export const gradientColor = 'linear-gradient(45deg, #ff1744  30%,  #ffc107 90%)';
+//export const gradientColor = '#33ab9f';
+
+export const gradientColor = 'linear-gradient(45deg, #03a9f4  30%,  #29b6f6 90%)';
+
+//export const gradientColor = 'linear-gradient(45deg, #ff1744  30%,  #ffc107 90%)';

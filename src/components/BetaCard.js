@@ -69,8 +69,6 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme({
   typography: {
-    // In Chinese and Japanese the characters are usually larger,
-    // so a smaller fontsize may be appropriate.
     fontSize: 12,
   },
 });
@@ -78,6 +76,8 @@ const theme = createMuiTheme({
 export default function Card1(props) {
   const history = useHistory();
   const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetch } = props;
+  let splitDate = date.toString().split(' ');
+  const formattedDate = splitDate[0] + ' ' + splitDate[1] + ' ' + splitDate[2]
   const [likeItemMutation, {data: likeData}] = useMutation(LikeItem);
   const [unlikeItemMutation, {data: unlikeData}] = useMutation(UnlikeItem);
   const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
@@ -197,7 +197,7 @@ export default function Card1(props) {
           <Typography>{`Category: ${category}`} </Typography>
           <Typography>{`Neighborhood: ${neighborhood}`} </Typography>
           <Typography>{`Description: ${description}`} </Typography>
-          <Typography>{`Date posted: ${date}`} </Typography>
+          <Typography>{`Date posted: ${formattedDate}`} </Typography>
           <Typography className={classes.root} style={{ cursor: 'pointer' }}>
             {
               enterable &&

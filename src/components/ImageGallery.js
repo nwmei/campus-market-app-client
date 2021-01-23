@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     height: 50,
-    paddingLeft: theme.spacing(4),
+    paddingLeft: 10,
     backgroundColor: theme.palette.background.default,
   },
   img: {
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0
   },
   avatar: {
-    marginRight: 10
+    marginRight: 10,
+    marginLeft: 0
   }
 
 }));
@@ -58,7 +59,7 @@ export default function TextMobileStepper({imageUrls, itemName, price, seller}) 
         <Avatar aria-label="recipe" className={classes.avatar} src={seller.imageUrl}>
 
         </Avatar>
-        <Typography>{`$${price} ${itemName}`}</Typography>
+        <Typography><b>${price}</b> {itemName}</Typography>
       </Paper>
       <img
         className={classes.img}

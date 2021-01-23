@@ -18,7 +18,7 @@ const MyItems = () => {
   const numberOfFilters = itemsQueryInfo.filters.length;
   const classes = myItemsStyles({numberOfFilters});
   const {sessionContextValue} = useContext(sessionContext);
-  const {data: myItemsData} = useQuery(MyItemsQuery, {
+  const {data: myItemsData, refetch} = useQuery(MyItemsQuery, {
     variables: {
       input: {
         id: sessionContextValue.userId,
@@ -83,20 +83,25 @@ const MyItems = () => {
                     price={item.price}
                     seller={item.seller}
                     likes={item.likes}
-                    imageUrl={item.imageUrl}
+                    imageUrls={item.imageUrls}
                     category={item.category}
                     neighborhood={item.neighborhood}
+                    refetch={refetch}
                   />
                 </Grid>
               )
             }
-            <Grid item xs={12}>
-              <PageNavigation
-                backOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage-1)}
-                nextOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage+1)}
-                pageNumber={itemsQueryInfo.listedPage}
-              />
-            </Grid>
+            {
+              myItemsData && myItemsData.myItems &&
+              <Grid item xs={12}>
+                <PageNavigation
+                  backOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage-1)}
+                  nextOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage+1)}
+                  pageNumber={itemsQueryInfo.listedPage}
+                />
+              </Grid>
+            }
+
             <Grid item xs={12}>
               ITEMS YOU'VE LIKED:
             </Grid>
@@ -114,20 +119,25 @@ const MyItems = () => {
                     price={item.price}
                     seller={item.seller}
                     likes={item.likes}
-                    imageUrl={item.imageUrl}
+                    imageUrls={item.imageUrls}
                     category={item.category}
                     neighborhood={item.neighborhood}
+                    refetch={refetch}
                   />
                 </Grid>
               )
             }
-            <Grid item xs={12}>
-              <PageNavigation
-                backOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage-1)}
-                nextOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage+1)}
-                pageNumber={itemsQueryInfo.likedPage}
-              />
-            </Grid>
+            {
+              myItemsData && myItemsData.myItems &&
+              <Grid item xs={12}>
+                <PageNavigation
+                  backOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage-1)}
+                  nextOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage+1)}
+                  pageNumber={itemsQueryInfo.likedPage}
+                />
+              </Grid>
+            }
+
           </Grid>
         </Grid>
       </Grid>
