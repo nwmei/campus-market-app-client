@@ -9,7 +9,7 @@ import PageNavigation from "./PageNavigation";
 
 const ExplorePage = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
-  const [storeItemsResponded, setStoreItemsResponded] = useState(false);
+  const [storeItemsCount, setStoreItemsCount] = useState({responded: false, count: 0});
   const numberOfFilters = itemsQueryInfo.filters.length;
   const classes = ExplorePageStyles({numberOfFilters});
 
@@ -45,10 +45,12 @@ const ExplorePage = () => {
             <div className={classes.divider}>
               <Divider />
             </div>
-            <ExploreCardGrid setStoreItemsResponded={setStoreItemsResponded} itemsQueryInfo={itemsQueryInfo} />
+            <ExploreCardGrid setStoreItemsCount={setStoreItemsCount} itemsQueryInfo={itemsQueryInfo} />
             {
-              storeItemsResponded &&
+              storeItemsCount.responded &&
               <PageNavigation
+                storeItemsCount={storeItemsCount.count}
+                component="explore"
                 backOnClick={() => {
                   window.scrollTo( 0, 0)
                   updatePageNumber(itemsQueryInfo.page-1);

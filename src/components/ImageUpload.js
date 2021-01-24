@@ -1,30 +1,29 @@
 import React, {useState} from 'react';
 import {storage} from "../firebase";
 import ButtonControl from "./controls/Button";
-import "./styles.css";
 
-const ImageUpload = ({submitHandler, imageData, setImageData}) => {
-
+const ImageUpload = ({submitHandler}) => {
+  const [imageData, setImageData] = useState({images: [], urls: []});
 
   const changeHandler = (e) => {
     if (e.target.files[0]) {
-      const datePrefix = Date.now().toString();
-      const uploadFileName = `${datePrefix}${e.target.files[0].name}`;
-      const uploadTask = storage.ref(`images/${uploadFileName}`).put(e.target.files[0]);
+      const uploadTask = storage.ref(`images/${e.target.files[0].name}`).put(e.target.files[0]);
       uploadTask.on('state_changed',
         (snapshot) => {}, (error) => {
           console.log(error)
         }, () => {
-          storage.ref('images').child(uploadFileName).getDownloadURL().then(url => {
+          storage.ref('images').child(e.target.files[0].name).getDownloadURL().then(url => {
             setImageData({
+              images: [],
               urls: [...imageData.urls, url]
             });
           })
         });
+
     }
   };
 
-  const uploadHandler = () => {
+  const uploadHandler = (e) => {
     submitHandler(imageData.urls)
   };
 
@@ -32,7 +31,7 @@ const ImageUpload = ({submitHandler, imageData, setImageData}) => {
     <div>
       {
         imageData.urls && imageData.urls.map((imgUrl, key) => {
-          return (<img key={key} className="imageToUpload" src={imgUrl} alt="no images" height="100" width="100"/>)
+          return (<img key={key} src={imgUrl} alt="no images" height="100" width="100"/>)
         })
       }
 
