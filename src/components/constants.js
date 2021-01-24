@@ -13,7 +13,22 @@ export const neighborhoods = {
   "Non-school": [
     {id: '1', title: 'East Coast'},
     {id: '2', title: 'West Coast'},
-  ]
+  ],
+  "Northeastern U": [
+    {id: '1', title: 'campus wide'},
+  ],
+  "Umass Amherst": [
+    {id: '1', title: 'campus wide'},
+  ],
+  "MIT": [
+    {id: '1', title: 'campus wide'},
+  ],
+  "Bentley University": [
+    {id: '1', title: 'campus wide'},
+  ],
+  "MCPHS": [
+    {id: '1', title: 'campus wide'},
+  ],
 };
 
 export const campuses = [
@@ -32,6 +47,7 @@ export const categories = [
   {id: '3', title: 'electronics'},
   {id: '4', title: 'food'},
   {id: '5', title: 'drinks'},
+  {id: '6', title: 'other'},
 ];
 
 //export const gradientColor = '#33ab9f';

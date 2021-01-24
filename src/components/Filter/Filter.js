@@ -75,6 +75,7 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
             ?
             <Paper className={classes.paper} style={{maxHeight: 330, overflow: 'auto', borderColor: "#000"}} >
               <RadioGroupControl
+                component='filter'
                 name={filterType}
                 value={filterObject.value}
                 onClick={(e) => toggleSelected(e.target.value)}

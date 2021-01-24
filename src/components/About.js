@@ -22,7 +22,9 @@ const About = () => {
           A message from the Founder and CEO:
         </h2>
         <p>
-          Our goal is to give you the power to buy and sell things with a frictionless experience.
+          Our goal is to give you the power to buy and sell things with a frictionless experience. If you have questions
+          or suggestions, please email nelsonm3904@gmail.com (he is the founder, ceo, PO, director of marketing,
+          principal software engineer, and scrum master all in one).
         </p>
       </div>
     </div>

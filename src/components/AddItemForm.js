@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from './UseForm';
 import InputControl from './controls/Input';
@@ -7,6 +7,8 @@ import SelectControl from './controls/Select';
 import ButtonControl from './controls/Button';
 import ImageUpload from "./ImageUpload";
 import {storage} from "../firebase";
+import {sessionContext} from "./SessionContext";
+import {neighborhoods, categories} from "./constants";
 
 const initialItemValues = {
   itemName: '',
@@ -19,6 +21,9 @@ const initialItemValues = {
 export default function AddItemForm(props) {
     const { setIsOpen, addItemHandler } = props;
     const [imageData, setImageData] = useState({urls: []});
+    const {sessionContextValue} = useContext(sessionContext);
+    console.log(sessionContextValue)
+
 
     const {
         values,
@@ -68,35 +73,36 @@ export default function AddItemForm(props) {
                         value={values.price}
                         onChange={handleInputChange}
                     />
-                    <InputControl
+                    <SelectControl
                       name="category"
-                      label="category"
+                      label="Category"
                       value={values.category}
                       onChange={handleInputChange}
+                      options={categories}
                     />
-                    <InputControl
+                    {/*<InputControl*/}
+                    {/*  name="neighborhood"*/}
+                    {/*  label="neighborhood"*/}
+                    {/*  value={values.neighborhood}*/}
+                    {/*  onChange={handleInputChange}*/}
+                    {/*/>*/}
+                    <SelectControl
                       name="neighborhood"
-                      label="neighborhood"
+                      label="Neighborhood"
                       value={values.neighborhood}
                       onChange={handleInputChange}
+                      options={neighborhoods[sessionContextValue.school]}
                     />
-
                 </Grid>
                 <Grid item xs={6}>
-                    {/* <RadioGroupControl
-                        name="gender"
-                        label="Gender"
-                        value={values.gender}
-                        onChange={handleInputChange}
-                        items={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}
-                    /> */}
-                    {/*<SelectControl*/}
-                    {/*    name=""*/}
-                    {/*    label="imageUrl"*/}
-                    {/*    value={values.imageUrl}*/}
+                    {/*<RadioGroupControl*/}
+                    {/*    name="gender"*/}
+                    {/*    label="Gender"*/}
+                    {/*    value={values.gender}*/}
                     {/*    onChange={handleInputChange}*/}
-                    {/*    options={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}*/}
-                    {/*/>*/}
+                    {/*    items={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}*/}
+                    {/*/> */}
+
                     {/*<InputControl*/}
                     {/*    name="imageUrl"*/}
                     {/*    label="image url"*/}
