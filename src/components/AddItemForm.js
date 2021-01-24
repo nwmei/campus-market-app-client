@@ -8,7 +8,7 @@ import ButtonControl from './controls/Button';
 import ImageUpload from "./ImageUpload";
 import {storage} from "../firebase";
 import {sessionContext} from "./SessionContext";
-import {neighborhoods, categories} from "./constants";
+import {neighborhoods, categories, campuses} from "./constants";
 
 const initialItemValues = {
   itemName: '',
@@ -22,7 +22,6 @@ export default function AddItemForm(props) {
     const { setIsOpen, addItemHandler } = props;
     const [imageData, setImageData] = useState({urls: []});
     const {sessionContextValue} = useContext(sessionContext);
-    console.log(sessionContextValue)
 
 
     const {
@@ -35,6 +34,8 @@ export default function AddItemForm(props) {
     const handleFormSubmit = (urls) => {
         resetForm();
         setIsOpen(false);
+        values.neighborhood = neighborhoods[sessionContextValue.school][values.neighborhood-1].title;
+        values.category = categories[values.category-1].title;
         addItemHandler({...values, imageUrls: urls});
     };
 
@@ -80,12 +81,6 @@ export default function AddItemForm(props) {
                       onChange={handleInputChange}
                       options={categories}
                     />
-                    {/*<InputControl*/}
-                    {/*  name="neighborhood"*/}
-                    {/*  label="neighborhood"*/}
-                    {/*  value={values.neighborhood}*/}
-                    {/*  onChange={handleInputChange}*/}
-                    {/*/>*/}
                     <SelectControl
                       name="neighborhood"
                       label="Neighborhood"
@@ -95,21 +90,6 @@ export default function AddItemForm(props) {
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    {/*<RadioGroupControl*/}
-                    {/*    name="gender"*/}
-                    {/*    label="Gender"*/}
-                    {/*    value={values.gender}*/}
-                    {/*    onChange={handleInputChange}*/}
-                    {/*    items={[{id: '1', title: 'option1'}, {id: '2', title: 'option2'}, {id: '3', title: 'option3'}]}*/}
-                    {/*/> */}
-
-                    {/*<InputControl*/}
-                    {/*    name="imageUrl"*/}
-                    {/*    label="image url"*/}
-                    {/*    value={values.imageUrl}*/}
-                    {/*    onChange={handleInputChange}*/}
-                    {/*/>*/}
-
 
                     <div>
                         <ImageUpload submitHandler={handleFormSubmit} imageData={imageData} setImageData={setImageData}/>
