@@ -50,7 +50,7 @@ const ExplorePage = () => {
             <div className={classes.divider}>
               <Divider />
               {
-                sessionContextValue.school === 'Non-school' &&
+                sessionContextValue.school === 'Off-Campus' &&
                 <NonSchoolAlert />
               }
             </div>

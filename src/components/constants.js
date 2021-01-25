@@ -10,7 +10,7 @@ export const neighborhoods = {
     {id: '6', title: 'Myles Standish'},
     {id: '7', title: 'Stuvi'},
   ],
-  "Non-school": [
+  "Off-Campus": [
     {id: '1', title: 'East Coast'},
     {id: '2', title: 'West Coast'},
   ],
@@ -32,12 +32,12 @@ export const neighborhoods = {
 };
 
 export const campuses = [
+  {id: 'off-campus', title: 'Off-Campus'},
   {id: 'bu', title: 'Boston University'},
   {id: 'neu', title: 'Northeastern U'},
   {id: 'umass', title: 'Umass Amherst'},
   {id: 'mit', title: 'MIT'},
   {id: 'bentley', title: 'Bentley University'},
-  {id: 'non-school', title: 'Non-school'},
   {id: 'mcphs', title: 'MCPHS'}
 ];
 

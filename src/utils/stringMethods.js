@@ -1,6 +1,6 @@
 export const schoolName = (email) => {
   if (!email.endsWith('.edu')) {
-    return 'Non-school'
+    return 'Off-Campus'
   } else {
     return email.substring(email.lastIndexOf("@") +1, email.lastIndexOf("."));
   }

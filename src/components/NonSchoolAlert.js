@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from '@material-ui/icons/Close';
+import {sessionContext} from "./SessionContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TransitionAlerts() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const { sessionContextValue } = useContext(sessionContext);
 
   return (
     <div className={classes.root}>
@@ -36,7 +38,7 @@ export default function TransitionAlerts() {
             </IconButton>
           }
         >
-          Looks like you're logged in with a non-school email. Your access to features will be limited!
+          {sessionContextValue.userFirstName}, looks like you're logged in with a non-school email. Your access to features will be limited!
         </Alert>
       </Collapse>
     </div>

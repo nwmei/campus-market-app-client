@@ -19,6 +19,7 @@ const usePageNavigationStyles = makeStyles((theme) => ({
 }));
 
 const PageNavigation = ({backOnClick, nextOnClick, pageNumber, storeItemsCount, component}) => {
+  const itemsOnPage = (storeItemsCount)
   const classes = usePageNavigationStyles({storeItemsCount, component});
   return (
     <div className={classes.pageNavigation} >

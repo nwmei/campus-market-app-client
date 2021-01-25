@@ -23,7 +23,6 @@ export default function AddItemForm(props) {
     const [imageData, setImageData] = useState({urls: []});
     const {sessionContextValue} = useContext(sessionContext);
 
-
     const {
         values,
         setValues,
