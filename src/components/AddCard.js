@@ -42,7 +42,7 @@ export default function AddCard({refetch}) {
   }, [data]);
 
   const addItemHandler = (data) => {
-    const {itemName, description, imageUrls, price, category="furniture", neighborhood="Warren Towers"} = data;
+    const {itemName, description, imageUrls, price, category, neighborhood} = data;
     createStoreItem({
       variables: {
         input: {
