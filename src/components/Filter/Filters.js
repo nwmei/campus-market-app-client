@@ -5,6 +5,7 @@ import Filter from "./Filter";
 import filterOptions from "./FilterOptions";
 import MuiLink from "@material-ui/core/Link";
 import {neighborhoods} from "../constants";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,10 +51,11 @@ export default function Filters({filters, updateFilters, clearFilters}) {
       {
         filters.length > 0 ?
           <MuiLink  onClick={clearFilters}>
-            <p className={classes.filterText}>clear filters</p>
+            <Typography className={classes.filterText} variant="subtitle1">clear filters</Typography>
           </MuiLink>
           :
-          <p className={classes.filterText}>filters</p>
+          //<p className={classes.filterText}>filters</p>
+          <Typography className={classes.filterText} variant="subtitle1">filters</Typography>
       }
 
       <Paper >

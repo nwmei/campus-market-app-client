@@ -3,12 +3,13 @@ import { FormControl, InputLabel, Select as MuiSelect, MenuItem, FormHelperText 
 
 export default function Select(props) {
 
-    const { name, label, value,error=null, onChange, options } = props;
+    const { name, label, value, error, onChange, options, helperText } = props;
 
     return (
         <FormControl variant="standard">
             <InputLabel>{label}</InputLabel>
             <MuiSelect
+                error={error}
                 label={label}
                 name={name}
                 value={value}
@@ -19,6 +20,10 @@ export default function Select(props) {
                     )
                 }
             </MuiSelect>
+          {
+            error &&
+            <FormHelperText>{helperText}</FormHelperText>
+          }
         </FormControl>
     )
 }

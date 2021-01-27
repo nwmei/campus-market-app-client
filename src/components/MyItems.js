@@ -12,6 +12,7 @@ import Filters from "./Filter/Filters";
 import FilterPills from "./Filter/FilterPills";
 import Divider from "@material-ui/core/Divider";
 import PageNavigation from "./PageNavigation";
+import Typography from "@material-ui/core/Typography";
 
 const MyItems = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({listedPage: 1, likedPage: 1, filters: []});
@@ -66,9 +67,12 @@ const MyItems = () => {
             <Divider />
           </div>
           <Grid container spacing={4} className={classes.subcontainer}>
-            <Grid item xs={12}>
-              ITEMS YOU'VE LISTED
-            </Grid>
+            {
+              myItemsData &&
+              <Grid item xs={12}>
+                <Typography variant="h2">Listed by you</Typography>
+              </Grid>
+            }
             {
               myItemsData && myItemsData.myItems.listedByMe.map((item, key) =>
                 <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>
@@ -102,10 +106,12 @@ const MyItems = () => {
                 />
               </Grid>
             }
-
-            <Grid item xs={12}>
-              ITEMS YOU'VE LIKED:
-            </Grid>
+            {
+              myItemsData &&
+              <Grid item xs={12}>
+                <Typography variant="h2">Liked by you</Typography>
+              </Grid>
+            }
             {
               myItemsData && myItemsData.myItems.likedByMe.map((item, key) =>
                 <Grid item xs={12} sm={6} md={4} lg={3} key={-key}>

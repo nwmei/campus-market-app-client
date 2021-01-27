@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
 import {storage} from "../firebase";
 import ButtonControl from "./controls/Button";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
-const ImageUpload = ({submitHandler}) => {
-  const [imageData, setImageData] = useState({images: [], urls: []});
+const ImageUpload = ({submitHandler, imageData, setImageData, error}) => {
+
+  const ErrorTypography = withStyles({
+    root: {
+      color: "#FF0000"
+    }
+  })(Typography);
 
   const changeHandler = (e) => {
     if (e.target.files[0]) {
@@ -14,7 +21,6 @@ const ImageUpload = ({submitHandler}) => {
         }, () => {
           storage.ref('images').child(e.target.files[0].name).getDownloadURL().then(url => {
             setImageData({
-              images: [],
               urls: [...imageData.urls, url]
             });
           })
@@ -36,6 +42,10 @@ const ImageUpload = ({submitHandler}) => {
       }
 
       <input disabled={imageData.urls.length >= 5} type="file" onChange={changeHandler}/>
+      {
+        error &&
+        <ErrorTypography variant="subtitle2">please upload a valid image</ErrorTypography>
+      }
       <ButtonControl
         disabled={imageData.urls.length===0}
         text="Submit"

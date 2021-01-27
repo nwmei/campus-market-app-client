@@ -50,6 +50,8 @@ export const categories = [
   {id: '6', title: 'other'},
 ];
 
+export const pageSize = 20;
+
 //export const gradientColor = '#33ab9f';
 
 export const gradientColor = '#3d5afe';

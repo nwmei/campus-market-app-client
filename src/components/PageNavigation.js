@@ -3,6 +3,8 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {makeStyles} from "@material-ui/core/styles";
 import React from "react";
+import Typography from "@material-ui/core/Typography";
+import {pageSize} from "./constants";
 
 const usePageNavigationStyles = makeStyles((theme) => ({
   pageNavigation: props => ({
@@ -19,13 +21,12 @@ const usePageNavigationStyles = makeStyles((theme) => ({
 }));
 
 const PageNavigation = ({backOnClick, nextOnClick, pageNumber, storeItemsCount, component}) => {
-  const itemsOnPage = (storeItemsCount)
   const classes = usePageNavigationStyles({storeItemsCount, component});
   return (
     <div className={classes.pageNavigation} >
       <Button className={classes.textColor} text="back" startIcon={<ArrowBackIosIcon />} onClick={backOnClick} disabled={pageNumber===1}/>
-      <h4>page {pageNumber} </h4>
-      <Button className={classes.textColor} text="next" startIcon={<ArrowForwardIosIcon />} onClick={nextOnClick}/>
+      <Typography className={classes.filterText} variant="subtitle1">page {pageNumber}</Typography>
+      <Button className={classes.textColor} text="next" startIcon={<ArrowForwardIosIcon />} onClick={nextOnClick} disabled={storeItemsCount < pageSize}/>
     </div>
   )
 };
