@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from './UseForm';
 import InputControl from './controls/Input';
 import RadioGroupControl from './controls/RadioGroup';
 import SelectControl from './controls/Select';
 import ButtonControl from './controls/Button';
+import {categories, neighborhoods} from "../../src/components/constants";
+import {sessionContext} from "../../src/components/SessionContext";
 
 export default function EditItemForm(props) {
   const { itemId, setIsOpen, editItemHandler, deleteItemHandler, itemName, price, description, imageUrls, category, neighborhood, } = props;
+  const {sessionContextValue} = useContext(sessionContext);
+
   const initialItemValues = {
     itemName,
     description,
@@ -15,6 +19,7 @@ export default function EditItemForm(props) {
     category,
     neighborhood
   };
+
 
   const {
     values,
@@ -38,7 +43,7 @@ export default function EditItemForm(props) {
   };
 
   return (
-    <Form>
+    <Form onSubmit={(e) => e.preventDefault()}>
       <Grid container>
         <Grid item xs={6}>
           <InputControl
@@ -62,19 +67,21 @@ export default function EditItemForm(props) {
             value={values.price}
             onChange={handleInputChange}
           />
-          <InputControl
-            variant="standard"
-            name="category"
-            label="category"
-            value={values.category}
-            onChange={handleInputChange}
-          />
-          <InputControl
-            variant="standard"
+          <div style={{paddingRight: 40}}>
+            <SelectControl
+              name="category"
+              label="Category"
+              value={values.category}
+              onChange={handleInputChange}
+              options={categories}
+            />
+          </div>
+          <SelectControl
             name="neighborhood"
-            label="neighborhood"
+            label="Neighborhood"
             value={values.neighborhood}
             onChange={handleInputChange}
+            options={neighborhoods[sessionContextValue.school]}
           />
 
         </Grid>

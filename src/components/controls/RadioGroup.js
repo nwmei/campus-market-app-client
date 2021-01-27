@@ -3,7 +3,15 @@ import { FormControl, FormLabel, RadioGroup as MuiRadioGroup, FormControlLabel, 
 
 export default function RadioGroup(props) {
 
-    const { name, label, value, onClick, items } = props;
+    const { component, name, label, value, onClick, items } = props;
+
+    const determineClickHandler = (item) => {
+      if (component === 'addItem') {
+        return (() => onClick(item.title))
+      } else {
+        return onClick;
+      }
+    };
 
     return (
         <FormControl>
@@ -17,7 +25,7 @@ export default function RadioGroup(props) {
                           control={<Checkbox />}
                           label={item.title}
                           checked={value===item.title}
-                          onClick={onClick} />
+                          onClick={determineClickHandler(item)} />
                         ))
                 }
             </MuiRadioGroup>

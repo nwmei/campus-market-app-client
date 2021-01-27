@@ -6,7 +6,7 @@ import StoreItems from '../queries/StoreItems.graphql';
 import BetaCard from './BetaCard';
 import useCardGridStyles from './styles/CardGridStyles';
 
-const CardGrid = ({setStoreItemsResponded, itemsQueryInfo: {page, filters}}) => {
+const CardGrid = ({setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
   const classes = useCardGridStyles();
 
   const {data: storeItemsData, refetch} = useQuery(StoreItems, {
@@ -21,7 +21,7 @@ const CardGrid = ({setStoreItemsResponded, itemsQueryInfo: {page, filters}}) => 
 
   useEffect(() => {
     if (storeItemsData) {
-      setStoreItemsResponded(true);
+      setStoreItemsCount({responded: true, count: storeItemsData.storeItems.length});
     }
   }, [storeItemsData]);
 
