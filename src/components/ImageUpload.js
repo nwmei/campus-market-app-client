@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {storage} from "../firebase";
 import ButtonControl from "./controls/Button";
+import "./styles.css";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
@@ -30,7 +31,7 @@ const ImageUpload = ({submitHandler, imageData, setImageData, error}) => {
     }
   };
 
-  const uploadHandler = (e) => {
+  const uploadHandler = () => {
     submitHandler(imageData.urls)
   };
 
@@ -38,7 +39,7 @@ const ImageUpload = ({submitHandler, imageData, setImageData, error}) => {
     <div>
       {
         imageData.urls && imageData.urls.map((imgUrl, key) => {
-          return (<img key={key} src={imgUrl} alt="no images" height="100" width="100"/>)
+          return (<img key={key} className="imageToUpload" src={imgUrl} alt="no images" height="100" width="100"/>)
         })
       }
 
