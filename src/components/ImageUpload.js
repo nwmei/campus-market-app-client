@@ -14,18 +14,19 @@ const ImageUpload = ({submitHandler, imageData, setImageData, error}) => {
 
   const changeHandler = (e) => {
     if (e.target.files[0]) {
-      const uploadTask = storage.ref(`images/${e.target.files[0].name}`).put(e.target.files[0]);
+      const datePrefix = Date.now().toString();
+      const uploadFileName = `${datePrefix}${e.target.files[0].name}`;
+      const uploadTask = storage.ref(`images/${uploadFileName}`).put(e.target.files[0]);
       uploadTask.on('state_changed',
         (snapshot) => {}, (error) => {
           console.log(error)
         }, () => {
-          storage.ref('images').child(e.target.files[0].name).getDownloadURL().then(url => {
+          storage.ref('images').child(uploadFileName).getDownloadURL().then(url => {
             setImageData({
               urls: [...imageData.urls, url]
             });
           })
         });
-
     }
   };
 
