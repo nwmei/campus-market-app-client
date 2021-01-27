@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react'
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from './UseForm';
 import InputControl from './controls/Input';
-import RadioGroupControl from './controls/RadioGroup';
 import SelectControl from './controls/Select';
 import ButtonControl from './controls/Button';
 import ImageUpload from "./ImageUpload";
@@ -22,6 +21,7 @@ export default function AddItemForm(props) {
     const { setIsOpen, addItemHandler } = props;
     const [imageData, setImageData] = useState({urls: []});
     const {sessionContextValue} = useContext(sessionContext);
+    const [submitAttempted, setSubmitAttempted] = useState(false);
 
     const errorText = {
         itemName: 'please enter a valid item name',
@@ -48,41 +48,39 @@ export default function AddItemForm(props) {
         resetForm
     } = useForm(initialItemValues);
 
-    const validateTextInputField = (fieldKey) => {
-        if (values[fieldKey] === '') {
-            if (fieldKey === 'itemName') {
-                setErrors({ ...errors, itemName: true })
-            } else if (fieldKey === 'description') {
-                setErrors({ ...errors, description: true })
-            } else if (fieldKey === 'price') {
-                setErrors({ ...errors, price: true })
-            }
-            return false;
-        }
-        return true;
+    const validateInputs = () => {
+        const itemNameValid = values.itemName.length > 0;
+        const descriptionValid = values.description.length > 0;
+        const priceValid = values.price.length > 0 && (/^\d*(?:\.\d{0,2})?$/.test(values.price));
+        const categoryValid = values.category.length > 0;
+        const neighborhoodValid = values.neighborhood.length > 0;
+        const imagesValid = imageData.urls.length > 0;
+
+        setErrors({
+            itemName: !itemNameValid,
+            description: !descriptionValid,
+            price: !priceValid,
+            category: !categoryValid,
+            neighborhood: !neighborhoodValid,
+            images: !imagesValid,
+        });
+
+        return itemNameValid && descriptionValid && priceValid && imagesValid && categoryValid && neighborhoodValid;
     };
 
-    const validateImagesField = () => {
-        if (imageData.urls.length > 0) {
-            return true;
-        } else {
-            setErrors({ ...errors, images: true });
-            return false;
+    useEffect(() => {
+        if (submitAttempted) {
+            allFieldsValid();
         }
-    };
+    }, [values]);
 
     const allFieldsValid = () => {
-        return (
-            validateTextInputField('itemName') &&
-              validateTextInputField('description') &&
-              validateTextInputField('price') &&
-              validateImagesField()
-        )
+        return validateInputs();
     };
 
     const handleFormSubmit = (urls) => {
+        setSubmitAttempted(true);
         if (allFieldsValid()) {
-            resetForm();
             setIsOpen(false);
             addItemHandler({...values, imageUrls: urls});
         }
