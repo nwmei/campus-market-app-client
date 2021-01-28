@@ -30,7 +30,6 @@ export default function EditItemForm(props) {
     neighborhood: 'please choose a neighborhood'
   };
 
-
   const initialItemValues = {
     itemName,
     description,
