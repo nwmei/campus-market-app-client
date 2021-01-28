@@ -76,12 +76,12 @@ const theme = createMuiTheme({
 export default function Card1(props) {
   const history = useHistory();
   const { itemId, itemName, price, seller, description, imageUrls, date, daysAgo, likes, enterable, category, neighborhood, refetch } = props;
+  const {sessionContextValue} = useContext(sessionContext);
   let splitDate = date.toString().split(' ');
   const formattedDate = splitDate[0] + ' ' + splitDate[1] + ' ' + splitDate[2]
   const [likeItemMutation, {data: likeData}] = useMutation(LikeItem);
   const [unlikeItemMutation, {data: unlikeData}] = useMutation(UnlikeItem);
-  const [likedByUser, setLikedByUser] = useState(likes.includes(seller.id));
-  const {sessionContextValue} = useContext(sessionContext);
+  const [likedByUser, setLikedByUser] = useState(likes.includes(sessionContextValue.userId));
 
   useEffect(() => {
     if (likeData || unlikeData) {
@@ -90,10 +90,11 @@ export default function Card1(props) {
   }, [likeData, unlikeData]);
 
   useEffect(() => {
-    setLikedByUser(likes.includes(seller.id));
+    setLikedByUser(likes.includes(sessionContextValue.userId));
   }, [likes]);
 
   const likeItemHandler = () => {
+    console.log("like")
     likeItemMutation({
       variables: {
         input: {
