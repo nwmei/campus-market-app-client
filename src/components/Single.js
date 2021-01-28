@@ -126,26 +126,21 @@ const Single = () => {
                                     refetch={() => refetch()}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm container>
+                            <Grid item xs={12} sm container direction="column">
                                 <Grid item xs container direction="column" spacing={2}>
                                     <Grid item xs={12}>
                                         <Comments commentsList={commentsToDisplay}/>
                                     </Grid>
-                                    <Grid item>
-                                        <Grid container >
-                                            <Grid item xs={10}>
-                                                <Input label="add comment" variant="standard" onChange={(e) => setAddCommentText(e.target.value)} inputRef={textInput} fullWidth />
-                                            </Grid>
-                                            <Grid item>
-                                                <Button text="post" onClick={submitCommentHandler}/>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <IconButton className={classes.report}>
-                                        <MoreVertIcon />
-                                    </IconButton>
+                                    <Grid container >
+                                        <Grid item xs={10}>
+                                            <Input label="add comment" variant="standard" onChange={(e) => setAddCommentText(e.target.value)} inputRef={textInput} fullWidth />
+                                        </Grid>
+                                        <Grid item>
+                                            <Button text="post" onClick={submitCommentHandler}/>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -5,6 +5,8 @@ import { CssBaseline } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Grid, } from '@material-ui/core';
 import React from "react";
+import logo from './logo2.png'
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -48,7 +50,10 @@ const LandingPage = ({ setSessionQueryResponded }) => {
       <div className={classes.centerText}>
         <Grid container alignItems="center">
           <Grid xs={12} item align="center">
-            <Typography variant="h2">Welcome to campusmarketapp.com </Typography>
+            <Typography variant="h2">Welcome to </Typography>
+          </Grid>
+          <Grid xs={12} item align="center">
+            <img src={logo} className="LandingPhoto"/>
           </Grid>
           <Grid xs={12} item align="center">
             <GoogleLogin navigateAfterLogin={navigateToExplorePage} />
