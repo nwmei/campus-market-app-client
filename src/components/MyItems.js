@@ -99,6 +99,7 @@ const MyItems = () => {
               myItemsData && myItemsData.myItems &&
               <Grid item xs={12}>
                 <PageNavigation
+                  storeItemsCount={myItemsData.myItems.listedByMe.length}
                   component="myItems"
                   backOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage-1)}
                   nextOnClick={() => updateListedPageNumber(itemsQueryInfo.listedPage+1)}
@@ -138,6 +139,7 @@ const MyItems = () => {
               myItemsData && myItemsData.myItems &&
               <Grid item xs={12}>
                 <PageNavigation
+                  storeItemsCount={myItemsData.myItems.likedByMe.length}
                   component="myItems"
                   backOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage-1)}
                   nextOnClick={() => updateLikedPageNumber(itemsQueryInfo.likedPage+1)}
