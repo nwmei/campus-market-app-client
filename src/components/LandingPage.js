@@ -53,6 +53,9 @@ const LandingPage = ({ setSessionQueryResponded }) => {
           <Grid xs={12} item align="center">
             <GoogleLogin navigateAfterLogin={navigateToExplorePage} />
           </Grid>
+          <Grid xs={12} item align="center">
+            <Typography variant="subtit1">Website created by Nelson Mei</Typography>
+          </Grid>
         </Grid>
       </div>
     </div>
