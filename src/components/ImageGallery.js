@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import Avatar from "@material-ui/core/Avatar";
+import {userInitials} from "../utils/stringMethods";
+import {deepOrange} from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,8 +36,12 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     marginRight: 10,
     marginLeft: 0
-  }
-
+  },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+    size: ''
+  },
 }));
 
 export default function TextMobileStepper({imageUrls, itemName, price, seller}) {
@@ -56,9 +62,11 @@ export default function TextMobileStepper({imageUrls, itemName, price, seller}) 
   return (
     <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
-        <Avatar aria-label="recipe" className={classes.avatar} src={seller.imageUrl}>
-
-        </Avatar>
+        {
+          seller.imageUrl === 'not available'
+            ? <Avatar className={classes.orange}>{seller.firstName[0] + seller.lastName[0]}</Avatar>
+            : <Avatar aria-label="recipe" className={classes.avatar} src={seller.imageUrl} />
+        }
         <Typography><b>${price}</b> {itemName}</Typography>
       </Paper>
       <img

@@ -30,7 +30,11 @@ function UserIcon({clearUserDetails}) {
           horizontal: 'right',
         }}
         variant="dot">
-          <Avatar  src={sessionContextValue.imageUrl} alt={sessionContextValue.imageUrl} />
+          {
+            sessionContextValue.imageUrl === 'not available'
+              ? <Avatar className={classes.orange}>{sessionContextValue.userInitials}</Avatar>
+              : <Avatar  src={sessionContextValue.imageUrl} alt={sessionContextValue.imageUrl} />
+          }
           </StyledBadge>
         </Grid>
         <Grid item>
