@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import GoogleLogin from './LoginButton';
+import LoginButton from './LoginButton';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Nunito',
     fontSize: 12,
     color: '#000000'
+  },
+  google: {
+    marginBottom: 10
   }
 }));
 
@@ -55,11 +58,14 @@ const LandingPage = ({ setSessionQueryResponded }) => {
           <Grid xs={12} item align="center">
             <img src={logo} className="LandingPhoto"/>
           </Grid>
-          <Grid xs={12} item align="center">
-            <GoogleLogin navigateAfterLogin={navigateToExplorePage} />
+          <Grid xs={12} item align="center" className={classes.google}>
+            <LoginButton loginProvider='google' navigateAfterLogin={navigateToExplorePage} />
           </Grid>
           <Grid xs={12} item align="center">
-            <Typography variant="subtit1">Website created by Nelson Mei</Typography>
+            <LoginButton loginProvider='microsoft' navigateAfterLogin={navigateToExplorePage} />
+          </Grid>
+          <Grid xs={12} item align="center">
+            <Typography variant="caption">Website created by Nelson Mei</Typography>
           </Grid>
         </Grid>
       </div>

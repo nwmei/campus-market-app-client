@@ -2,11 +2,12 @@ import React from 'react';
 import {useState, useEffect} from 'react'
 import {useMutation, useLazyQuery } from '@apollo/client';
 import GoogleLogin from 'react-google-login';
+import MicrosoftLogin from "react-microsoft-login";
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
 import SetAccessToken from '../mutations/SetAccessToken.graphql';
 
-const LoginButton = ({navigateAfterLogin}) => {
+const LoginButton = ({navigateAfterLogin, loginProvider}) => {
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
   const [setAccessToken] = useMutation(SetAccessToken);
@@ -37,31 +38,58 @@ const LoginButton = ({navigateAfterLogin}) => {
   }, [userExistsData]);
 
   
-  const loginSuccessHandler = async (response) => {
-    setUserData({
+  const googleLoginSuccessHandler = async (response) => {
+    loginSuccessHandler({
       accessToken: response.accessToken,
       firstName: response.profileObj.givenName,
       lastName: response.profileObj.familyName,
       emailAddress: response.profileObj.email,
       imageUrl: response.profileObj.imageUrl,
-    });
-    userExistsQuery({ variables: { input: { emailAddress: response.profileObj.email } }})
+    })
   };
 
-  const loginRequestHandler = () => {
+  const googleLoginRequestHandler = () => {
     console.log("login requested")
   };
 
+  const microsoftHandler = (err, data) => {
+    if (!err) {
+      loginSuccessHandler({
+        accessToken: data.accessToken,
+        firstName: data.account.name.split(' ').slice(0, -1).join(' '),
+        lastName: data.account.name.split(' ').slice(-1).join(' '),
+        emailAddress: data.account.userName,
+        imageUrl: 'not available',
+      });
+    }
+  };
+
+  const loginSuccessHandler = ({accessToken, firstName, lastName, emailAddress, imageUrl}) => {
+    setUserData({ accessToken, firstName, lastName, emailAddress, imageUrl });
+    userExistsQuery({ variables: { input: { emailAddress } }})
+  };
+
   return (
-    <GoogleLogin
-      clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com' 
-      buttonText='Continue with Google'
-      onRequest={loginRequestHandler}
-      onSuccess={loginSuccessHandler} 
-      onFailure={(e)=>console.log(e)} 
-      cookiePolicy={'single_host_origin'}
-    >
-    </GoogleLogin>
+    <>
+    {
+      loginProvider === 'google' ?
+      <GoogleLogin
+        clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com'
+        buttonText='Sign in with Google'
+        onRequest={googleLoginRequestHandler}
+        onSuccess={googleLoginSuccessHandler}
+        onFailure={(e)=>console.log(e)}
+        cookiePolicy={'single_host_origin'}
+      >
+      </GoogleLogin>
+      :
+      <MicrosoftLogin
+        clientId='9b01cab8-031f-4e6c-adff-b668bee8523c'
+        authCallback={microsoftHandler}
+        redirectUri={process.env.NODE_ENV==='development' ? 'http://localhost:3000' : 'https://campusmarketapp.com'}
+      />
+    }
+    </>
   )
 };
 

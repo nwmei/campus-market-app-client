@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import CommentUnit from './CommentUnit';
 
 const Comments = ({commentsList}) => {
+  console.log(commentsList)
     return (
         <>
             <Typography variant="subtitle1">

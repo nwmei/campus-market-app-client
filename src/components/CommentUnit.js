@@ -2,6 +2,8 @@ import React, {useContext} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from '@material-ui/core/Grid';
 import Avatar from "@material-ui/core/Avatar";
+import {userInitials} from "../utils/stringMethods";
+import {deepOrange} from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -19,7 +21,12 @@ const useStyles = makeStyles(theme => ({
         margin: "5px",
         padding: "10px",
         display: "inline-block"
-    }
+    },
+    orange: {
+        color: theme.palette.getContrastText(deepOrange[500]),
+        backgroundColor: deepOrange[500],
+        size: ''
+    },
 }));
 
 const ChatLayout = ({commenterName, commentText, commenterImageUrl}) => {
@@ -29,8 +36,15 @@ const ChatLayout = ({commenterName, commentText, commenterImageUrl}) => {
         <div className={classes.container}>
             <div className={`${classes.bubbleContainer}`}>
                 <Grid container>
-                    <Grid item >
-                        <Avatar  src={commenterImageUrl} alt={commenterImageUrl} />
+                    <Grid item>
+                        {
+                            commenterImageUrl === 'not available'
+                              ? <Avatar className={classes.orange}>{
+                                  userInitials(commenterName.split(' ').slice(0, -1).join(' '),
+                                    commenterName.split(' ').slice(-1).join(' '))}
+                                </Avatar>
+                              : <Avatar src={commenterImageUrl} alt={commenterImageUrl} />
+                        }
                     </Grid>
                     <Grid item >
                         <div className={classes.bubble}>
