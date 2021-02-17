@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from '@material-ui/core/Grid';
 import Avatar from "@material-ui/core/Avatar";
@@ -10,6 +10,7 @@ import MuiLink from "@material-ui/core/Link";
 import {sessionContext} from "./SessionContext";
 import DeleteComment from '../mutations/DeleteComment.graphql';
 import {useMutation} from "@apollo/client";
+import AreYouSure from "./AreYouSure";
 
 
 const useStyles = makeStyles(theme => ({
@@ -46,12 +47,28 @@ const ChatLayout = ({itemId, commentId, commenterId, commenterName, commentText,
     const classes = useStyles();
     const {sessionContextValue} = useContext(sessionContext);
     const [deleteComment, {data}] = useMutation(DeleteComment);
+    const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
     useEffect(() => {
         if (data) {
             refetch();
         }
     }, [data]);
+
+    const deleteHandler = () => {
+        setConfirmModalOpen(true);
+    };
+
+    const deleteConfirm = () => {
+        deleteComment({
+            variables: {
+                input: {
+                    itemId,
+                    commentId
+                }
+            }
+        }).then(setConfirmModalOpen(false))
+    };
 
     return (
       <div className={classes.container}>
@@ -76,20 +93,14 @@ const ChatLayout = ({itemId, commentId, commenterId, commenterName, commentText,
                       </div>
                       {
                           commenterId === sessionContextValue.userId &&
-                          <MuiLink color="initial" onClick={()=>{deleteComment({
-                              variables: {
-                                  input: {
-                                      itemId,
-                                      commentId
-                                  }
-                              }
-                          })}}>
+                          <MuiLink color="initial" onClick={deleteHandler}>
                               <CloseIcon />
                           </MuiLink>
                       }
                   </Grid>
               </Grid>
           </div>
+          <AreYouSure isOpen={confirmModalOpen} onClose={() => {setConfirmModalOpen(false)}} deleteHandler={deleteConfirm} />
       </div>
     )
 };
