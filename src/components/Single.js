@@ -14,6 +14,9 @@ import BetaCard from "./BetaCard";
 import SendIcon from '@material-ui/icons/Send';
 import lodash from 'lodash';
 import Typography from "@material-ui/core/Typography";
+import {
+    useWindowWidth,
+} from '@react-hook/window-size'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Single = () => {
+    // const width = useWindowWidth();
+    // console.log(width)
     const storeItemId = useParams().itemId;
     const {data: storeItemData, refetch} = useQuery(StoreItem,
       {

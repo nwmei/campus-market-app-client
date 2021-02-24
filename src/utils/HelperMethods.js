@@ -14,3 +14,7 @@ export const getImageUrl = (imageUrl) => {
         return getAlternateImageUrl();
     }
 };
+
+export const isMobile = (width) => {
+    return width < 1100;
+};

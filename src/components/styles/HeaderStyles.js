@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     //background: 'linear-gradient(45deg,#f44336  30%,  #9c27b0 90%)',
     //background: 'linear-gradient(45deg,#f50057  30%,  #ffc107 90%)',
     background: gradientColor,
+    zIndex: 1400
   },
 }));
 

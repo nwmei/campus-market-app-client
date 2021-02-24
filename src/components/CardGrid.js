@@ -33,12 +33,12 @@ const CardGrid = ({setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
             className={classes.gridContainer}
             alignItems="center"
         >
-          <Grid item xs={12} sm={6} md={4} lg={4} align="center">
+          <Grid item xs={12} sm={12} md={6} lg={4} align="center">
             <AddCard refetch={refetch} />
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.map((item, key) =>
-                <Grid item xs={12} sm={6} md={4} lg={4} key={-key}>
+                <Grid item xs={12} sm={12} md={6} lg={4} align="center" key={-key}>
                   <BetaCard
                       enterable={true}
                       date={new Date(parseInt(item.date))}

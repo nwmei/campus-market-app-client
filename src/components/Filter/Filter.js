@@ -81,6 +81,10 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
                 onClick={(e) => toggleSelected(e.target.value)}
                 items={options}
               />
+              {
+                filterType === 'Neighborhood' && options.length === 0 &&
+                <Typography variant='caption'>select a campus first!</Typography>
+              }
             </Paper>
             :
             <Grid container>

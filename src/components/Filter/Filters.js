@@ -6,10 +6,13 @@ import filterOptions from "./FilterOptions";
 import MuiLink from "@material-ui/core/Link";
 import {neighborhoods} from "../constants";
 import Typography from "@material-ui/core/Typography";
+import {
+  useWindowWidth,
+} from '@react-hook/window-size'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '15%',
+    width: 220,
     position: "fixed",
   },
   heading: {
@@ -26,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Filters({filters, updateFilters, clearFilters}) {
+  const innerWidth = useWindowWidth();
   const [expandedFilter, setExpandedFilter] = useState("");
   const classes = useStyles();
 

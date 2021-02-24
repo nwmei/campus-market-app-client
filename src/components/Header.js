@@ -10,36 +10,77 @@ import SearchBar from './SearchBar';
 import UserIcon from './UserIcon';
 import {Link} from "react-router-dom";
 import logo from './logo2.png'
-
+import {
+  useWindowWidth,
+} from '@react-hook/window-size'
+import { isMobile } from "../utils/HelperMethods";
 import "./styles.css"
+import MobileMenu from './MobileMenu'
+
+const determineLabel = (label, width) => {
+  if (width < 1100) {
+    return '';
+  } else if (width < 1131) {
+    if (label === 'About App') return 'About';
+  }
+  return label;
+};
+
+const determineLogo = (width) => {
+  console.log(width)
+  if (width < 480) {
+    return "photoMobile"
+  } else {
+    return "photo";
+  }
+};
 
 const MenuAppBar = ({clearUserDetails}) => {
+  const width = useWindowWidth();
   const classes = useStylesHeader();
+  const isMobileView = isMobile(width);
 
   return (
-    <div className={classes.root}>
-      <AppBar position="fixed" className={classes.topBar}>
-        <Toolbar>
-          <Link to="/explore">
-            <img src={logo} className="photo"/>
-          </Link>
-          <Button size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} href='/explore'>
-            Marketplace
-          </Button>
-          <Button size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} href='/myItems'>
-            My Items
-          </Button>
-          <Button size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} href='/about'>
-            About app
-          </Button>
+    isMobileView
+      ?
+      <div className={classes.root}>
+        <AppBar position="fixed" className={classes.topBar}>
+          <Toolbar>
+            <MobileMenu/>
+            <Link to="/explore">
+              <img src={logo} className={determineLogo(width)}/>
+            </Link>
 
-          <SearchBar />
-          <div className={classes.grow} />
+            <div className={classes.grow} />
 
-          <UserIcon clearUserDetails={clearUserDetails}/>
-        </Toolbar>
-      </AppBar>
-    </div>
+            <UserIcon clearUserDetails={clearUserDetails}/>
+          </Toolbar>
+        </AppBar>
+      </div>
+      :
+      <div className={classes.root}>
+        <AppBar position="fixed" className={classes.topBar}>
+          <Toolbar>
+            <Link to="/explore">
+              <img src={logo} className="photo"/>
+            </Link>
+            <Button size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} href='/explore'>
+              {determineLabel('Marketplace', width)}
+            </Button>
+            <Button size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} href='/myItems'>
+              {determineLabel('My items', width)}
+            </Button>
+            <Button size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} href='/about'>
+              {determineLabel('About App', width)}
+            </Button>
+
+            <SearchBar />
+            <div className={classes.grow} />
+
+            <UserIcon clearUserDetails={clearUserDetails}/>
+          </Toolbar>
+        </AppBar>
+      </div>
   );
 }
 

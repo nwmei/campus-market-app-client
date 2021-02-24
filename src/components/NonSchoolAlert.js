@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransitionAlerts() {
+export default function NonSchoolAlert() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const { sessionContextValue } = useContext(sessionContext);
@@ -31,6 +31,7 @@ export default function TransitionAlerts() {
               color="inherit"
               size="small"
               onClick={() => {
+                sessionStorage.setItem('showedNonSchoolMessage', 'true');
                 setOpen(false);
               }}
             >

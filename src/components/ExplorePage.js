@@ -9,8 +9,13 @@ import PageNavigation from "./PageNavigation";
 import Alert from '@material-ui/lab/Alert';
 import {sessionContext} from "./SessionContext";
 import NonSchoolAlert from "../../src/components/NonSchoolAlert";
+import {
+  useWindowWidth,
+} from '@react-hook/window-size'
+import FilterDrawer from './FilterDrawer';
 
 const ExplorePage = () => {
+  const innerWidth = useWindowWidth();
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
   const [storeItemsCount, setStoreItemsCount] = useState({responded: false, count: 0});
   const numberOfFilters = itemsQueryInfo.filters.length;
@@ -41,39 +46,37 @@ const ExplorePage = () => {
 
     return (
       <div>
-        <Grid container spacing={3} className={classes.root}>
-          <Grid item xs={12} sm={2} style={{marginBottom: 80}}>
-            <Filters filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={() => clearFilters()}/>
-          </Grid>
-          <Grid item xs={12} sm={10}>
-            <FilterPills filters={itemsQueryInfo.filters} updateFilters={updateFilters}/>
-            <div className={classes.divider}>
-              <Divider />
+        <FilterDrawer filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={clearFilters}>
+          <Grid container spacing={3} className={classes.root}>
+            <Grid className={classes.main} item xs={12} sm={12} md={12}>
+              <FilterPills filters={itemsQueryInfo.filters} updateFilters={updateFilters}/>
+              <div className={classes.divider}>
+                <Divider />
+                {
+                  sessionStorage.getItem('showedNonSchoolMessage') !== 'true' && sessionContextValue.school === 'Off-Campus' &&
+                  <NonSchoolAlert />
+                }
+              </div>
+              <ExploreCardGrid setStoreItemsCount={setStoreItemsCount} itemsQueryInfo={itemsQueryInfo} />
               {
-                sessionContextValue.school === 'Off-Campus' &&
-                <NonSchoolAlert />
+                storeItemsCount.responded &&
+                <PageNavigation
+                  storeItemsCount={storeItemsCount.count}
+                  component="explore"
+                  backOnClick={() => {
+                    window.scrollTo( 0, 0)
+                    updatePageNumber(itemsQueryInfo.page-1);
+                  }}
+                  nextOnClick={() => {
+                    window.scrollTo( 0, 0)
+                    updatePageNumber(itemsQueryInfo.page+1);
+                  }}
+                  pageNumber={itemsQueryInfo.page}
+                />
               }
-            </div>
-            <ExploreCardGrid setStoreItemsCount={setStoreItemsCount} itemsQueryInfo={itemsQueryInfo} />
-            {
-              storeItemsCount.responded &&
-              <PageNavigation
-                storeItemsCount={storeItemsCount.count}
-                component="explore"
-                backOnClick={() => {
-                  window.scrollTo( 0, 0)
-                  updatePageNumber(itemsQueryInfo.page-1);
-                }}
-                nextOnClick={() => {
-                  window.scrollTo( 0, 0)
-                  updatePageNumber(itemsQueryInfo.page+1);
-                }}
-                pageNumber={itemsQueryInfo.page}
-              />
-            }
-
+            </Grid>
           </Grid>
-        </Grid>
+        </FilterDrawer>
       </div>
     )
 };
