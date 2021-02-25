@@ -5,6 +5,9 @@ const useStyles = makeStyles({
         paddingLeft: "0px",
         paddingRight: "0px",
         paddingTop: "10px",
+    },
+    buttonsMobile: {
+        paddingRight:20
     }
 });
 

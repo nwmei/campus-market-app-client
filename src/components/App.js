@@ -12,10 +12,6 @@ import Single from "./Single";
 import Header from "./Header";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import Error from "./Error";
-import {gql} from '@apollo/client';
-import {
-  useWindowWidth,
-} from '@react-hook/window-size'
 
 const theme = createMuiTheme({
   overrides: {

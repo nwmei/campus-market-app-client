@@ -27,7 +27,6 @@ const determineLabel = (label, width) => {
 };
 
 const determineLogo = (width) => {
-  console.log(width)
   if (width < 480) {
     return "photoMobile"
   } else {
@@ -36,6 +35,7 @@ const determineLogo = (width) => {
 };
 
 const MenuAppBar = ({clearUserDetails}) => {
+  console.log("rendering header")
   const width = useWindowWidth();
   const classes = useStylesHeader();
   const isMobileView = isMobile(width);
@@ -46,7 +46,7 @@ const MenuAppBar = ({clearUserDetails}) => {
       <div className={classes.root}>
         <AppBar position="fixed" className={classes.topBar}>
           <Toolbar>
-            <MobileMenu/>
+            <MobileMenu />
             <Link to="/explore">
               <img src={logo} className={determineLogo(width)}/>
             </Link>

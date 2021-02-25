@@ -9,12 +9,13 @@ import Typography from "@material-ui/core/Typography";
 import {
   useWindowWidth,
 } from '@react-hook/window-size'
+import {showFilterModal} from "../../utils/HelperMethods";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: props => (!props.showFilterModal ? {
     width: 220,
     position: "fixed",
-  },
+  } : {}),
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Filters({filters, updateFilters, clearFilters}) {
   const innerWidth = useWindowWidth();
   const [expandedFilter, setExpandedFilter] = useState("");
-  const classes = useStyles();
+  const classes = useStyles({showFilterModal: showFilterModal(innerWidth)});
 
   const campusSelected = () => {
     return filters.filter(filter => filter.filterType === 'Campus').length > 0;
@@ -54,12 +55,16 @@ export default function Filters({filters, updateFilters, clearFilters}) {
     <div className={classes.root}>
       {
         filters.length > 0 ?
-          <MuiLink  onClick={clearFilters}>
-            <Typography className={classes.filterText} variant="subtitle1">clear filters</Typography>
-          </MuiLink>
+            <MuiLink onClick={clearFilters}>
+              <Typography className={classes.filterText} variant="subtitle1">clear filters</Typography>
+            </MuiLink>
           :
-          //<p className={classes.filterText}>filters</p>
-          <Typography className={classes.filterText} variant="subtitle1">filters</Typography>
+          <>
+            {
+              !showFilterModal(innerWidth) &&
+                <Typography className={classes.filterText} variant="subtitle1">filters</Typography>
+            }
+          </>
       }
 
       <Paper >

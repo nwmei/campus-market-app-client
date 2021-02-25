@@ -18,3 +18,7 @@ export const getImageUrl = (imageUrl) => {
 export const isMobile = (width) => {
     return width < 1100;
 };
+
+export const showFilterModal = (width) => {
+    return width < 585;
+};

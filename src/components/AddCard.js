@@ -13,6 +13,8 @@ import { gradientColor } from "./constants";
 import {
   useWindowWidth,
 } from '@react-hook/window-size'
+import {showFilterModal} from "../utils/HelperMethods";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,21 +25,21 @@ const useStyles = makeStyles((theme) => ({
       background: gradientColor
     },
     border: 'solid 1px #3d5afe',
-    borderRadius: 50
+    borderRadius: 50,
   },
   addButton: props => ({
     '&:hover': {
       color: 'white'
     },
     color: '#3d5afe',
-    fontSize: props.innerWidth < 480 ? 100 : 200,
+    fontSize: props.showFilterModal ? 100 : 200,
   })
 }));
 
 export default function AddCard({refetch}) {
   const innerWidth = useWindowWidth();
   const [activated, setActivated] = useState(false);
-  const classes = useStyles({innerWidth});
+  const classes = useStyles({showFilterModal: showFilterModal(innerWidth)});
 
   const {sessionContextValue} = useContext(sessionContext);
   const [createStoreItem, {data}] = useMutation(CreateStoreItemMutation);
@@ -80,6 +82,12 @@ export default function AddCard({refetch}) {
           </Grid>
         </Grid>
       </Button>
+      {
+        showFilterModal(innerWidth) &&
+          <Typography variant="subtitle1">
+            post
+          </Typography>
+      }
       <Popup isOpen={activated} title='Add Item' >
         <AddItemForm setIsOpen={setActivated} addItemHandler={addItemHandler} />
       </Popup>

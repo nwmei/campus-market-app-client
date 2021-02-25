@@ -1,7 +1,7 @@
 import ExploreCardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Filter/Filters';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ExplorePageStyles from './styles/ExplorePageStyles';
 import Divider from '@material-ui/core/Divider';
 import FilterPills from "./Filter/FilterPills";
@@ -13,14 +13,16 @@ import {
   useWindowWidth,
 } from '@react-hook/window-size'
 import FilterDrawer from './FilterDrawer';
+import AddItemForm from "../../src/components/AddItemForm";
+import Popup from "../../src/components/Popup";
 
 const ExplorePage = () => {
   const innerWidth = useWindowWidth();
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
   const [storeItemsCount, setStoreItemsCount] = useState({responded: false, count: 0});
+  const [filterModalOpen, setFilterModalOpen] = useState(false);
   const numberOfFilters = itemsQueryInfo.filters.length;
   const classes = ExplorePageStyles({numberOfFilters});
-
   const {sessionContextValue} = useContext(sessionContext);
 
   const updateFilters = (oldFilter, newFilter) => {
@@ -57,7 +59,7 @@ const ExplorePage = () => {
                   <NonSchoolAlert />
                 }
               </div>
-              <ExploreCardGrid setStoreItemsCount={setStoreItemsCount} itemsQueryInfo={itemsQueryInfo} />
+              <ExploreCardGrid updateFilters={updateFilters} clearFilters={clearFilters} setStoreItemsCount={setStoreItemsCount} itemsQueryInfo={itemsQueryInfo} />
               {
                 storeItemsCount.responded &&
                 <PageNavigation

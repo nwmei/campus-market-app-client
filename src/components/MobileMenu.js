@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuIcon from '@material-ui/icons/Menu';
 import {makeStyles} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import Toolbar from "@material-ui/core/Toolbar";
+import {
+  useWindowWidth,
+} from '@react-hook/window-size';
+import PublicIcon from "@material-ui/icons/Public";
+import PersonIcon from "@material-ui/icons/Person";
+import SearchIcon from '@material-ui/icons/Search';
+import {sessionContext} from "../../src/components/SessionContext";
 
 const options = [
   'Marketplace',
@@ -19,19 +29,32 @@ const useStyles = makeStyles(theme => ({
     paddingRight: 5
   },
   menuItems: {
-    marginTop: 50
-  }
+    marginTop: 50,
+  },
 }));
 
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu() {
+  const innerWidth = useWindowWidth();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
 
+  const determineMenuOptions = () => {
+      return [
+        ['Marketplace', <PublicIcon />, {href: '/explore'}],
+        ['My Items', <PersonIcon />, {href: '/myItems'}],
+        ['About App', <MoreHorizIcon />, {href: '/about'}],
+      ]
+  };
+
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    if (anchorEl === null) {
+      setAnchorEl(event.currentTarget);
+    } else {
+      handleClose();
+    }
   };
 
   const handleClose = () => {
@@ -63,9 +86,11 @@ export default function LongMenu() {
           },
         }}
       >
-        {options.map((option) => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-            {option}
+        {determineMenuOptions().map((option, key) => (
+          <MenuItem key={key} selected={option === 'Pyxis'} onClick={handleClose}>
+            <Button size='small' variant='text' className={classes.button} startIcon={option[1]} {...option[2]}>
+              {option[0]}
+            </Button>
           </MenuItem>
         ))}
       </Menu>
