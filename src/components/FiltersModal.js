@@ -12,10 +12,7 @@ import Filters from "./Filter/Filters";
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from "@material-ui/core/Typography";
 import FilterListRoundedIcon from '@material-ui/icons/FilterListRounded';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import {Form} from "../../src/components/UseForm";
 import ButtonControl from "../../src/components/controls/Button";
-import {storage} from "../../src/firebase";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,17 +39,6 @@ const FiltersModal = ({filters, updateFilters, clearFilters}) => {
   const [activated, setActivated] = useState(false);
   const classes = useStyles({showFilterModal: showFilterModal(innerWidth)});
 
-  // not used, only to satisfy form
-  const handleFormSubmit2 = (e) => {
-    e.preventDefault();
-    setActivated(false);
-  };
-
-  const cancelHandler = () => {
-    setActivated(false);
-  };
-
-
   return (
     <div>
       <Button className={classes.root} onClick={() => setActivated(true)} >
@@ -65,10 +51,7 @@ const FiltersModal = ({filters, updateFilters, clearFilters}) => {
       <Typography variant="subtitle1">
         refine
       </Typography>
-
-
       <Popup isOpen={activated} title='Refine search' >
-
         <Filters filters={filters} updateFilters={updateFilters} clearFilters={clearFilters}/>
         <ButtonControl text="View results" onClick={() => setActivated(false)}/>
       </Popup>
