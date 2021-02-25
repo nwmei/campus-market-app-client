@@ -5,6 +5,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {pageSize} from "./constants";
+import {
+  useWindowWidth,
+} from '@react-hook/window-size'
 
 const usePageNavigationStyles = makeStyles((theme) => ({
   pageNavigation: props => ({
@@ -13,7 +16,7 @@ const usePageNavigationStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: props.component === "myItems" ? "0px" : "70px"
+    marginRight: props.innerWidth < 480 ? "0px" : (props.component === "myItems" ? "0px" : "70px")
   }),
   textColor: {
     color: 'black'
@@ -21,7 +24,8 @@ const usePageNavigationStyles = makeStyles((theme) => ({
 }));
 
 const PageNavigation = ({backOnClick, nextOnClick, pageNumber, storeItemsCount, component}) => {
-  const classes = usePageNavigationStyles({storeItemsCount, component});
+  const innerWidth = useWindowWidth();
+  const classes = usePageNavigationStyles({storeItemsCount, component, innerWidth});
   return (
     <div className={classes.pageNavigation} >
       <Button className={classes.textColor} text="back" startIcon={<ArrowBackIosIcon />} onClick={backOnClick} disabled={pageNumber===1}/>

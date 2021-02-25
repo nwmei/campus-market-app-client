@@ -10,27 +10,36 @@ import { useContext } from 'react';
 import { sessionContext } from './SessionContext';
 import AddItemForm from './AddItemForm';
 import { gradientColor } from "./constants";
+import {
+  useWindowWidth,
+} from '@react-hook/window-size'
+import {showFilterModal} from "../utils/HelperMethods";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexDirection: 'column',
     justifyContent: 'center',
     display: 'flex',
-    backgroundColor: '#e0e0e0',
     '&:hover': {
       background: gradientColor
     },
-    borderRadius: 50
+    border: 'solid 1px #3d5afe',
+    borderRadius: 50,
   },
-  addButton: {
-    color: 'white',
-    fontSize: 200
-  }
+  addButton: props => ({
+    '&:hover': {
+      color: 'white'
+    },
+    color: '#3d5afe',
+    fontSize: props.showFilterModal ? 100 : 200,
+  })
 }));
 
 export default function AddCard({refetch}) {
+  const innerWidth = useWindowWidth();
   const [activated, setActivated] = useState(false);
-  const classes = useStyles();
+  const classes = useStyles({showFilterModal: showFilterModal(innerWidth)});
 
   const {sessionContextValue} = useContext(sessionContext);
   const [createStoreItem, {data}] = useMutation(CreateStoreItemMutation);
@@ -67,15 +76,18 @@ export default function AddCard({refetch}) {
   return (
     <div>
       <Button className={classes.root} onClick={() => setActivated(true)} >
-        <Grid container direction="column" alignItems="center">
+        <Grid container alignItems="center">
           <Grid item>
             <AddIcon className={classes.addButton} /> 
           </Grid>
-          <Grid item>
-            Add Item
-          </Grid>
         </Grid>
       </Button>
+      {
+        showFilterModal(innerWidth) &&
+          <Typography variant="subtitle1">
+            post
+          </Typography>
+      }
       <Popup isOpen={activated} title='Add Item' >
         <AddItemForm setIsOpen={setActivated} addItemHandler={addItemHandler} />
       </Popup>

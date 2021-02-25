@@ -5,9 +5,15 @@ import {useQuery} from '@apollo/client';
 import StoreItems from '../queries/StoreItems.graphql';
 import BetaCard from './BetaCard';
 import useCardGridStyles from './styles/CardGridStyles';
+import {
+  useWindowWidth,
+} from '@react-hook/window-size';
+import FiltersModal from "./FiltersModal";
+import {showFilterModal} from "../utils/HelperMethods";
 
-const CardGrid = ({setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
+const CardGrid = ({updateFilters, clearFilters, setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
   const classes = useCardGridStyles();
+  const innerWidth = useWindowWidth();
 
   const {data: storeItemsData, refetch} = useQuery(StoreItems, {
     variables: {
@@ -33,12 +39,30 @@ const CardGrid = ({setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
             className={classes.gridContainer}
             alignItems="center"
         >
-          <Grid item xs={12} sm={6} md={4} lg={4} align="center">
-            <AddCard refetch={refetch} />
+          <Grid container item xs={12} sm={12} md={6} lg={4} align = "center" alignContent="center" alignItems="center">
+            {
+              showFilterModal(innerWidth) ?
+                <>
+                  <Grid item xs={6} >
+                    <FiltersModal filters={filters} updateFilters={updateFilters} clearFilters={clearFilters}/>
+                  </Grid>
+
+                  <Grid item xs={6} >
+                    <AddCard refetch={refetch} />
+                  </Grid>
+                </>
+                :
+                <>
+                  <Grid item xs={12}>
+                    <AddCard refetch={refetch} />
+                  </Grid>
+                </>
+            }
+
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.map((item, key) =>
-                <Grid item xs={12} sm={6} md={4} lg={4} key={-key}>
+                <Grid item xs={12} sm={12} md={6} lg={4} align="center" key={-key}>
                   <BetaCard
                       enterable={true}
                       date={new Date(parseInt(item.date))}

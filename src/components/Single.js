@@ -1,11 +1,9 @@
 import React, {useContext, useEffect, useState, useRef} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Input from "./controls/Input";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import IconButton from '@material-ui/core/IconButton';
 import {useMutation, useQuery} from '@apollo/client';
 import Button from "./controls/Button";
 import StoreItem from '../queries/StoreItem.graphql';
@@ -13,7 +11,12 @@ import CreateComment from "../mutations/CreateComment.graphql";
 import {sessionContext} from "./SessionContext";
 import Comments from "./Comments";
 import BetaCard from "./BetaCard";
+import SendIcon from '@material-ui/icons/Send';
 import lodash from 'lodash';
+import Typography from "@material-ui/core/Typography";
+import {
+    useWindowWidth,
+} from '@react-hook/window-size'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,10 +43,21 @@ const useStyles = makeStyles((theme) => ({
     },
     report: {
         paddingTop: 0
+    },
+    postButton: {
+        marginTop: "80px"
+    },
+    input: {
+        marginTop: "5px"
+    },
+    invalidItem: {
+        marginTop: "80px"
     }
 }));
 
 const Single = () => {
+    // const width = useWindowWidth();
+    // console.log(width)
     const storeItemId = useParams().itemId;
     const {data: storeItemData, refetch} = useQuery(StoreItem,
       {
@@ -66,22 +80,28 @@ const Single = () => {
 
     useEffect(() => {
         if (storeItemData) {
-            setItemData(storeItemData.storeItem);
-            setCommentsToDisplay(storeItemData.storeItem.comments.map((commentObject) => {
-                return ({
-                    commenterFullName: commentObject.commenterFullName,
-                    commentText: commentObject.commentText,
-                    commenterImageUrl: commentObject.commenterImageUrl
-                })
-            }))
+            if (storeItemData.storeItem.id) {
+                setItemData(storeItemData.storeItem);
+                setCommentsToDisplay(storeItemData.storeItem.comments.map((commentObject) => {
+                    return ({
+                        itemId: storeItemData.storeItem.id,
+                        commentId: commentObject.id,
+                        commenterId: commentObject.commenterId,
+                        commenterFullName: commentObject.commenterFullName,
+                        commentText: commentObject.commentText,
+                        commenterImageUrl: commentObject.commenterImageUrl
+                    })
+                }))
+            } else {
+                setItemData(false);
+            }
+
         }
     },[storeItemData]);
 
     const submitCommentHandler = () => {
-        setTimeout(() => {
-            textInput.current.value = "";
-        }, 100);
-        if (addCommentText !== "") {
+        textInput.current.value = "";
+        if (/[a-zA-Z]/g.test(addCommentText)) {
             createComment({
                 variables: {
                     input: {
@@ -101,54 +121,74 @@ const Single = () => {
         setAddCommentText("");
     };
 
+    const onKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            submitCommentHandler();
+        }
+    };
+
     return (
         <>
-        {
-            itemData.id && (
-            <div className={classes.root}>
-                <div className={classes.content}>
-                    <Paper className={classes.paper}>
-                        <Grid container spacing={2}>
-                            <Grid item>
-                                <BetaCard
-                                    enterable={false}
-                                    date={new Date(parseInt(itemData.date))}
-                                    daysAgo={(Date.now() - parseInt(itemData.date))/86400000}
-                                    itemId={itemData.id}
-                                    itemName={itemData.name}
-                                    description={itemData.description}
-                                    price={itemData.price}
-                                    seller={itemData.seller}
-                                    likes={itemData.likes}
-                                    imageUrls={itemData.imageUrls}
-                                    category={itemData.category}
-                                    neighborhood={itemData.neighborhood}
-                                    refetch={() => refetch()}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm container direction="column">
-                                <Grid item xs container direction="column" spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Comments commentsList={commentsToDisplay}/>
-                                    </Grid>
-                                </Grid>
+            {
+                itemData.id && (
+                <div className={classes.root}>
+                    <div className={classes.content}>
+                        <Paper className={classes.paper}>
+                            <Grid container spacing={2}>
                                 <Grid item>
-                                    <Grid container >
-                                        <Grid item xs={10}>
-                                            <Input label="add comment" variant="standard" onChange={(e) => setAddCommentText(e.target.value)} inputRef={textInput} fullWidth />
+                                    <BetaCard
+                                        enterable={false}
+                                        date={new Date(parseInt(itemData.date))}
+                                        daysAgo={(Date.now() - parseInt(itemData.date))/86400000}
+                                        itemId={itemData.id}
+                                        itemName={itemData.name}
+                                        description={itemData.description}
+                                        price={itemData.price}
+                                        seller={itemData.seller}
+                                        likes={itemData.likes}
+                                        imageUrls={itemData.imageUrls}
+                                        category={itemData.category}
+                                        neighborhood={itemData.neighborhood}
+                                        refetch={() => refetch()}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm container direction="column">
+                                    <Grid item xs container direction="column" spacing={2}>
+                                        <Grid item xs={12}>
+                                            <Comments commentsList={commentsToDisplay} refetch={refetch}/>
                                         </Grid>
-                                        <Grid item>
-                                            <Button text="post" onClick={submitCommentHandler}/>
+                                    </Grid>
+                                    <Grid item>
+                                        <Grid container >
+                                            <Grid item xs={10}>
+                                                <Input
+                                                    onKeyUp={onKeyPress}
+                                                    className={classes.input}
+                                                    rows={5}
+                                                    inputProps={{ maxLength: 700 }}
+                                                    multiline
+                                                    label="add comment"
+                                                    variant="standard"
+                                                    onChange={e => setAddCommentText(e.target.value)}
+                                                    inputRef={textInput}
+                                                    fullWidth />
+                                            </Grid>
+                                            <Grid item>
+                                                <Button className={classes.postButton} startIcon={<SendIcon />} text="post" onClick={submitCommentHandler}/>
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                    </Paper>
+                        </Paper>
+                    </div>
                 </div>
-            </div>
-        )
-        }
+            )
+            }
+            {
+                itemData === false &&
+                <Typography className={classes.invalidItem} variant="h2">This item does not exist!</Typography>
+            }
         </>
     );
 };

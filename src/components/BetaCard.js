@@ -94,7 +94,6 @@ export default function Card1(props) {
   }, [likes]);
 
   const likeItemHandler = () => {
-    console.log("like")
     likeItemMutation({
       variables: {
         input: {

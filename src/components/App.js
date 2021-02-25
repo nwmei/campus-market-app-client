@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { Redirect } from 'react-router'
@@ -12,7 +12,6 @@ import Single from "./Single";
 import Header from "./Header";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import Error from "./Error";
-import {gql} from '@apollo/client';
 
 const theme = createMuiTheme({
   overrides: {
