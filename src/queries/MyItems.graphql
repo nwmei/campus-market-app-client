@@ -12,7 +12,8 @@ query MyItemsQuery($input: MyItemsInput!) {
                 id,
                 firstName,
                 lastName,
-                emailAddress
+                emailAddress,
+                imageUrl
             },
             comments {
                 commenterFullName,
@@ -33,7 +34,8 @@ query MyItemsQuery($input: MyItemsInput!) {
                 id,
                 firstName,
                 lastName,
-                emailAddress
+                emailAddress,
+                imageUrl
             },
             comments {
                 commenterFullName,

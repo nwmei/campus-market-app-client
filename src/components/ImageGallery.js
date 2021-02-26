@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TextMobileStepper({imageUrls, itemName, price, seller}) {
-
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
