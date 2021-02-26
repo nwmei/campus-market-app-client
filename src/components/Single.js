@@ -56,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Single = () => {
+    // const width = useWindowWidth();
+    // console.log(width)
     const storeItemId = useParams().itemId;
     const {data: storeItemData, refetch} = useQuery(StoreItem,
       {
