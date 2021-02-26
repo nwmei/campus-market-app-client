@@ -74,7 +74,6 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
     }
   };
 
-  console.log(options)
   return (
     <Accordion expanded={isExpanded}>
       <AccordionSummary  expandIcon={<ExpandMoreIcon />} onClick={toggleExpanded}>

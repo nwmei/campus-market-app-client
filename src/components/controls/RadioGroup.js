@@ -14,7 +14,6 @@ export default function RadioGroup(props) {
     const classes = useStyles();
 
     const { component, name, label, value, onClick, items } = props;
-    console.log(props)
 
     const determineClickHandler = (item) => {
       if (component === 'addItem') {

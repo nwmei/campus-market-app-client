@@ -35,7 +35,6 @@ const determineLogo = (width) => {
 };
 
 const MenuAppBar = ({clearUserDetails}) => {
-  console.log("rendering header")
   const width = useWindowWidth();
   const classes = useStylesHeader();
   const isMobileView = isMobile(width);
