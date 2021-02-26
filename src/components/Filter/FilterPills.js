@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Chips({filters, updateFilters}) {
   const classes = useStyles();
+  console.log(filters)
 
   const handleDelete = ({filterClass, filterType, value}) => {
     const label = filterClass==='selection' ? value : `${filterType}: $${value[0]} - $${value[1]}`;

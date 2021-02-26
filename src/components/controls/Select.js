@@ -4,6 +4,7 @@ import { FormControl, InputLabel, Select as MuiSelect, MenuItem, FormHelperText 
 export default function Select(props) {
 
     const { name, label, value, error, onChange, options, helperText } = props;
+    console.log(props)
 
     return (
         <FormControl variant="standard">

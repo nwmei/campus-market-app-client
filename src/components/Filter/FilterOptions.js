@@ -1,5 +1,5 @@
 import React from "react";
-import {campuses, neighborhoods, categories} from "../constants"
+import {campuses, categories} from "../constants"
 
 const FilterOptions = [
   {
@@ -10,7 +10,7 @@ const FilterOptions = [
   {
     filterClass: "selection",
     filterType: "Neighborhood",
-    options: neighborhoods["bu"]
+    options: [] // determined in Filters.js
   },
   {
     filterClass: "range",

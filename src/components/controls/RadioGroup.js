@@ -14,6 +14,7 @@ export default function RadioGroup(props) {
     const classes = useStyles();
 
     const { component, name, label, value, onClick, items } = props;
+    console.log(props)
 
     const determineClickHandler = (item) => {
       if (component === 'addItem') {
@@ -31,10 +32,10 @@ export default function RadioGroup(props) {
                     items.map(item => (
                         <FormControlLabel
                           key={item.id}
-                          value={item.title}
+                          value={item.id}
                           control={<Checkbox />}
                           label={<Typography className={classes.root}>{item.title}</Typography>}
-                          checked={value===item.title}
+                          checked={value===item.id}
                           onClick={determineClickHandler(item)} />
                         ))
                 }

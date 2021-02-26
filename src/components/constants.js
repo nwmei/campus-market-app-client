@@ -1,53 +1,78 @@
 import React from 'react';
 
 export const neighborhoods = {
-  "Boston University": [
-    {id: '1', title: 'Warren Towers'},
-    {id: '2', title: 'West Campus'},
-    {id: '3', title: 'Danielsen Hall'},
-    {id: '4', title: 'South Campus'},
-    {id: '5', title: 'Bay State Road'},
-    {id: '6', title: 'Myles Standish'},
-    {id: '7', title: 'Stuvi'},
+  "bu": [
+    {id: 'Warren Towers', title: 'Warren Towers'},
+    {id: 'West Campus', title: 'West Campus'},
+    {id: 'Danielsen Hall', title: 'Danielsen Hall'},
+    {id: 'South Campus', title: 'South Campus'},
+    {id: 'Bay State Road', title: 'Bay State Road'},
+    {id: 'Myles Standish', title: 'Myles Standish'},
+    {id: 'Stuvi', title: 'Stuvi'},
   ],
   "Off-Campus": [
-    {id: '1', title: 'East Coast'},
-    {id: '2', title: 'West Coast'},
+    {id: 'East Coast', title: 'East Coast'},
+    {id: 'West Coast', title: 'West Coast'},
   ],
-  "Northeastern U": [
-    {id: '1', title: 'campus wide'},
+  "northeastern": [
+    {id: 'campus wide', title: 'campus wide'},
   ],
-  "Umass Amherst": [
-    {id: '1', title: 'campus wide'},
+  "umass": [
+    {id: 'campus wide', title: 'campus wide'},
   ],
-  "MIT": [
-    {id: '1', title: 'campus wide'},
+  "mit": [
+    {id: 'campus wide', title: 'campus wide'},
   ],
-  "Bentley University": [
-    {id: '1', title: 'campus wide'},
+  "bentley": [
+    {id: 'campus wide', title: 'campus wide'},
   ],
-  "MCPHS": [
-    {id: '1', title: 'campus wide'},
+  "mcphs": [
+    {id: 'campus wide', title: 'campus wide'},
   ],
 };
 
-export const campuses = [
-  {id: 'off-campus', title: 'Off-Campus'},
-  {id: 'bu', title: 'Boston University'},
-  {id: 'neu', title: 'Northeastern U'},
-  {id: 'umass', title: 'Umass Amherst'},
-  {id: 'mit', title: 'MIT'},
-  {id: 'bentley', title: 'Bentley University'},
-  {id: 'mcphs', title: 'MCPHS'}
-];
+export const campusPairs = {
+  'off-campus': {
+    id: 'off-campus',
+    title: 'Off-Campus'
+  },
+  'bu': {
+    id: 'bu', title: 'Boston University'
+  },
+  'neu': {
+    id: 'neu', title: 'Northeastern U'
+  },
+  'umass': {
+    id: 'umass', title: 'Umass Amherst'
+  },
+  'mit': {
+    id: 'mit', title: 'MIT'
+  },
+  'bentley': {
+    id: 'bentley', title: 'Bentley University'
+  },
+  'mcphs': {
+    id: 'mcphs', title: 'MCPHS'
+  }
+};
+
+const generateCampusOptions = () => {
+  let result = [];
+  for (let campusKey in campusPairs) {
+    result.push(campusPairs[campusKey]);
+  }
+  return result;
+};
+
+export const campuses = generateCampusOptions();
 
 export const categories = [
-  {id: '1', title: 'furniture'},
-  {id: '2', title: 'books'},
-  {id: '3', title: 'electronics'},
-  {id: '4', title: 'food'},
-  {id: '5', title: 'drinks'},
-  {id: '6', title: 'other'},
+  {id: 'furniture', title: 'furniture'},
+  {id: 'books', title: 'books'},
+  {id: 'electronics', title: 'electronics'},
+  {id: 'food', title: 'food'},
+  {id: 'drinks', title: 'drinks'},
+  {id: 'other', title: 'other'},
 ];
 
 export const pageSize = 20;

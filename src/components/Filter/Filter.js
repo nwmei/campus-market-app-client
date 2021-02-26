@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Input from "../controls/Input";
 import Button from "../controls/Button";
 import {useForm} from "../UseForm";
+import {campuses, campusPairs} from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -44,9 +45,18 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
     toggleSelected([values.minPrice, values.maxPrice]);
   }
 
-  const toggleSelected = (selection) => {
-    if (selection) {
-      const label = filterClass==='selection' ? selection : `${filterType}: $${selection[0]} - $${selection[1]}`;
+  const toggleSelected = (selectionId) => {
+    if (selectionId) {
+      let label;
+      if (filterClass==='selection') {
+        if (filterType === 'Campus') {
+          label = campusPairs[selectionId].title
+        } else {
+          label = selectionId
+        }
+      } else {
+        label = `${filterType}: $${selectionId[0]} - $${selectionId[1]}`
+      }
       updateFilters(
         {
           filterClass,
@@ -57,13 +67,14 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
         {
           filterClass,
           filterType,
-          value: selection,
+          value: selectionId,
           label
         }
       );
     }
   };
 
+  console.log(options)
   return (
     <Accordion expanded={isExpanded}>
       <AccordionSummary  expandIcon={<ExpandMoreIcon />} onClick={toggleExpanded}>
@@ -78,11 +89,14 @@ const Filter = ({expandedFilter, setExpandedFilter, filterClass, filterType, opt
                 component='filter'
                 name={filterType}
                 value={filterObject.value}
-                onClick={(e) => toggleSelected(e.target.value)}
-                items={options}
+                onClick={(e) => {
+                    toggleSelected(e.target.value)
+                  }
+                }
+                items={options || []}
               />
               {
-                filterType === 'Neighborhood' && options.length === 0 &&
+                filterType === 'Neighborhood' && options && options.length === 0 &&
                 <Typography variant='caption'>select a campus first!</Typography>
               }
             </Paper>

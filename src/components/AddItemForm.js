@@ -18,6 +18,7 @@ const initialItemValues = {
 };
 
 export default function AddItemForm(props) {
+    console.log(props)
     const { setIsOpen, addItemHandler } = props;
     const [imageData, setImageData] = useState({urls: []});
     const {sessionContextValue} = useContext(sessionContext);

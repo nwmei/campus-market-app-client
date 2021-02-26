@@ -41,6 +41,7 @@ export default function Filters({filters, updateFilters, clearFilters}) {
   const determineOptions = (filterOption) => {
     if (filterOption.filterType === 'Neighborhood') {
       if (campusSelected()) {
+        console.log(filters.filter(filter => filter.filterType === 'Campus'))
         return neighborhoods[filters.filter(filter => filter.filterType === 'Campus')[0].value]
       } else {
         return [];
