@@ -34,7 +34,7 @@ const determineLogo = (width) => {
   }
 };
 
-const MenuAppBar = ({clearUserDetails}) => {
+const MenuAppBar = ({setLoggedOut}) => {
   const width = useWindowWidth();
   const classes = useStylesHeader();
   const isMobileView = isMobile(width);
@@ -49,10 +49,8 @@ const MenuAppBar = ({clearUserDetails}) => {
             <Link to="/explore">
               <img src={logo} className={determineLogo(width)}/>
             </Link>
-
             <div className={classes.grow} />
-
-            <UserIcon clearUserDetails={clearUserDetails}/>
+            <UserIcon setLoggedOut={setLoggedOut}/>
           </Toolbar>
         </AppBar>
       </div>
@@ -63,20 +61,20 @@ const MenuAppBar = ({clearUserDetails}) => {
             <Link to="/explore">
               <img src={logo} className="photo"/>
             </Link>
-            <Button size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} href='/explore'>
+            <Button component={ Link } size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} to='/explore'>
               {determineLabel('Marketplace', width)}
             </Button>
-            <Button size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} href='/myItems'>
+            <Button component={Link} size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} to='/myItems'>
               {determineLabel('My items', width)}
             </Button>
-            <Button size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} href='/about'>
+            <Button component={Link} size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} to='/about'>
               {determineLabel('About App', width)}
             </Button>
 
             <SearchBar />
             <div className={classes.grow} />
 
-            <UserIcon clearUserDetails={clearUserDetails}/>
+            <UserIcon setLoggedOut={setLoggedOut}/>
           </Toolbar>
         </AppBar>
       </div>

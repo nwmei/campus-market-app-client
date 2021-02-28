@@ -31,3 +31,15 @@
   padding-right: 10px;
   margin-bottom: 20px;
 }
+
+.LandingPhotoMobile {
+  height: 60px;
+  width: 375px;
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
+
+.footer {
+  margin-top:calc(5% + 60px);
+  bottom: 0;
+}
