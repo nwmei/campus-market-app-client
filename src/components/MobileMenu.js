@@ -15,6 +15,7 @@ import PublicIcon from "@material-ui/icons/Public";
 import PersonIcon from "@material-ui/icons/Person";
 import SearchIcon from '@material-ui/icons/Search';
 import {sessionContext} from "../../src/components/SessionContext";
+import {Link} from 'react-router-dom';
 
 const options = [
   'Marketplace',
@@ -43,9 +44,9 @@ export default function LongMenu() {
 
   const determineMenuOptions = () => {
       return [
-        ['Marketplace', <PublicIcon />, {href: '/explore'}],
-        ['My Items', <PersonIcon />, {href: '/myItems'}],
-        ['About App', <MoreHorizIcon />, {href: '/about'}],
+        ['Marketplace', <PublicIcon />, {to: '/explore'}],
+        ['My Items', <PersonIcon />, {to: '/myItems'}],
+        ['About App', <MoreHorizIcon />, {to: '/about'}],
       ]
   };
 
@@ -88,7 +89,7 @@ export default function LongMenu() {
       >
         {determineMenuOptions().map((option, key) => (
           <MenuItem key={key} selected={option === 'Pyxis'} onClick={handleClose}>
-            <Button size='small' variant='text' className={classes.button} startIcon={option[1]} {...option[2]}>
+            <Button component={Link} size='small' variant='text' className={classes.button} startIcon={option[1]} {...option[2]}>
               {option[0]}
             </Button>
           </MenuItem>

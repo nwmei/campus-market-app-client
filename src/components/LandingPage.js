@@ -33,12 +33,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LandingPage = ({ setSessionQueryResponded }) => {
+const LandingPage = ({ setLoggedIn }) => {
   const classes = useStyles();
   const history = useHistory();
 
   const navigateToExplorePage = () => {
-    setSessionQueryResponded(false);
+    setLoggedIn(true);
+    console.log("in nav to explore function")
     history.push('/explore');
   };
   return (

@@ -1,13 +1,16 @@
 import React from 'react';
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import {useMutation, useLazyQuery } from '@apollo/client';
 import GoogleLogin from 'react-google-login';
 import MicrosoftLogin from "react-microsoft-login";
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
 import SetAccessToken from '../mutations/SetAccessToken.graphql';
+import { sessionContext } from './SessionContext';
+
 
 const LoginButton = ({navigateAfterLogin, loginProvider}) => {
+  const {setSessionContext} = useContext(sessionContext);
   const [userData, setUserData] = useState({});
   const [createUser] = useMutation(CreateUserMutation);
   const [setAccessToken] = useMutation(SetAccessToken);
@@ -21,6 +24,7 @@ const LoginButton = ({navigateAfterLogin, loginProvider}) => {
         createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
         .then((data) => {
           userId = data.data.createUser.id;
+          setSessionContext(userData.firstName, userData.lastName, userData.emailAddress, userData.imageUrl, userId);
           setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
             .then((data) => {
               localStorage.setItem("accessToken", userData.accessToken);
@@ -28,6 +32,7 @@ const LoginButton = ({navigateAfterLogin, loginProvider}) => {
             });
         });
       } else {
+        setSessionContext(userData.firstName, userData.lastName, userData.emailAddress, userData.imageUrl, userId);
         setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
           .then((data) => {
             localStorage.setItem("accessToken", userData.accessToken);

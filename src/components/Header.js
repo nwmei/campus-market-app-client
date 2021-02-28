@@ -63,13 +63,13 @@ const MenuAppBar = ({clearUserDetails}) => {
             <Link to="/explore">
               <img src={logo} className="photo"/>
             </Link>
-            <Button size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} href='/explore'>
+            <Button component={ Link } size='small' variant="outlined" className={classes.button} startIcon={<PublicIcon />} to='/explore'>
               {determineLabel('Marketplace', width)}
             </Button>
-            <Button size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} href='/myItems'>
+            <Button component={Link} size='small' variant="outlined" className={classes.button} startIcon={<PersonIcon />} to='/myItems'>
               {determineLabel('My items', width)}
             </Button>
-            <Button size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} href='/about'>
+            <Button component={Link} size='small' variant="outlined" className={classes.button} startIcon={<MoreHorizIcon />} to='/about'>
               {determineLabel('About App', width)}
             </Button>
 

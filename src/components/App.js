@@ -12,6 +12,8 @@ import Single from "./Single";
 import Header from "./Header";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import Error from "./Error";
+import MyRouter from './Router';
+import set from "@babel/runtime/helpers/esm/set";
 
 const theme = createMuiTheme({
   overrides: {
@@ -24,10 +26,9 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-  const [userDetails, setUserDetails] = useState({});
-  const [sessionQueryResponded, setSessionQueryResponded] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
 
-  const accessToken = localStorage.getItem('accessToken') || "";
+  const accessToken = localStorage.getItem('accessToken') || '';
 
   const apolloClientUri = process.env.NODE_ENV==='development'
     ? 'http://localhost:4000/graphql'
@@ -41,73 +42,30 @@ const App = () => {
     },
   });
 
-  if (!userDetails.sessionUserDetails && !sessionQueryResponded) {
+  console.log(userDetails)
+
+  if (!userDetails) {
     client.query({query: SessionUserDetails, variables: {input: {accessToken}}})
       .then((result) => {
         if (result.data.sessionUserDetails) {
           setUserDetails(result.data);
+        } else {
+          setUserDetails(false)
         }
-        setSessionQueryResponded(true);
       }).catch(e => console.log("error with sessionQuery: ", e));
-  } else {
-    if (!setSessionQueryResponded) {
-      setSessionQueryResponded(true)
-    }
   }
 
-  const routeToLogin = !userDetails.sessionUserDetails;
-  const showHeader = window.location.pathname !== '/login' && !!userDetails.sessionUserDetails;
+  const routeToLogin = userDetails === false;
+  const showHeader = window.location.pathname !== '/login' && !!userDetails;
 
-  if (!sessionQueryResponded) {
+  if (userDetails === null) {
     return <></>
   } else {
     return (
       <ApolloProvider client={client}>
         <SessionContextProvider userDetails={userDetails}>
           <ThemeProvider theme={theme}>
-            <Router>
-              <div>
-                {showHeader? <Header clearUserDetails={() => setUserDetails({})}/> : <></>}
-                <Switch>
-                  <Route
-                    component={
-                      routeToLogin? () => <Redirect to="/login" /> : () => <Redirect to="/explore"/>}
-                    exact path="/"
-                  />
-                  <Route
-                    component={
-                      routeToLogin? () => <Redirect to="/login" />
-                      : () => <ExplorePage />}
-                    exact path="/explore"
-                  />
-                  <Route component={routeToLogin? () => <Redirect to="/login" />
-                      : () => <Single />}
-                    path="/item/:itemId" />
-                  <Route
-                    component={() => <LandingPage setSessionQueryResponded={setSessionQueryResponded} />}
-                    exact path="/login"
-                  />
-                  <Route
-                    component={
-                      routeToLogin? () => <Redirect to="/login" />
-                      : () => <MyItems />}
-                    path="/myItems"
-                  />
-                  <Route
-                    component={
-                      routeToLogin? () => <Redirect to="/login" />
-                      : () => <About />}
-                    path="/about"
-                  />
-                  <Route
-                    component={
-                      routeToLogin? () => <Redirect to="/login" />
-                        : () => <Error/>}
-                    path="/"
-                  />
-                </Switch>
-              </div>
-            </Router>
+            <MyRouter accessToken={accessToken}/>
           </ThemeProvider>
         </SessionContextProvider>
       </ApolloProvider>
