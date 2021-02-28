@@ -34,7 +34,7 @@ const determineLogo = (width) => {
   }
 };
 
-const MenuAppBar = ({clearUserDetails}) => {
+const MenuAppBar = ({setLoggedOut}) => {
   const width = useWindowWidth();
   const classes = useStylesHeader();
   const isMobileView = isMobile(width);
@@ -49,10 +49,8 @@ const MenuAppBar = ({clearUserDetails}) => {
             <Link to="/explore">
               <img src={logo} className={determineLogo(width)}/>
             </Link>
-
             <div className={classes.grow} />
-
-            <UserIcon clearUserDetails={clearUserDetails}/>
+            <UserIcon setLoggedOut={setLoggedOut}/>
           </Toolbar>
         </AppBar>
       </div>
@@ -76,7 +74,7 @@ const MenuAppBar = ({clearUserDetails}) => {
             <SearchBar />
             <div className={classes.grow} />
 
-            <UserIcon clearUserDetails={clearUserDetails}/>
+            <UserIcon setLoggedOut={setLoggedOut}/>
           </Toolbar>
         </AppBar>
       </div>

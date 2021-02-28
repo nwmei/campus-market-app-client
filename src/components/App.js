@@ -1,19 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import { Redirect } from 'react-router'
-import ExplorePage from './ExplorePage';
-import About from './About';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MyItems from './MyItems';
-import LandingPage from './LandingPage';
 import SessionContextProvider from './SessionContext';
-import Single from "./Single";
-import Header from "./Header";
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
-import Error from "./Error";
 import MyRouter from './Router';
-import set from "@babel/runtime/helpers/esm/set";
 
 const theme = createMuiTheme({
   overrides: {
@@ -27,7 +17,6 @@ const theme = createMuiTheme({
 
 const App = () => {
   const [userDetails, setUserDetails] = useState(null);
-
   const accessToken = localStorage.getItem('accessToken') || '';
 
   const apolloClientUri = process.env.NODE_ENV==='development'
@@ -42,8 +31,6 @@ const App = () => {
     },
   });
 
-  console.log(userDetails)
-
   if (!userDetails) {
     client.query({query: SessionUserDetails, variables: {input: {accessToken}}})
       .then((result) => {
@@ -54,9 +41,6 @@ const App = () => {
         }
       }).catch(e => console.log("error with sessionQuery: ", e));
   }
-
-  const routeToLogin = userDetails === false;
-  const showHeader = window.location.pathname !== '/login' && !!userDetails;
 
   if (userDetails === null) {
     return <></>

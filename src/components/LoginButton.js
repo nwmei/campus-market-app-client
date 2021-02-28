@@ -18,24 +18,25 @@ const LoginButton = ({navigateAfterLogin, loginProvider}) => {
 
   useEffect(() => {
     if (userExistsData && userExistsData.userExists) {
+      const {firstName, lastName, emailAddress, imageUrl, accessToken} = userData;
       const { userExists: {exists, id} } = userExistsData;
       let userId = id;
       if (!exists) {
-        createUser({ variables: { input: { firstName: userData.firstName, lastName: userData.lastName, emailAddress: userData.emailAddress, imageUrl: userData.imageUrl }}})
+        createUser({ variables: { input: { firstName, lastName, emailAddress, imageUrl }}})
         .then((data) => {
           userId = data.data.createUser.id;
-          setSessionContext(userData.firstName, userData.lastName, userData.emailAddress, userData.imageUrl, userId);
-          setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
+          setSessionContext(firstName, lastName, emailAddress, imageUrl, userId);
+          setAccessToken({variables: {input: {userId , accessToken, imageUrl}}})
             .then((data) => {
-              localStorage.setItem("accessToken", userData.accessToken);
+              localStorage.setItem("accessToken", accessToken);
               navigateAfterLogin();
             });
         });
       } else {
-        setSessionContext(userData.firstName, userData.lastName, userData.emailAddress, userData.imageUrl, userId);
-        setAccessToken({variables: {input: {userId , accessToken: userData.accessToken, imageUrl: userData.imageUrl}}})
+        setSessionContext(firstName, lastName, emailAddress, imageUrl, userId);
+        setAccessToken({variables: {input: {userId , accessToken, imageUrl}}})
           .then((data) => {
-            localStorage.setItem("accessToken", userData.accessToken);
+            localStorage.setItem("accessToken", accessToken);
             navigateAfterLogin();
           });
       }

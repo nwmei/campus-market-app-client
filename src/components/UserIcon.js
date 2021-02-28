@@ -7,14 +7,14 @@ import { sessionContext } from './SessionContext';
 import Button from '@material-ui/core/Button';
 import {StyledBadge, useStyles} from "./styles/UserIconStyles";
 
-function UserIcon({clearUserDetails}) {
+function UserIcon({setLoggedOut}) {
   const classes = useStyles();
   const {sessionContextValue, clearSessionContext} = useContext(sessionContext);
   const history = useHistory();
 
   const logoutHandler = () => {
     clearSessionContext();
-    clearUserDetails();
+    setLoggedOut();
     localStorage.setItem("accessToken", "");
     history.push('/login')
   };
