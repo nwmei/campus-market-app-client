@@ -8,6 +8,7 @@ import PageNavigation from "./PageNavigation";
 import {sessionContext} from "./SessionContext";
 import NonSchoolAlert from "../../src/components/NonSchoolAlert";
 import FilterDrawer from './FilterDrawer';
+import Footer from "../../src/components/Footer";
 
 const ExplorePage = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
@@ -70,6 +71,7 @@ const ExplorePage = () => {
             </Grid>
           </Grid>
         </FilterDrawer>
+        <Footer />
       </div>
     )
 };

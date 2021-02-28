@@ -14,6 +14,7 @@ import Divider from "@material-ui/core/Divider";
 import PageNavigation from "./PageNavigation";
 import Typography from "@material-ui/core/Typography";
 import FilterDrawer from "../../src/components/FilterDrawer";
+import Footer from "../../src/components/Footer";
 
 const MyItems = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({listedPage: 1, likedPage: 1, filters: []});
@@ -151,6 +152,7 @@ const MyItems = () => {
           </Grid>
         </Grid>
       </FilterDrawer>
+      <Footer />
     </div>
   )
 

@@ -4,6 +4,7 @@ import {useContext} from 'react';
 import { sessionContext } from './SessionContext';
 import "./styles.css";
 import aboutPageStyles from "./styles/AboutPageStyles";
+import Footer from "../../src/components/Footer";
 
 const About = () => {
   const classes = aboutPageStyles();
@@ -26,8 +27,9 @@ const About = () => {
           or suggestions, please email nelsonm3904@gmail.com (he is the founder, ceo, PO, director of marketing,
           principal software engineer, and scrum master all in one).
         </p>
-        <img src="https://scontent-bos3-1.xx.fbcdn.net/v/t1.15752-0/p180x540/143391269_1056836224784805_624806943422915111_n.jpg?_nc_cat=109&ccb=2&_nc_sid=f79d6e&_nc_ohc=lL-pv-UnxRQAX-Czklf&_nc_ht=scontent-bos3-1.xx&tp=6&oh=70e9505923b688afbf5e24d13e5007e5&oe=603502BB"/>
+        <img src="https://i.ytimg.com/vi/OCXeEhke84I/maxresdefault.jpg"/>
       </div>
+      <Footer />
     </div>
   )
 };

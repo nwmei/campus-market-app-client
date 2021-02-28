@@ -8,6 +8,8 @@ import LandingPage from './LandingPage';
 import Single from "./Single";
 import Header from "./Header";
 import Error from "./Error";
+import Footer from "./Footer";
+import {ThemeProvider} from "@material-ui/core/styles";
 
 const MyRouter = ({accessToken}) => {
   const [loggedIn, setLoggedIn] = useState(accessToken !== '');
@@ -54,6 +56,7 @@ const MyRouter = ({accessToken}) => {
             path="/"
           />
         </Switch>
+
       </div>
     </Router>
   )

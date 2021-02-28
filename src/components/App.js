@@ -52,7 +52,6 @@ const App = () => {
         <SessionContextProvider userDetails={userDetails}>
           <ThemeProvider theme={theme}>
             <MyRouter accessToken={accessToken}/>
-            <Footer />
           </ThemeProvider>
         </SessionContextProvider>
       </ApolloProvider>
