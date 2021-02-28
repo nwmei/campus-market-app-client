@@ -18,6 +18,7 @@ const ExplorePage = () => {
   const {sessionContextValue} = useContext(sessionContext);
 
   const updateFilters = (oldFilter, newFilter) => {
+    console.log(oldFilter, newFilter)
     const newActiveFilters = itemsQueryInfo.filters.filter(activeFilter => {
       return activeFilter.value !== oldFilter.value
     });
