@@ -6,16 +6,17 @@ import Typography from '@material-ui/core/Typography';
 import { Grid, } from '@material-ui/core';
 import React from "react";
 import logo from './logo2.png'
-
+import {
+  useWindowWidth,
+} from '@react-hook/window-size';
+import SessionContextProvider from "./SessionContext";
+import {ApolloProvider} from "@apollo/client";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    paddingTop: "80px"
-  },
   root: {
+    paddingBottom: 430,
     minHeight: '100vh',
-    //backgroundImage: `url(https://i.pinimg.com/originals/47/b0/fc/47b0fc72de8473487d5e1d4df4a83518.jpg)`,
-    backgroundImage: `url(https://videohive.img.customer.envatousercontent.com/files/f79d2e3c-74ce-41d3-bd6f-abd591e8fd06/inline_image_preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&max-h=8000&max-w=590&s=2c2bc3750b9267afd2ce33384acd3bf7)`,
+    backgroundImage: `url(https://climatereadycommunities.org/wp-content/uploads/2017/11/home-slide-community-illustration.jpg.jpg)`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   },
@@ -34,30 +35,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LandingPage = ({ setLoggedIn }) => {
+  const innerWidth = useWindowWidth();
   const classes = useStyles();
   const history = useHistory();
 
   const navigateToExplorePage = () => {
     setLoggedIn(true);
-    console.log("in nav to explore function")
     history.push('/explore');
   };
   return (
-    // <div className={classes.button}>
-    //   <h1>Welcome to campusmarketapp.com! Please log in.</h1>
-    //   <GoogleLogin navigateAfterLogin={navigateToExplorePage} />
-    // </div>
-
-
     <div className={classes.root}>
       <CssBaseline />
       <div className={classes.centerText}>
         <Grid container alignItems="center">
           <Grid xs={12} item align="center">
-            <Typography variant="h2">Welcome to </Typography>
+            <Typography variant="h4">The place to browse and sell used items</Typography>
           </Grid>
           <Grid xs={12} item align="center">
-            <img src={logo} className="LandingPhoto"/>
+            <img src={logo} className={innerWidth < 480 ? 'LandingPhotoMobile' : 'LandingPhoto'}/>
           </Grid>
           <Grid xs={12} item align="center" className={classes.google}>
             <LoginButton loginProvider='google' navigateAfterLogin={navigateToExplorePage} />
@@ -66,7 +61,7 @@ const LandingPage = ({ setLoggedIn }) => {
             <LoginButton loginProvider='microsoft' navigateAfterLogin={navigateToExplorePage} />
           </Grid>
           <Grid xs={12} item align="center">
-            <Typography variant="caption">Website created by Nelson Mei</Typography>
+            <Typography variant="caption">with your .edu email for optimal experience!</Typography>
           </Grid>
         </Grid>
       </div>

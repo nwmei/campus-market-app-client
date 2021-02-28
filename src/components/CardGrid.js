@@ -10,6 +10,7 @@ import {
 } from '@react-hook/window-size';
 import FiltersModal from "./FiltersModal";
 import {showFilterModal} from "../utils/HelperMethods";
+import Loading from './Loading';
 
 const CardGrid = ({updateFilters, clearFilters, setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
   const classes = useCardGridStyles();
@@ -85,8 +86,8 @@ const CardGrid = ({updateFilters, clearFilters, setStoreItemsCount, itemsQueryIn
         </Grid>
     );
   } else {
-    return <></>;
+    return <Loading />
   }
-}
+};
 
 export default CardGrid;

@@ -11,7 +11,6 @@ import Error from "./Error";
 
 const MyRouter = ({accessToken}) => {
   const [loggedIn, setLoggedIn] = useState(accessToken !== '');
-  const routeToLogin = !loggedIn;
 
   return (
     <Router>
@@ -20,16 +19,16 @@ const MyRouter = ({accessToken}) => {
         <Switch>
           <Route
             component={
-              routeToLogin? () => <Redirect to="/login" /> : () => <Redirect to="/explore"/>}
+              !loggedIn? () => <Redirect to="/login" /> : () => <Redirect to="/explore"/>}
             exact path="/"
           />
           <Route
             component={
-              routeToLogin? () => <Redirect to="/login" />
+              !loggedIn? () => <Redirect to="/login" />
                 : () => <ExplorePage />}
             exact path="/explore"
           />
-          <Route component={routeToLogin? () => <Redirect to="/login" />
+          <Route component={!loggedIn? () => <Redirect to="/login" />
             : () => <Single />}
                  path="/item/:itemId" />
           <Route
@@ -38,19 +37,19 @@ const MyRouter = ({accessToken}) => {
           />
           <Route
             component={
-              routeToLogin? () => <Redirect to="/login" />
+              !loggedIn? () => <Redirect to="/login" />
                 : () => <MyItems />}
             path="/myItems"
           />
           <Route
             component={
-              routeToLogin? () => <Redirect to="/login" />
+              !loggedIn? () => <Redirect to="/login" />
                 : () => <About />}
             path="/about"
           />
           <Route
             component={
-              routeToLogin? () => <Redirect to="/login" />
+              !loggedIn? () => <Redirect to="/login" />
                 : () => <Error/>}
             path="/"
           />

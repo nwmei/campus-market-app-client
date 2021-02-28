@@ -4,6 +4,8 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import SessionContextProvider from './SessionContext';
 import SessionUserDetails from '../queries/SessionUserDetails.graphql';
 import MyRouter from './Router';
+import Loading from './Loading';
+import Footer from './Footer'
 
 const theme = createMuiTheme({
   overrides: {
@@ -43,13 +45,14 @@ const App = () => {
   }
 
   if (userDetails === null) {
-    return <></>
+    return <Loading />
   } else {
     return (
       <ApolloProvider client={client}>
         <SessionContextProvider userDetails={userDetails}>
           <ThemeProvider theme={theme}>
             <MyRouter accessToken={accessToken}/>
+            <Footer />
           </ThemeProvider>
         </SessionContextProvider>
       </ApolloProvider>
