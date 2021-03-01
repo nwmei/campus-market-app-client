@@ -20,6 +20,7 @@ export default function EditItemForm(props) {
     neighborhood: false
   });
   const [editAttempted, setEditAttempted] = useState(false);
+  const [deleteAttempted, setDeleteAttempted] = useState(false);
 
   const errorText = {
     itemName: 'please enter a valid item name',
@@ -87,8 +88,11 @@ export default function EditItemForm(props) {
   const deleteClickHandler = e => {
     e.preventDefault();
     resetForm();
-    setIsOpen(false);
-    deleteItemHandler();
+    if (deleteAttempted) {
+      setIsOpen(false);
+      deleteItemHandler();
+    }
+    setDeleteAttempted(true);
   };
 
   return (
@@ -152,10 +156,12 @@ export default function EditItemForm(props) {
           <div>
             <ButtonControl
               text="Edit"
+              color="default"
               onClick={editClickHandler}
             />
             <ButtonControl
-              text="Delete"
+              text={deleteAttempted ? "Confirm Delete" : 'Delete'}
+              color="default"
               onClick={deleteClickHandler}
             />
             <ButtonControl

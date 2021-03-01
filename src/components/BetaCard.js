@@ -136,30 +136,7 @@ export default function Card1(props) {
 
   return (
     <Card className={classes.root}>
-      {/*{*/}
-      {/*  enterable?*/}
-      {/*      <Link to={`/item/${itemId}`} >*/}
-      {/*        <CardMedia*/}
-      {/*            className={classes.media}*/}
-      {/*            image={imageUrls[0] !== undefined? imageUrls[0] : getAlternateImageUrl()}*/}
-      {/*            title={itemName}*/}
-      {/*        />*/}
-      {/*      </Link>*/}
-      {/*      :*/}
-      {/*      <CardMedia*/}
-      {/*          className={classes.media}*/}
-      {/*          image={imageUrls[0] !== undefined? imageUrls[0] : getAlternateImageUrl()}*/}
-      {/*          title={itemName}*/}
-      {/*      />*/}
-      {/*}*/}
-
-      <CardMedia> <ImageGallery imageUrls={imageUrls} itemName={itemName} seller={seller} price={price} /> </CardMedia>
-
-      {/*<CardContent className={classes.description}>*/}
-      {/*  <Typography variant="body2" color="textSecondary" component="p">*/}
-      {/*    {`$${price} ${itemName}`}*/}
-      {/*  </Typography>*/}
-      {/*</CardContent>*/}
+      <CardMedia> <ImageGallery imageUrls={imageUrls} itemName={itemName} seller={seller} price={price} toggleExpanded={handleExpandClick}/> </CardMedia>
       <CardActions disableSpacing className={classes.bottomBar}>
         <IconButton aria-label="like dislike" className={classes.heartButton} onClick={toggleLikeHandler}>
           <FavoriteIcon />

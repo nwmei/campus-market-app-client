@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TextMobileStepper({imageUrls, itemName, price, seller}) {
+export default function TextMobileStepper({imageUrls, itemName, price, seller, toggleExpanded}) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -72,6 +72,7 @@ export default function TextMobileStepper({imageUrls, itemName, price, seller}) 
         className={classes.img}
         src={imageUrls[activeStep]}
         alt='image not available'
+        onClick={toggleExpanded}
       />
       <MobileStepper
         className={classes.stepper}
