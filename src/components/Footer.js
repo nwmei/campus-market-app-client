@@ -6,14 +6,18 @@ import "./styles.css"
 import Grid from '@material-ui/core/Grid';
 import set from "@babel/runtime/helpers/esm/set";
 
-const Footer = () => {
+const Footer = ({waitToRender=true}) => {
   const classes = useStylesHeader();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    if (waitToRender) {
+      setTimeout(() => {
+        setShow(true)
+      }, 500)
+    } else {
       setShow(true)
-    }, 500)
+    }
   });
 
   return (

@@ -29,13 +29,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 100
   },
   topBar: {
-    //background: 'linear-gradient(45deg, #42a5f5 30%, #90caf9 90%)',
-    //background: 'linear-gradient(45deg, #212121 30%, #424242 90%)',
-    //background: 'linear-gradient(45deg,#f44336  30%,  #9c27b0 90%)',
-    //background: 'linear-gradient(45deg,#f50057  30%,  #ffc107 90%)',
     background: gradientColor,
     zIndex: 1400
   },
+  photo: {
+    height: 45,
+    width: 340,
+    paddingRight: 10,
+    marginLeft: 40
+  },
+  mobilePhoto: {
+    height: 45,
+    width: 340,
+  }
 }));
 
 export default useStyles;
