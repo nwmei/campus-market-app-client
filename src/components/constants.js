@@ -79,6 +79,6 @@ export const pageSize = 20;
 
 //export const gradientColor = '#33ab9f';
 
-export const gradientColor = '#3d5afe';
+export const gradientColor = '#e5dac8';
 
 //export const gradientColor = 'linear-gradient(45deg, #ff1744  30%,  #ffc107 90%)';

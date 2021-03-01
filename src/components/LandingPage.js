@@ -5,12 +5,11 @@ import { CssBaseline } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Grid, } from '@material-ui/core';
 import React from "react";
-import logo from './logo2.png'
+import logo from './logo3.png'
 import {
   useWindowWidth,
 } from '@react-hook/window-size';
-import SessionContextProvider from "./SessionContext";
-import {ApolloProvider} from "@apollo/client";
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -20,7 +20,7 @@ const Footer = () => {
     show &&
       <div className='footer'>
         <AppBar position="relative" className={classes.topBar}>
-          <Toolbar>
+          <Toolbar className='black'>
             <Grid container >
               <Grid item xs={12} sm={6} md={3} >
                 <div>

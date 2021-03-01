@@ -45,10 +45,11 @@ export const useStyles = makeStyles((theme) => ({
         paddingTop: 0,
     },
     button: {
-        fontSize: 9,
+        fontSize: 11,
         border:0,
         paddingBottom: 0,
         paddingTop: 0,
-        color: 'white'
+        color: 'black',
+        textTransform: 'none'
     },
 }));

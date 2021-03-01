@@ -15,8 +15,8 @@ import Loading from './Loading';
 const CardGrid = ({updateFilters, clearFilters, setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
   const classes = useCardGridStyles();
   const innerWidth = useWindowWidth();
+  console.log(innerWidth)
 
-  console.log(filters)
   const {data: storeItemsData, refetch} = useQuery(StoreItems, {
     variables: {
       input: {
@@ -41,7 +41,7 @@ const CardGrid = ({updateFilters, clearFilters, setStoreItemsCount, itemsQueryIn
             className={classes.gridContainer}
             alignItems="center"
         >
-          <Grid container item xs={12} sm={12} md={6} lg={4} align = "center" alignContent="center" alignItems="center">
+          <Grid container item xs={12} sm={6} md={4} lg={4} xl={3} align = "center" alignContent="center" alignItems="center">
             {
               showFilterModal(innerWidth) ?
                 <>
@@ -64,7 +64,7 @@ const CardGrid = ({updateFilters, clearFilters, setStoreItemsCount, itemsQueryIn
           </Grid>
           {
             storeItemsData && storeItemsData.storeItems.map((item, key) =>
-                <Grid item xs={12} sm={12} md={6} lg={4} align="center" key={-key}>
+                <Grid item xs={12} sm={6} md={4} lg={4} xl={3} align="center" key={-key}>
                   <BetaCard
                       enterable={true}
                       date={new Date(parseInt(item.date))}

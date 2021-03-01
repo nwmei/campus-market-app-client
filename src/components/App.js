@@ -15,6 +15,15 @@ const theme = createMuiTheme({
       },
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 845,
+      md: 1145,
+      lg: 1380,
+      xl: 1420,
+    },
+  },
 });
 
 const App = () => {
