@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import { Grid } from "@material-ui/core";
 import Popup from './Popup';
 import { useMutation } from '@apollo/client';
@@ -24,14 +26,14 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       background: gradientColor
     },
-    border: 'solid 1px #3d5afe',
+    border: 'solid 1px green',
     borderRadius: 50,
   },
   addButton: props => ({
     '&:hover': {
       color: 'white'
     },
-    color: '#3d5afe',
+    color: 'green',
     fontSize: props.showFilterModal ? 100 : 200,
   })
 }));
@@ -78,7 +80,7 @@ export default function AddCard({refetch}) {
       <Button className={classes.root} onClick={() => setActivated(true)} >
         <Grid container alignItems="center">
           <Grid item>
-            <AddIcon className={classes.addButton} /> 
+            <AddAPhotoOutlinedIcon className={classes.addButton} />
           </Grid>
         </Grid>
       </Button>

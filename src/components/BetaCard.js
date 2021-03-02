@@ -25,6 +25,7 @@ import {sessionContext} from "./SessionContext";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import EditCard from "./EditCard";
 import ImageGallery from "./ImageGallery";
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -64,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
   bottomBar: {
     paddingTop: 0,
     paddingBottom: 0
+  },
+  pill: {
+    marginRight: 10
   }
 }));
 
@@ -169,10 +173,10 @@ export default function Card1(props) {
       <Collapse in={!enterable || expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <ThemeProvider theme={theme}>
+          <Chip label={<Typography >{category} </Typography>} variant="outlined" className={classes.pill}/>
+          <Chip label={<Typography >{neighborhood} </Typography>} variant="outlined" className={classes.pill}/>
           <Typography >{`Owner: ${seller.firstName} ${seller.lastName}`} </Typography>
           <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
-          <Typography>{`Category: ${category}`} </Typography>
-          <Typography>{`Neighborhood: ${neighborhood}`} </Typography>
           <Typography>{`Description: ${description}`} </Typography>
           <Typography>{`Date posted: ${formattedDate}`} </Typography>
           <Typography className={classes.root} style={{ cursor: 'pointer' }}>
