@@ -11,7 +11,7 @@ import {
 
 const usePageNavigationStyles = makeStyles((theme) => ({
   pageNavigation: props => ({
-    marginTop: props.component==='myItems' ? "10px" : (props.storeItemsCount > 3 ? "10px" : "200px"),
+    marginTop: props.component==='myItems' ? "10px" : (props.storeItemsCount > 3 ? "100px" : "200px"),
     margin: 'auto',
     display: 'flex',
     alignItems: 'center',

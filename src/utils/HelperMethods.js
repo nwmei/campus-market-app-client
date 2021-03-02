@@ -20,5 +20,5 @@ export const isMobile = (width) => {
 };
 
 export const showFilterModal = (width) => {
-    return width < 585;
+    return width < 845;
 };

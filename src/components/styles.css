@@ -43,3 +43,46 @@
   margin-top:calc(5% + 60px);
   bottom: 0;
 }
+
+.hamburger {
+  height: 500px;
+  width: 500px;
+}
+
+.black {
+  color: black;
+}
+
+.goog {
+  margin:5px;
+  width: 165px;
+  height:35px;
+  border-radius: 4px;
+  background: white;
+  color:white;
+  border:0px transparent;
+  text-align: center;
+}
+
+.goog2 {
+  margin-right: 40px;
+}
+
+.button {
+  width: 215px;
+  height:40px;
+  border-radius: 3px;
+  border-width: 1px;
+  background: white;
+  color:black;
+  border-color: slategrey;
+  text-align: left;
+  align-items: flex-end;
+}
+
+.loginIcon {
+  margin-left: 4px;
+  margin-right: 10px;
+  height: 25px;
+  width: 25px;
+}

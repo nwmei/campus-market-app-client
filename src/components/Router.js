@@ -8,8 +8,7 @@ import LandingPage from './LandingPage';
 import Single from "./Single";
 import Header from "./Header";
 import Error from "./Error";
-import Footer from "./Footer";
-import {ThemeProvider} from "@material-ui/core/styles";
+import LandingPageHeader from "./LandingPageHeader";
 
 const MyRouter = ({accessToken}) => {
   const [loggedIn, setLoggedIn] = useState(accessToken !== '');
@@ -17,7 +16,7 @@ const MyRouter = ({accessToken}) => {
   return (
     <Router>
       <div>
-        {loggedIn? <Header setLoggedOut={() => setLoggedIn(false)}/> : <></>}
+        {loggedIn? <Header setLoggedOut={() => setLoggedIn(false)}/> : <LandingPageHeader />}
         <Switch>
           <Route
             component={

@@ -25,6 +25,7 @@ import {sessionContext} from "./SessionContext";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import EditCard from "./EditCard";
 import ImageGallery from "./ImageGallery";
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -58,13 +59,16 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: 3
   },
   description: {
-    paddingTop: 10,
-    paddingBottom: 0
+    paddingBottom: 10
   },
   bottomBar: {
     paddingTop: 0,
     paddingBottom: 0
-  }
+  },
+  pill: {
+    marginRight: 10,
+    marginBottom: 5
+  },
 }));
 
 const theme = createMuiTheme({
@@ -136,30 +140,7 @@ export default function Card1(props) {
 
   return (
     <Card className={classes.root}>
-      {/*{*/}
-      {/*  enterable?*/}
-      {/*      <Link to={`/item/${itemId}`} >*/}
-      {/*        <CardMedia*/}
-      {/*            className={classes.media}*/}
-      {/*            image={imageUrls[0] !== undefined? imageUrls[0] : getAlternateImageUrl()}*/}
-      {/*            title={itemName}*/}
-      {/*        />*/}
-      {/*      </Link>*/}
-      {/*      :*/}
-      {/*      <CardMedia*/}
-      {/*          className={classes.media}*/}
-      {/*          image={imageUrls[0] !== undefined? imageUrls[0] : getAlternateImageUrl()}*/}
-      {/*          title={itemName}*/}
-      {/*      />*/}
-      {/*}*/}
-
-      <CardMedia> <ImageGallery imageUrls={imageUrls} itemName={itemName} seller={seller} price={price} /> </CardMedia>
-
-      {/*<CardContent className={classes.description}>*/}
-      {/*  <Typography variant="body2" color="textSecondary" component="p">*/}
-      {/*    {`$${price} ${itemName}`}*/}
-      {/*  </Typography>*/}
-      {/*</CardContent>*/}
+      <CardMedia> <ImageGallery imageUrls={imageUrls} itemName={itemName} seller={seller} price={price} toggleExpanded={handleExpandClick}/> </CardMedia>
       <CardActions disableSpacing className={classes.bottomBar}>
         <IconButton aria-label="like dislike" className={classes.heartButton} onClick={toggleLikeHandler}>
           <FavoriteIcon />
@@ -192,12 +173,12 @@ export default function Card1(props) {
       <Collapse in={!enterable || expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <ThemeProvider theme={theme}>
-          <Typography >{`Owner: ${seller.firstName} ${seller.lastName}`} </Typography>
-          <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
-          <Typography>{`Category: ${category}`} </Typography>
-          <Typography>{`Neighborhood: ${neighborhood}`} </Typography>
-          <Typography>{`Description: ${description}`} </Typography>
-          <Typography>{`Date posted: ${formattedDate}`} </Typography>
+          <Typography variant='subtitle1' className={classes.description}>{`${description}`} </Typography>
+          <Chip label={<Typography >{category} </Typography>} variant="outlined" className={classes.pill}/>
+          <Chip label={<Typography >{`by: ${seller.firstName} ${seller.lastName}`}</Typography>} variant="outlined" className={classes.pill}/>
+          <Chip label={<Typography >{neighborhood} </Typography>} variant="outlined" className={classes.pill}/>
+          <Chip label={<Typography>{`${seller.emailAddress}`} </Typography>} variant="outlined" className={classes.pill}/>
+          <Chip label={<Typography>{`Date posted: ${formattedDate}`} </Typography>} variant="outlined" className={classes.pill}/>
           <Typography className={classes.root} style={{ cursor: 'pointer' }}>
             {
               enterable &&

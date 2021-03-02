@@ -13,7 +13,7 @@ import {showFilterModal} from "../../utils/HelperMethods";
 
 const useStyles = makeStyles((theme) => ({
   root: props => (!props.showFilterModal ? {
-    width: 220,
+    width: 195,
     position: "fixed",
   } : {}),
   heading: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Filters({filters, updateFilters, clearFilters}) {
   const innerWidth = useWindowWidth();
-  const [expandedFilter, setExpandedFilter] = useState("");
+  const [expandedFilter, setExpandedFilter] = useState("Campus");
   const classes = useStyles({showFilterModal: showFilterModal(innerWidth)});
 
   const campusSelected = () => {

@@ -1,12 +1,15 @@
 import React from 'react';
 import {useState, useEffect, useContext} from 'react'
 import {useMutation, useLazyQuery } from '@apollo/client';
-import GoogleLogin from 'react-google-login';
+import GoogleLogin, {useGoogleLogin} from 'react-google-login';
 import MicrosoftLogin from "react-microsoft-login";
 import UserExistsQuery from '../queries/userExists.graphql';
 import CreateUserMutation from '../mutations/CreateUser.graphql';
 import SetAccessToken from '../mutations/SetAccessToken.graphql';
 import { sessionContext } from './SessionContext';
+import './styles.css';
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
 
 const LoginButton = ({navigateAfterLogin, loginProvider}) => {
@@ -75,19 +78,41 @@ const LoginButton = ({navigateAfterLogin, loginProvider}) => {
     userExistsQuery({ variables: { input: { emailAddress } }})
   };
 
+  const {signIn} = useGoogleLogin({
+    clientId:'520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com',
+    onRequest: googleLoginRequestHandler,
+    onSuccess: googleLoginSuccessHandler,
+  });
+
   return (
     <>
     {
       loginProvider === 'google' ?
-      <GoogleLogin
-        clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com'
-        buttonText='Sign in with Google'
-        onRequest={googleLoginRequestHandler}
-        onSuccess={googleLoginSuccessHandler}
-        onFailure={(e)=>console.log(e)}
-        cookiePolicy={'single_host_origin'}
-      >
-      </GoogleLogin>
+          // <GoogleLogin
+          //              clientId='520656774669-cu3glhtg7lagohl6aot0muen2gqtshsi.apps.googleusercontent.com'
+          //              buttonText='Sign in with Google'
+          //              onRequest={googleLoginRequestHandler}
+          //              onSuccess={googleLoginSuccessHandler}
+          //              onFailure={(e)=>console.log(e)}
+          //              cookiePolicy={'single_host_origin'}
+          // >
+          // </GoogleLogin>
+        <button onClick={signIn} className='button'>
+          <Grid container >
+            <Grid item xs={2}>
+              <img src='https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png'
+                   className='loginIcon'
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant='body1' style={{marginTop:2, marginLeft: 4}}>
+                Sign in with Google
+              </Typography>
+            </Grid>
+          </Grid>
+
+
+        </button>
       :
       <MicrosoftLogin
         clientId='9b01cab8-031f-4e6c-adff-b668bee8523c'

@@ -13,10 +13,17 @@ import FilterPills from "./Filter/FilterPills";
 import Divider from "@material-ui/core/Divider";
 import PageNavigation from "./PageNavigation";
 import Typography from "@material-ui/core/Typography";
-import FilterDrawer from "../../src/components/FilterDrawer";
 import Footer from "../../src/components/Footer";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Hidden from "@material-ui/core/Hidden";
+import {showFilterModal} from "../utils/HelperMethods";
+import {
+  useWindowWidth,
+} from '@react-hook/window-size';
+import FiltersModal from "../../src/components/FiltersModal";
 
 const MyItems = () => {
+  const innerWidth = useWindowWidth();
   const [itemsQueryInfo, setItemsQueryInfo] = useState({listedPage: 1, likedPage: 1, filters: []});
   const numberOfFilters = itemsQueryInfo.filters.length;
   const classes = myItemsStyles({numberOfFilters});
@@ -58,8 +65,16 @@ const MyItems = () => {
   };
 
   return (
-    <div>
-      <FilterDrawer filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={clearFilters}>
+      <div>
+        <div className={classes.root2}>
+          <CssBaseline />
+          <nav className={classes.drawer} aria-label="mailbox folders">
+            <Hidden xsDown implementation="css">
+              <Filters filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={clearFilters} />
+            </Hidden>
+          </nav>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
         <Grid container spacing={3} className={classes.gridContainer} >
           <Grid item xs={12} sm={12} md={12}>
             <FilterPills filters={itemsQueryInfo.filters} updateFilters={updateFilters} />
@@ -68,6 +83,12 @@ const MyItems = () => {
             </div>
             <Grid container spacing={4} className={classes.subcontainer}>
               {
+                showFilterModal(innerWidth) &&
+                <Grid item xs={6} >
+                  <FiltersModal filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={clearFilters}/>
+                </Grid>
+              }
+              {
                 myItemsData &&
                 <Grid item xs={12}>
                   <Typography variant="h2">Listed by you</Typography>
@@ -75,7 +96,7 @@ const MyItems = () => {
               }
               {
                 myItemsData && myItemsData.myItems.listedByMe.map((item, key) =>
-                  <Grid item xs={12} sm={12} md={6} lg={3} key={-key}>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={-key}>
                     <BetaCard
                       enterable={true}
                       date={new Date(parseInt(item.date))}
@@ -147,13 +168,13 @@ const MyItems = () => {
                   />
                 </Grid>
               }
-
             </Grid>
           </Grid>
         </Grid>
-      </FilterDrawer>
-      <Footer />
-    </div>
+          </main>
+        </div>
+        <Footer />
+      </div>
   )
 
 }

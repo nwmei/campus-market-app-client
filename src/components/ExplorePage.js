@@ -1,4 +1,5 @@
-import ExploreCardGrid from './CardGrid';
+import ExploreCard
+from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import React, {useContext, useState} from 'react';
 import ExplorePageStyles from './styles/ExplorePageStyles';
@@ -7,8 +8,10 @@ import FilterPills from "./Filter/FilterPills";
 import PageNavigation from "./PageNavigation";
 import {sessionContext} from "./SessionContext";
 import NonSchoolAlert from "../../src/components/NonSchoolAlert";
-import FilterDrawer from './FilterDrawer';
 import Footer from "../../src/components/Footer";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Hidden from "@material-ui/core/Hidden";
+import Filters from "../../src/components/Filter/Filters";
 
 const ExplorePage = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
@@ -18,7 +21,6 @@ const ExplorePage = () => {
   const {sessionContextValue} = useContext(sessionContext);
 
   const updateFilters = (oldFilter, newFilter) => {
-    console.log(oldFilter, newFilter)
     const newActiveFilters = itemsQueryInfo.filters.filter(activeFilter => {
       return activeFilter.value !== oldFilter.value
     });
@@ -41,37 +43,46 @@ const ExplorePage = () => {
 
     return (
       <div>
-        <FilterDrawer filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={clearFilters}>
-          <Grid container spacing={3} className={classes.root}>
-            <Grid className={classes.main} item xs={12} sm={12} md={12}>
-              <FilterPills filters={itemsQueryInfo.filters} updateFilters={updateFilters}/>
-              <div className={classes.divider}>
-                <Divider />
+        <div className={classes.root2}>
+          <CssBaseline />
+          <nav className={classes.drawer} aria-label="mailbox folders">
+            <Hidden xsDown implementation="css">
+              <Filters filters={itemsQueryInfo.filters} updateFilters={updateFilters} clearFilters={clearFilters} />
+            </Hidden>
+          </nav>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Grid container spacing={3} className={classes.root}>
+              <Grid className={classes.main} item xs={12} sm={12} md={12}>
+                <FilterPills filters={itemsQueryInfo.filters} updateFilters={updateFilters}/>
+                <div className={classes.divider}>
+                  <Divider />
+                  {
+                    sessionStorage.getItem('showedNonSchoolMessage') !== 'true' && sessionContextValue.school === 'Off-Campus' &&
+                    <NonSchoolAlert />
+                  }
+                </div>
+                <ExploreCardGrid updateFilters={updateFilters} clearFilters={clearFilters} setStoreItemsCount={setStoreItemsCount} itemsQueryInfo={itemsQueryInfo} />
                 {
-                  sessionStorage.getItem('showedNonSchoolMessage') !== 'true' && sessionContextValue.school === 'Off-Campus' &&
-                  <NonSchoolAlert />
+                  storeItemsCount.responded &&
+                  <PageNavigation
+                    storeItemsCount={storeItemsCount.count}
+                    component="explore"
+                    backOnClick={() => {
+                      window.scrollTo( 0, 0)
+                      updatePageNumber(itemsQueryInfo.page-1);
+                    }}
+                    nextOnClick={() => {
+                      window.scrollTo( 0, 0)
+                      updatePageNumber(itemsQueryInfo.page+1);
+                    }}
+                    pageNumber={itemsQueryInfo.page}
+                  />
                 }
-              </div>
-              <ExploreCardGrid updateFilters={updateFilters} clearFilters={clearFilters} setStoreItemsCount={setStoreItemsCount} itemsQueryInfo={itemsQueryInfo} />
-              {
-                storeItemsCount.responded &&
-                <PageNavigation
-                  storeItemsCount={storeItemsCount.count}
-                  component="explore"
-                  backOnClick={() => {
-                    window.scrollTo( 0, 0)
-                    updatePageNumber(itemsQueryInfo.page-1);
-                  }}
-                  nextOnClick={() => {
-                    window.scrollTo( 0, 0)
-                    updatePageNumber(itemsQueryInfo.page+1);
-                  }}
-                  pageNumber={itemsQueryInfo.page}
-                />
-              }
+              </Grid>
             </Grid>
-          </Grid>
-        </FilterDrawer>
+          </main>
+        </div>
         <Footer />
       </div>
     )
