@@ -1,5 +1,4 @@
-import ExploreCard
-from './CardGrid';
+import ExploreCardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import React, {useContext, useState} from 'react';
 import ExplorePageStyles from './styles/ExplorePageStyles';

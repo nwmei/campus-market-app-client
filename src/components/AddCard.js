@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
       color: 'white'
     },
     color: 'green',
-    paddingRight:40,
-    paddingLeft: 40,
+    paddingRight: props.showFilterModal ? 10 : 40,
+    paddingLeft: props.showFilterModal ? 10 : 40,
     fontSize: props.showFilterModal ? 100 : 200,
   })
 }));
@@ -83,9 +83,12 @@ export default function AddCard({refetch}) {
         <Grid container alignItems="center">
           <Grid item>
             <AddAPhotoOutlinedIcon className={classes.addButton} />
-            <Typography variant="subtitle2">
-              create post
-            </Typography>
+            {
+              !showFilterModal(innerWidth) &&
+                <Typography variant="subtitle2">
+                  create post
+                </Typography>
+            }
           </Grid>
         </Grid>
       </Button>
