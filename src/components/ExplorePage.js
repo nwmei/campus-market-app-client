@@ -1,4 +1,5 @@
-import ExploreCardGrid from './CardGrid';
+import ExploreCard
+from './CardGrid';
 import Grid from '@material-ui/core/Grid';
 import React, {useContext, useState} from 'react';
 import ExplorePageStyles from './styles/ExplorePageStyles';
@@ -15,7 +16,6 @@ import Filters from "../../src/components/Filter/Filters";
 const ExplorePage = () => {
   const [itemsQueryInfo, setItemsQueryInfo] = useState({page: 1, filters: []});
   const [storeItemsCount, setStoreItemsCount] = useState({responded: false, count: 0});
-
   const numberOfFilters = itemsQueryInfo.filters.length;
   const classes = ExplorePageStyles({numberOfFilters});
   const {sessionContextValue} = useContext(sessionContext);
