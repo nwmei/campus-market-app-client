@@ -15,7 +15,6 @@ import Loading from './Loading';
 const CardGrid = ({updateFilters, clearFilters, setStoreItemsCount, itemsQueryInfo: {page, filters}}) => {
   const classes = useCardGridStyles();
   const innerWidth = useWindowWidth();
-  console.log(innerWidth)
 
   const {data: storeItemsData, refetch} = useQuery(StoreItems, {
     variables: {

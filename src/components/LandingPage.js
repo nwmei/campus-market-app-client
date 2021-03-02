@@ -12,13 +12,16 @@ import {
 import Box from '@material-ui/core/Box';
 import MockCard from './mockCard';
 import {showFilterModal} from "../utils/HelperMethods";
-import appScreenshot from './appScreenshot.png'
+import appScreenshot from './appScreenshot2.png'
 import Footer from './Footer'
+import {mockCardData} from "./mocks";
 
 const useStyles = makeStyles((props) => ({
   r: {
     backgroundSize: 'cover',
-    backgroundImage: `url(https://climatereadycommunities.org/wp-content/uploads/2017/11/home-slide-community-illustration.jpg.jpg)`,
+    backgroundImage: 'linear-gradient(#CFE6FF, #90C6FF)'
+    // backgroundColor: '#90C6FF',
+    // backgroundImage: `url(https://climatereadycommunities.org/wp-content/uploads/2017/11/home-slide-community-illustration.jpg.jpg) repeat fixed /300px`,
   },
   root: props => ({
     paddingBottom: 0,
@@ -42,7 +45,7 @@ const useStyles = makeStyles((props) => ({
     marginTop: props.mobile ? 20 : 90,
   }),
   body3: props => ({
-    marginTop: props.mobile ? 10 : 90
+    marginTop: props.mobile ? 10 : 50
   }),
   google: {
     paddingTop: 10,
@@ -59,8 +62,8 @@ const useStyles = makeStyles((props) => ({
     marginTop: 10
   },
   appScreenshot: props => ({
-    height: props.mobile? 250 : 480,
-    width: props.mobile? '100%' : 620
+    height: props.mobile? 250 : 460,
+    width: props.mobile? '100%' : 640
   })
 }));
 
@@ -102,16 +105,16 @@ const LandingPage = ({ setLoggedIn }) => {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={5} className={classes.body2}>
-            <MockCard/>
+            <img src={appScreenshot} className={classes.appScreenshot}/>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} className={classes.body3} >
+            <MockCard {...mockCardData[0]} />
           </Grid>
           <Grid item xs={12} sm={6} md={4} className={classes.body3}>
-            <MockCard/>
+            <MockCard {...mockCardData[1]} />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} className={classes.body3}>
-            <MockCard/>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} className={classes.body3}>
-            <MockCard/>
+          <Grid item xs={12} sm={6} md={4} className={classes.body3} align = "center">
+            <MockCard {...mockCardData[2]} expand/>
           </Grid>
         </Grid>
       </div>

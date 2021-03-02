@@ -25,6 +25,7 @@ import {sessionContext} from "./SessionContext";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import EditCard from "./EditCard";
 import ImageGallery from "./ImageGallery";
+import Chip from "@material-ui/core/Chip";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
@@ -58,12 +59,15 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 3
   },
   description: {
-    paddingTop: 10,
-    paddingBottom: 0
+    paddingBottom: 10
   },
   bottomBar: {
     paddingTop: 0,
     paddingBottom: 0
+  },
+  pill: {
+    marginRight: 10,
+    marginBottom: 5
   }
 }));
 
@@ -73,24 +77,14 @@ const theme = createMuiTheme({
   },
 });
 
-export default function Card1() {
+export default function Card1({expand=false, seller, name, category, neighborhood, description, date, price, daysAgo, imageUrls}) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  const seller = {
-    firstName: 'Nelson',
-    lastName: 'Mei',
-    imageUrl: "https://lh3.googleusercontent.com/a-/AOh14Gjnsz19TcAIvCQV7q3bnlT8vSaddl69HQgkUmHIzA=s96-c"
-  };
+  const [expanded, setExpanded] = React.useState(expand);
 
   return (
     <Card className={classes.root}>
-      <CardMedia> <ImageGallery imageUrls={['https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRQkEkxv3nvu4_AUretYQvt8fCuvQkiECqbMKQQ90X1JhTJAYOzWtTRS-IOFIQ8hSSLFLta3pKgsCHKV-qpWkZr9BAheWivOq5NCsXxL4w1&usqp=CAc']}
-                                itemName='desk chair (like new)' seller={seller} price={4} toggleExpanded={handleExpandClick}/> </CardMedia>
+      <CardMedia> <ImageGallery imageUrls={imageUrls}
+                                itemName={name} seller={seller} price={price} toggleExpanded={()=>{}}/> </CardMedia>
       <CardActions disableSpacing className={classes.bottomBar}>
         <IconButton aria-label="like dislike" className={classes.heartButton} >
           <FavoriteIcon />
@@ -99,13 +93,13 @@ export default function Card1() {
           <AddCommentIcon />
         </IconButton>
         <Typography>
-          listed 2 days ago
+          listed {daysAgo} days ago
         </Typography>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
-            onClick={handleExpandClick}
+            onClick={()=>{}}
             aria-expanded={expanded}
             aria-label="show more"
           >
@@ -115,12 +109,12 @@ export default function Card1() {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <ThemeProvider theme={theme}>
-            <Typography >{`Owner: ${seller.firstName} ${seller.lastName}`} </Typography>
-            <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
-            <Typography>{`Category: furniture`} </Typography>
-            <Typography>{`Neighborhood: Warren Towers`} </Typography>
-            <Typography>{`Description: A nice item`} </Typography>
-            <Typography>{`Date posted: 01/02/21`} </Typography>
+            <Typography variant='subtitle1' className={classes.description}>{`${description}`} </Typography>
+            <Chip label={<Typography >{category} </Typography>} variant="outlined" className={classes.pill}/>
+            <Chip label={<Typography >{`by: ${seller.firstName} ${seller.lastName}`}</Typography>} variant="outlined" className={classes.pill}/>
+            <Chip label={<Typography >{neighborhood} </Typography>} variant="outlined" className={classes.pill}/>
+            <Chip label={<Typography>{`${seller.emailAddress}`} </Typography>} variant="outlined" className={classes.pill}/>
+            <Chip label={<Typography>{`date: ${date}`} </Typography>} variant="outlined" className={classes.pill}/>
             <Typography className={classes.root} style={{ cursor: 'pointer' }}>
               <MuiLink>
                 view comments

@@ -59,16 +59,16 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: 3
   },
   description: {
-    paddingTop: 10,
-    paddingBottom: 0
+    paddingBottom: 10
   },
   bottomBar: {
     paddingTop: 0,
     paddingBottom: 0
   },
   pill: {
-    marginRight: 10
-  }
+    marginRight: 10,
+    marginBottom: 5
+  },
 }));
 
 const theme = createMuiTheme({
@@ -173,12 +173,12 @@ export default function Card1(props) {
       <Collapse in={!enterable || expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <ThemeProvider theme={theme}>
+          <Typography variant='subtitle1' className={classes.description}>{`${description}`} </Typography>
           <Chip label={<Typography >{category} </Typography>} variant="outlined" className={classes.pill}/>
+          <Chip label={<Typography >{`by: ${seller.firstName} ${seller.lastName}`}</Typography>} variant="outlined" className={classes.pill}/>
           <Chip label={<Typography >{neighborhood} </Typography>} variant="outlined" className={classes.pill}/>
-          <Typography >{`Owner: ${seller.firstName} ${seller.lastName}`} </Typography>
-          <Typography>{`Contact: ${seller.emailAddress}`} </Typography>
-          <Typography>{`Description: ${description}`} </Typography>
-          <Typography>{`Date posted: ${formattedDate}`} </Typography>
+          <Chip label={<Typography>{`${seller.emailAddress}`} </Typography>} variant="outlined" className={classes.pill}/>
+          <Chip label={<Typography>{`Date posted: ${formattedDate}`} </Typography>} variant="outlined" className={classes.pill}/>
           <Typography className={classes.root} style={{ cursor: 'pointer' }}>
             {
               enterable &&
