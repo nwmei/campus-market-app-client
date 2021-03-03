@@ -9,7 +9,7 @@ import useStylesHeader from './styles/HeaderStyles';
 import SearchBar from './SearchBar';
 import UserIcon from './UserIcon';
 import {Link} from "react-router-dom";
-import logo from './logo4.png' //aileron regular 34.5 font
+import logo from './logo5.png' //aileron regular 34.5 font
 import {
   useWindowWidth,
 } from '@react-hook/window-size'
