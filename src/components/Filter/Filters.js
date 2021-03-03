@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Filters({filters, updateFilters, clearFilters}) {
   const innerWidth = useWindowWidth();
-  const [expandedFilter, setExpandedFilter] = useState("Campus");
+  const [expandedFilter, setExpandedFilter] = useState(showFilterModal(innerWidth) ? '' : "Campus");
   const classes = useStyles({showFilterModal: showFilterModal(innerWidth)});
 
   const campusSelected = () => {

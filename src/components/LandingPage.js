@@ -89,7 +89,7 @@ const LandingPage = ({ setLoggedIn }) => {
                 Save money. Browse and sell used items on your campus.
               </Box>
             </Typography>
-            <Typography variant="h4" className={classes.subHeader}>
+            <Typography variant={innerWidth < 510 ? 'h5' : 'h4'} className={classes.subHeader}>
               <Box m={1} fontWeight="fontWeightLight" fontFamily='sans-serif'>
                 Filter items by campus, dorm, and category! Books, furniture, food, and more!
               </Box>
@@ -107,10 +107,10 @@ const LandingPage = ({ setLoggedIn }) => {
           <Grid item xs={12} sm={5} className={classes.body2}>
             <img src={appScreenshot} className={classes.appScreenshot}/>
           </Grid>
-          <Grid item xs={12} sm={6} md={4} className={classes.body3} >
+          <Grid item xs={12} sm={6} md={4} className={classes.body3} align = "center" >
             <MockCard {...mockCardData[0]} />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} className={classes.body3}>
+          <Grid item xs={12} sm={6} md={4} className={classes.body3} align = "center">
             <MockCard {...mockCardData[1]} />
           </Grid>
           <Grid item xs={12} sm={6} md={4} className={classes.body3} align = "center">

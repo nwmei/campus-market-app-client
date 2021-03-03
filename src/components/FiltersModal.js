@@ -53,7 +53,7 @@ const FiltersModal = ({filters, updateFilters, clearFilters}) => {
       </Typography>
       <Popup isOpen={activated} title='Refine search' >
         <Filters filters={filters} updateFilters={updateFilters} clearFilters={clearFilters}/>
-        <ButtonControl text="View results" onClick={() => setActivated(false)}/>
+        <ButtonControl text="View results" color='black' onClick={() => setActivated(false)}/>
       </Popup>
     </div>
   );

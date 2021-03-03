@@ -84,7 +84,7 @@ export default function Card1({expand=false, seller, name, category, neighborhoo
   return (
     <Card className={classes.root}>
       <CardMedia> <ImageGallery imageUrls={imageUrls}
-                                itemName={name} seller={seller} price={price} toggleExpanded={()=>{}}/> </CardMedia>
+                                itemName={name} seller={seller} price={price} toggleExpanded={()=>setExpanded(!expanded)}/> </CardMedia>
       <CardActions disableSpacing className={classes.bottomBar}>
         <IconButton aria-label="like dislike" className={classes.heartButton} >
           <FavoriteIcon />
@@ -99,7 +99,7 @@ export default function Card1({expand=false, seller, name, category, neighborhoo
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
-            onClick={()=>{}}
+            onClick={()=>setExpanded(!expanded)}
             aria-expanded={expanded}
             aria-label="show more"
           >
