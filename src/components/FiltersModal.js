@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       background: gradientColor
     },
-    border: 'solid 1px green',
+    border: 'solid 1px #11d716',
     borderRadius: 50,
   },
   addButton: props => ({
     '&:hover': {
       color: 'white'
     },
-    color: 'green',
+    color: '#11d716',
     fontSize: props.showFilterModal ? 100 : 200,
   }),
 }));
